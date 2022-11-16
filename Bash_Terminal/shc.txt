@@ -1,0 +1,38 @@
+# Shell script compiler  https://github.com/neurobin/shc/  https://www.datsi.fi.upm.es/~frosal/  https://docs.neuzunix.com/man/man1/shc.html
+sudo apt install shc
+
+shc GNU GPL Version 3 Md Jahidul Hamid <jahidulhamid@yahoo.com>
+shc Usage: shc [-e date] [-m addr] [-i iopt] [-x cmnd] [-l lopt] [-o outfile] [-rvDSUHCABh] -f script
+
+    -e %s  Expiration date in dd/mm/yyyy format [none]
+    -m %s  Message to display upon expiration ["Please contact your provider"]
+    -f %s  File name of the script to compile
+    -i %s  Inline option for the shell interpreter i.e: -e
+    -x %s  eXec command, as a printf format i.e: exec('%s',@ARGV);
+    -l %s  Last shell option i.e: --
+    -o %s  output filename
+    -r     Relax security. Make a redistributable binary
+    -v     Verbose compilation
+    -S     Switch ON setuid for root callable programs [OFF]
+    -D     Switch ON debug exec calls [OFF]
+    -U     Make binary untraceable [no]
+    -H     Hardening : extra security protection [no]
+           Require bourne shell (sh) and parameters are not supported
+    -C     Display license and exit
+    -A     Display abstract and exit
+    -B     Compile for busybox
+    -h     Display help and exit
+
+    Environment variables used:
+    Name    Default  Usage
+    CC      cc       C compiler command
+    CFLAGS  <none>   C compiler flags
+    LDFLAGS <none>   Linker flags
+
+    Please consult the shc man page.
+
+
+Example:
+shc -f myscript.sh -o mybinary.sh.x
+chmod +x mybinary.sh.x
+sudo mv mybinary.sh.x /usr/bin/mybinary

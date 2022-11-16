@@ -1,0 +1,110 @@
+
+html, body {
+    padding: 0; margin: 0;
+    text-align: center;
+    background: #1dba9d;
+    color: #e0d336;
+}
+
+div {
+    font-size: 1.5em;
+}
+
+button {
+    background-color: #e0d336;
+    border: none;
+    color: #ffffff;
+    font-size: 2.8em;
+    padding: 0.5em 1.5em;
+    font-family: monospace;;
+}
+
+button:active {
+   background: #ffffff;
+    color: #e0d336;
+}
+
+#attackContainer {
+    background: #27723D;
+    width: 100%;
+}
+
+#releaseContainer {
+    background: #3FA75D;
+    width: 100%;
+}
+
+#lfoContainer {
+    background: #61BF7C;
+    width: 100%;
+}
+
+#distortionContainer {
+    background: #275173;
+    width: 100%;
+}
+
+
+#frequencyFilterContainer {
+    background: #924746;
+    width: 100%;
+}
+
+#detuneFilterContainer {
+    background: #7A3F41;
+    width: 100%;
+}
+
+#qualityFilterContainer {
+    background: #5A2A2C;
+    width: 100%;
+}
+
+#gainFilterContainer {
+    background: #422928;
+    width: 100%;
+}
+
+#typeContainer {
+    background: #382323;
+    width: 100%;
+}
+
+#reverbContainer {
+    background: #3C2C44;
+    width: 100%;
+}
+
+
+.slider, .compressorSlider, .filterSlider {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover, .compressorSlider:hover, .filterSlider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb, .compressorSlider::-webkit-slider-thumb, .filterSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #1dba9d;
+    cursor: pointer;
+}
+
+#reverbSelectList, #filterSelectList  {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+    font-family: monospace;
+}

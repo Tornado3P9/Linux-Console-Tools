@@ -1,0 +1,74 @@
+
+    ##########################
+    ## Getting System Hardware Information
+    ##########################
+     
+    # displaying full hardware information
+    lshw
+    lshw -short     # => short format
+    lshw -json      # => json format
+    lshw -html      # => html format
+    lshw | less     # => piping output to less for better viewability
+    lshw -html > hw.html
+     
+    inxi -Fx
+    # displaying info about the CPU
+    lscpu
+    lshw -C cpu
+    lscpu -J    => json format
+     
+    # displaying info about the installed RAM memory
+    dmidecode -t memory 
+    dmidecode -t memory | grep -i size
+    dmidecode -t memory | grep -i max
+    hwinfo --memory
+     
+    # displaying info about free/used memory  https://linux-audit.com/understanding-memory-information-on-linux-systems/
+    free -m   # => show output in mebibytes
+    free -h   # => human readable
+    vmstat -s | grep memory
+     
+    # getting info about pci buses and about the devices connected to them
+    lspci
+    lspci | grep -i wireless
+    lspci | grep -i vga
+     
+    # getting info about USB controllers and about devices connected
+    lsusb
+    lsusb -v
+     
+    # getting info about hard disks
+    lshw -short -C disk
+    fdisk -l
+    fdisk -l /dev/sda
+    lsblk -p
+    hdparm -i /dev/sda
+    hdparm -I /dev/sda
+     
+    # benchmarking disk read performance
+    hdparm -tT --direct /dev/sda
+     
+    # getting info about WiFi cards and networks
+    lshw -C network
+    iw list | less
+    lspci | grep -i wireless
+    iwconfig
+    iwlist wlo1 scan
+     
+    # Getting hardware information from the /proc virtual fs
+    cat /proc/cpuinfo
+    cat /proc/partitions
+    cat /proc/meminfo
+    cat /proc/version #print Information on running kernel
+    uname -r    # => kernel version
+    uname -a    # => print all information
+    
+    # getting sensors information
+    acpi -bi    # battery information
+    acpi -V
+    sensors
+
+    # Printing the primary architecture of the machine
+    dpkg --print-architecture    # => Example: amd64
+    uname -m                     # => Example: x86_64
+

@@ -1,0 +1,69 @@
+############# https://www.howtogeek.com/howto/44997/how-to-use-bash-history-to-improve-your-command-line-productivity/
+
+# Keyboard Shortcuts
+
+ - Up-Arrow or Ctrl+P:
+   Go to the previous command in your history. Press the key multiple times to walk backwards through the commands you’ve used.
+ - Down-Arrow or Ctrl+N:
+   Go to the next command in your history. Press the key multiple times to walk forwards through the commands you’ve used.
+ - Alt+R:
+   Revert any changes to a command you’ve pulled from your history if you’ve edited it on the current line.
+
+ - Ctrl+R: Recall the last command matching the characters you provide. Press this shortcut and start typing to search your bash history for a command.
+ - Ctrl+O: Run the command you found with Ctrl+R.
+ - Ctrl+G: Leave the history searching mode without running a command.
+
+
+### Search History
+history
+history | grep your_search
+history | tail -5
+
+# If you don't want to see the history command being added to the history, just type a space before the command!
+ history
+
+# .bash_history even has got an own Variable
+echo $HISTFILE
+
+
+### Delete History
+# Delete a single history line using the line number from the 'history' command output
+history -d 1234
+
+# Delete the complete History (two examples)
+history -c && history -w
+history -c; > $HISTFILE
+
+
+### Run Commands From Your History
+# To run a specific command from your history by its number, use the following command:
+!#
+
+# For example, let’s say you wanted to run the 12th command from your bash history.
+# That’s the command with a “12” to the left of it when you run the history command. You’d type the following command.
+!12
+
+# To re-run the last command you ran, type the following. This has the same effect as pressing the Up arrow once to view the previous command and then pressing Enter.
+!!
+
+# You can also refer to a command a certain number of lines back. For example, !-2 would run the second to last command you ran. !! means the same thing as !-1 .
+# This expansion works anywhere on the line. You can add anything you like before or after !! or any of the other expressions in this section.
+# For example, you can type the following command to rerun the last command you ran through sudo, giving it root privileges. This is particularly useful if you forget to add  sudo before running a command.
+sudo !!
+
+# Or, for example, you could rerun the previous command and pipe its output to grep to search for some text.
+!! | grep text
+
+
+### For displaying the date and time of the history command output type the following line into your terminal (this will add this line at the end of the .bashrc-file):
+# https://www.linuxuprising.com/2019/07/bash-history-how-to-show-timestamp-when.html
+#   %F: full date (year-month-date)
+#   %T: time (hour:minutes:seconds)
+#   %d: day
+#   %m: month
+#   %y: year (short version)
+#   %Y: year (long version)
+echo "HISTTIMEFORMAT=\"%F %T  \"" >> ~/.bashrc
+echo "HISTTIMEFORMAT=\"%d/%m/%y %T  \"" >> ~/.bashrc
+echo 'export HISTTIMEFORMAT="%F %T  "' >> ~/.bashrc
+

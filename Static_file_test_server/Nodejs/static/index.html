@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Something</title>
+    </head>
+    <body>
+        <!-- Dies ist der Code für die Aufgabe-->
+        <button id="button1" class="button">1</button>
+        <button id="button2" class="button">2</button>
+        <button id="button3" class="button">3</button>
+        <button id="button4" class="button">4</button>
+
+        
+        <div id="attackContainer"> Attack
+            <input type="range" min="0" max="1000" value="3" class="compressorSlider" id="attackSlider">
+            <span id="attackOutput">0.2 sec</span>
+        </div>
+
+        <div id="releaseContainer"> Release
+            <input type="range" min="0" max="1000" value="10" class="compressorSlider" id="releaseSlider">
+            <span id="releaseOutput">0.2 sec</span>
+        </div>
+
+        <!-- WaveShaper -->
+        <div id="distortionContainer"> Distortion Curve
+            <input type="range" min="0" max="100" value="0" class="slider" id="distortionSlider">
+            <span id="distortionOutput">0</span>
+        </div>
+
+        <!-- BiquadFilter -->
+        <div id="frequencyFilterContainer"> Frequency
+            <input type="range" min="1000" max="20000" value="1000" class="filterSlider" id="frequencySlider">
+            <span id="frequencyOutput">1000 Hz</span>
+        </div>
+
+        <div id="detuneFilterContainer"> Detune
+            <input type="range" min="0" max="100" value="0" class="filterSlider" id="detuneSlider">
+            <span id="detuneOutput">0 cents</span>
+        </div>
+
+        <div id="qualityFilterContainer"> Quality
+            <input type="range" min="0" max="100" value="0" class="filterSlider" id="qSlider">
+            <span id="qOutput">0</span>
+        </div>
+
+        <div id="gainFilterContainer"> Gain
+            <input type="range" min="-40" max="40" value="0" class="filterSlider" id="gainFilterSlider">
+            <span id="gainOutput">0 dB</span>
+        </div>
+
+        <div id="typeContainer">Filter Type
+            <select id="filterSelectList">
+                <option value="lowpass">Lowpass</option>
+                <option value="highpass">Highpass</option>
+                <option value="bandpass">Bandpass</option>
+                <option value="allpass">Allpass</option>
+                <option value="lowshelf">lowshelf</option>
+                <option value="highshelf">highshelf</option>
+                <option value="peaking">Peaking</option>
+                <option value="notch">Notch</option>
+            </select>
+        </div>
+
+        <!-- Convolver -->
+        <div id="reverbContainer"> Reverb Type
+        <select id="reverbSelectList">
+            <option value="room">Room</option>
+            <option value="church">Church</option>
+            <option value="cave">Cave</option>
+            <option value="garage">Garage</option>
+        </select>
+        </div>
+
+        <!-- <script src="midi.js"></script>
+        <script src="synth.js"></script> -->
+        <!-------------------------------------->
+    </body>
+</html>

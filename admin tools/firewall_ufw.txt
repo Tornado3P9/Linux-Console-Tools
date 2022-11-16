@@ -1,0 +1,48 @@
+# https://help.ubuntu.com/community/UFW
+# https://www.configserverfirewall.com/ufw-ubuntu-firewall/ufw-delete-rule/
+# https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+# https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
+# https://youtu.be/kgdoVeyoO2E Fail2ban Tutorial | How to Secure Your Server - Linode
+# https://youtu.be/eeaFoZlSq6I Hardening Access to Your Server | Linux Security Tutorial - Linode
+
+ufw --help
+
+# show open ports
+netstat -tupan
+
+systemctl status ufw
+systemctl status iptables
+
+sudo ufw status
+sudo ufw status verbose
+sudo ufw status numbered
+sudo ufw show added
+
+sudo ufw allow ssh     # sudo ufw allow 22/tcp
+sudo ufw allow 8086/tcp
+
+# Allow SSH connections from a specific IP address:
+sudo ufw allow from 123.123.123.123 to any port 22 proto tcp
+# Allow FTP connections:
+sudo ufw allow from 123.123.123.123 to any port 21 proto tcp
+
+sudo ufw limit ssh
+
+sudo ufw delete ssh
+sudo ufw status numbered
+sudo ufw delete 2
+
+# Delete above SSH rule from a specific IP address:
+sudo ufw delete allow from 123.123.123.123 to any port 22 proto tcp
+
+sudo ufw enable
+sudo ufw disable
+
+sudo ufw reset
+
+
+# Optionally: displaying iptables information the easy way by creating aliases for the most important commands
+alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'           #this will display all lines of your current iptables
+alias iptlistin='sudo /sbin/iptables -L INPUT -n -v --line-numbers'   #this will display all your INCOMING rules in iptables
+alias iptlistout='sudo /sbin/iptables -L OUTPUT -n -v --line-numbers' #this will display all your OUTGOING rules in iptables
+

@@ -1,0 +1,5 @@
+# https://www.geeksforgeeks.org/readlink-command-in-linux-with-examples/
+
+readlink -f playlist.m3u
+
+#Im Grunde aehnlich wie 'locate playlist.m3u'

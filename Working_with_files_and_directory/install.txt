@@ -1,0 +1,21 @@
+    
+    #########################
+    ## install - Copy files and set attributes
+    #########################
+    # https://explainshell.com/explain/1/install
+    # https://manpages.ubuntu.com/manpages/precise/en/man1/install.1.html
+    #
+    # -D     create all leading components of DEST except the last, then copy SOURCE to DEST
+    # -m, --mode=MODE
+    #      set permission mode (as in chmod), instead of rwxr-xr-x
+
+    # This program is part of the coreutils package which is being installed by default. Check by typing:
+    apt show coreutils
+
+    # Define useful constants for mounting an image and changing some configs
+    mount="mnt" # Local directory to mount the image (automatically created/delete as needed)
+    script="configuration_script.sh" # Local setup script to run inside the image
+
+    # Copy file and set attributes (https://github.com/Tornado3P9/Konsolentools/blob/master/chmod_chown.txt)
+    install -Dm755 "${script}" "${mount}/tmp/${script}"
+

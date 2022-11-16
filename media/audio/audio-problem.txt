@@ -1,0 +1,9 @@
+# try restart
+pulseaudio -k
+sudo alsa force-reload
+
+
+# Speakers buzzing in Linux when no sound is playing (https://youtu.be/1ke0YGJ2k2o)
+sudo nano /etc/pulse/default.pa
+# comment out a this line: load-module module-suspend-on-idle
+

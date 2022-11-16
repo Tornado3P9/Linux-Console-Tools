@@ -1,0 +1,122 @@
+# See or modify mounted partitions
+cat /etc/fstab
+
+# /etc/fstab: static file system information.
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed.
+blkid /dev/sdb1
+
+# permanently mount an additional "data" partition from an extern drive(sdc) by adding a line
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/sdb1        /data           ext4    defaults        0       0
+# Or better use the UUID
+UUID=...         /data           ext4    defaults        0       0
+
+############################################
+
+Linux Fundamentals - Media Management Commands - NetSecNow - https://youtu.be/NsnE4WKAD4Q
+
+1. blkid (Useful to find out what file system a particular drive has)
+blkid /dev/sda5
+
+2. mount (Accompanied by various switches to mount devices, hard drives, cd-roms, etc.)
+mount -t ntfs /dev/sda3 /mnt/windows -o rw
+
+3. umount (Not UNmount, just umount)
+umount /mnt/windows -o rw
+
+4. fdisk (Disk Management, partition, etc)/use gparted instead if you can
+fdisk /dev/sda
+
+5. mkfs (Format a disk to a particular file system i.e ntfs, ext, fat)/use gparted instead if you can
+mkfs.
+mkfs -t ntfs /dev/sda
+
+############################################
+
+## https://www.tutorialspoint.com/find-the-largest-top-10-files-and-directories-on-a-linux
+
+#Use the following command to find the largest Top 10 files and directories on a Linux system –
+sudo du -a /var | sort -n -r | head -n 10
+
+#To see human readable output, use the following command –
+du -hsx * | sort -rh | head -10
+
+
+## https://youtu.be/5njmUb1t47g
+df -h
+df -hTi                       #space utilization stats -human readable -Type -iNode usage
+df -h /mnt/shared/myfile.txt  #show file system on which this file resides
+-> /dev/sdb1  9.8G 23M ....
+du -h /var                    #Disc space used by file
+du -sh /var/log/journal/      #check the space taken by journal logs (output almost the same like 'journalctl --disk-usage')
+
+# Since Ubuntu creates a “snap partition” for every Snap application installed,
+# I’m going to filter out that noise by piping to grep with a negative (-v) case insensitive (-i) search for snap.
+df -h | grep -i -v snap
+
+#An sometimes better way to use the df command is by specifying the mount point you wish to check. So to check the free space on root, you can use this command:
+df -h /
+#This results in a much cleaner output
+
+# lsof - stands for List Of Open File. This command provides a list of files that are opened.
+# Basically, it gives the information to find out the files which are opened by which process.
+# With one go it lists out all open files in output console. It cannot only list common regular files
+# but it can list a directory, a block special file, a shared library, a character special file,
+# a regular pipe, a named pipe, an internet socket, a UNIX domain socket, and many others.
+# It can be combined with grep command can be used to do advanced searching and listing.
+# https://www.geeksforgeeks.org/lsof-command-in-linux-with-examples/
+lsof                          #List all the files that are opened by any process in the system
+lsof -s                       #size of the file
+lsof -t                       #what process has got this file open?!
+lsof -u username              #check user "username"
+lsof -u username | grep bash  #List all files opened by a user and filter for bash
+
+# What processes on this system have files open at all?!
+fuser -c #current directory
+fuser -e #executable
+fuser -f #open file
+fuser -F #open file and being written to
+fuser -r #root directory
+fuser -m #memory mapped file or shared library
+fuser -a #show all files specified
+fuser -k #kill the process accessing a file
+fuser -i #ask user for confirmation
+fuser -u #append the name of the process owner to each process id number
+         #who owns the process that has the file open?
+Example: fuser -u /usr/bin/top #which user is running the top executable?
+
+# list block command
+lsblk -p
+lsblk | grep -i sd
+
+sudo fdisk -l
+
+sudo parted -l
+
+hwinfo
+
+lshw -C disk -short
+
+hdparm -h
+hdparm -i /dev/sda
+hdparm -I /dev/sda
+
+lsusb
+lsusb -t
+lsusb -v | less
+
+#view only mounted drives
+mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort
+#better to create an alias in ".bashrc" for a long task like this
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+
+#Check file system health!
+Example:
+§ umount /dev/sdb1
+§ fsck /dev/sdb1
+
+#Run short Benchmark test:
+hdparm -t --direct /dev/sda
+

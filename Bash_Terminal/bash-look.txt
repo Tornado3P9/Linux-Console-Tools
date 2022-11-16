@@ -1,0 +1,108 @@
+https://phoenixnap.com/kb/change-bash-prompt-linux #
+####################################################
+
+#make backup before changing
+cp ~/.bashrc ~/.bashrc.bak
+
+#give the 'grep' command some color
+grep --color=always  abc  a_file.txt
+
+#There are 3 color options available to you:
+#    --color=auto
+#    --color=always
+#    --color=never
+#With color=always, it colors the matched string. Edit the line in .bashrc to make the change permanent!
+
+#Also see inside .bashrc file:
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+#
+#if [ -n "$force_color_prompt" ]; then
+#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+#    # We have color support; assume it's compliant with Ecma-48
+#    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+#    # a case would tend to support setf rather than setaf.)
+#    color_prompt=yes
+#    else
+#    color_prompt=
+#    fi
+#fi
+
+#show current style:
+echo $PS1
+  -> \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+
+#temporarily assign new style (after closing the terminal all changes will disappear as long as you don't save them in the configuration file)
+PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\[\033[00m\]--> \[\033[01;34m\]\w\[\033[00m\]\$ "
+
+#Or like this..with a GREEN SMILY instead of user@hostname ( \u@\h )
+PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]:)\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$ "
+
+
+## Weitere Beispiele:
+
+"\u@\H :" -> username@domain :
+
+
+    \a – A bell character
+    \d – Date (day/month/date)
+    \D{format} – Use this to call the system to respond with the current time
+    \e – Escape character
+    \h – Hostname (short)
+    \H – Full hostname (domain name)
+    \j – Number of jobs being managed by the shell
+    \l – The basename of the shells terminal device
+    \n – New line
+    \r – Carriage return
+    \s – The name of the shell
+    \t – Time (hour:minute:second)
+    \@ – Time, 12-hour AM/PM
+    \A – Time, 24-hour, without seconds
+    \u – Current username
+    \v – BASH version
+    \V – Extra information about the BASH version
+    \w – Current working directory ($HOME is represented by ~)
+    \W – The basename of the working directory ($HOME is represented by ~)
+    \! – Lists this command’s number in the history
+    \# – This command’s command number
+    \$ – Specifies whether the user is root (#) or otherwise ($)
+    \\ – Backslash
+    \[ – Start a sequence of non-displayed characters (useful if you want to add a command or instruction set to the prompt)
+    \] – Close or end a sequence of non-displayed characters
+
+
+You can use these options in either method - temporarily with the "export" command, or permanently by editing the ~/.bashrc file.
+
+$ export PS1="\e[0;32m[\u@\h \W]\$ \e[0m"
+[username@domain ~]$ 
+
+Your prompt should have the same text as normal but be colored green.
+
+Here’s a breakdown of the commands:
+
+• \e[ – Begin color changes
+• 0;32m – Specify the color code
+• [\u@\h \W]\$ – This is the code for your normal BASH prompt (username@hostname Workingdirectory $)
+• \e[0m – Exit color-change mode
+
+The first number in the color code specifies the typeface:
+
+• 0 – Normal
+• 1 – Bold (bright)
+• 2 – Dim
+• 4 – Underlined
+
+The second number indicates the color you want:
+
+• 30 – Black
+• 31 – Red
+• 32 – Green
+• 33 – Brown
+• 34 – Blue
+• 35 – Purple
+• 36 – Cyan
+• 37 – Light gray
+
+Additionally, if you combine the bright option with a color code, you get a lighter version of that color. For example, if you use color code 1;32, you would get light green instead of the normal green. If you use 1;33, you get yellow instead of brown.

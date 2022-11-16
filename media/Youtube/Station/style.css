@@ -1,0 +1,30 @@
+html, body {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+div {
+    width: 50%;
+    height: 50%;
+    float: left;
+}
+
+#div1 {
+    background: lightcoral;
+}
+
+#div2 {
+    background: lightgreen;
+}
+
+#div3 {
+    background: lightskyblue;
+}
+
+#div4 {
+    background: lightgoldenrodyellow;
+}

@@ -1,0 +1,509 @@
+# https://unix.stackexchange.com/questions/2976/different-ways-to-execute-a-shell-script
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php
+# https://linuxize.com/post/bash-concatenate-strings/
+# https://ostechnix.com/bash-conditional-statements/
+# https://youtu.be/p0KKBmfiVl0 - Never say "If" writing a Bash script! (Exit codes & logical operators) - Luke Smith
+# https://www.redhat.com/sysadmin/arguments-options-bash-scripts
+# https://linuxhandbook.com/bash-arguments/
+# https://stackoverflow.com/questions/2188199/how-to-use-double-or-single-brackets-parentheses-curly-braces
+# https://ss64.com/bash/syntax-brackets.html
+# https://www.golinuxcloud.com/bash-check-if-file-exists/
+# https://www.geekpills.com/operating-system/linux/bash-how-to-increment-count
+# https://unix.stackexchange.com/questions/88808/most-efficient-method-to-empty-the-contents-of-a-file
+# https://linuxconfig.org/generating-random-numbers-in-bash-with-examples
+# https://linuxconfig.org/random-entropy-in-bash
+# https://www.cloudsavvyit.com/7572/how-to-generate-better-random-numbers-at-the-bash-command-line/
+# https://bash.cyberciti.biz/guide/Logical_OR
+# https://bash.cyberciti.biz/guide/Logical_AND
+# https://bash.cyberciti.biz/guide/Logical_Not_!
+# https://www.computerhope.com/unix/bash/test.htm
+# https://mywiki.wooledge.org/BashFAQ/031
+# https://www.linux.com/topic/desktop/all-about-curly-braces-bash/
+# https://www.linux.com/training-tutorials/using-square-brackets-bash-part-1/
+# https://www.linux.com/training-tutorials/using-square-brackets-bash-part-2/
+# https://www.linux.com/training-tutorials/more-about-angle-brackets-bash/
+# https://stackoverflow.com/questions/638975/how-do-i-tell-if-a-regular-file-does-not-exist-in-bash#638980
+
+##########################
+## Coding Example:
+##########################
+
+# The following script prints out the date after each second
+# The first line always begins with "#!/bin/bash" and the script type is called shell script (filename.sh)
+# But it is not necessary to write the filetype ".sh" as linux knows what it is either way.
+
+#!/bin/bash
+while true
+do
+  echo The current time is $(date)
+  sleep 1
+done
+
+
+##########################
+## Bash Script Debugging:
+##########################
+# The major problem with set -e and set -o pipefail is that they are silent forcing you have to rely the output of the failed command to debug your script.
+# But not all commands fail loudly and when they do they don't tell you where in your script they failed.
+# Error traps can give you more information, anything that is available to the bash shell at the time they where triggered.
+# Most usefully the command that failed $BASH_COMMAND and the line number $LINENO that command was on.
+
+#!/bin/bash
+# Setup script error handling see https://disconnected.systems/blog/another-bash-strict-mode for details
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+IFS=$'\n\t'
+
+# Ensure we are root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+
+##########################
+## Bash Script Arguments:
+##########################
+# https://linuxhandbook.com/bash-arguments/
+# The most common special built-in bash variables:
+
+$0     The name of the bash script.
+$1, $2, $3, $4, $5, $6, $7, $8, $9, ${10}, ${11}, ...
+       bash script arguments
+$$     process id of the current shell
+$#     total number of arguments passed to the script
+$@     value of all the arguments passed to the script
+$?     exit status of the last executed command
+$!     process id of the last executed command
+$_     Last argument of the previous command
+
+##########################
+## Operators:
+##########################
+                         Shell Script              Perl
+Boolean Operator     Numeric     String     Numeric    String
+===================  =======     ======     =======    ======
+Equals                 -eq        =           ==         eq
+Not Equals             -ne        !=          !=         ne
+Greater Than           -gt        >           >          gt
+Less Than              -lt        <           <          lt
+Greater or Equals      -ge        >=          >=         ge
+Less Than or Equals    -le        <=          <=         le
+
+[[ -n $str ]]  # str is nonzero length
+[[ -z $str ]]  # str is zero length
+
+# For files:
+ -s    file exists and is not empty
+ -f    file exists and is not a directory
+ -d    directory exists
+ -x    file is executable by the user
+ -w    file is writable by the user
+ -r    file is readable by the user
+(https://stackoverflow.com/questions/638975/how-do-i-tell-if-a-regular-file-does-not-exist-in-bash#638980)
+
+&&  => the logical and operator
+||  => the logical or operator
+
+[[ -n $str && 1 -eq 1 ]]  # if both sides are true then return 0, else return 1
+[[ -n $str || 1 -eq 1 ]]  # if either left or right side true then return 0, else return 1
+
+
+-- Which is different from:
+First_command && Second_command
+command2 is executed if, and only if, command1 returns an exit status of zero (true). In other words, run command1 and if it is successfull, then run command2. 
+
+First_command || Second_command
+command2 is executed if, and only if, command1 returns a non-zero exit status. In other words, run command1 successfully or run command2. 
+
+
+-- Writing if-else clause in two different ways:
+
+Version A:
+
+[[ ! -z "$1" ]] && BUILDFILE=$1 || BUILDFILE=./buildspec.yml
+
+Version B:
+
+if [[ ! -z "$1" ]]; then
+  BUILDFILE=$1
+else
+  BUILDFILE=./buildspec.yml
+fi
+
+##########################
+## Regex:
+##########################
+# https://www.systutorials.com/how-to-delete-a-specific-line-from-a-text-file-in-command-line-on-linux/
+# https://infoheap.com/bash-regex-in-if-loop/
+# [[ STRING =~ REGEX]]
+
+#!/bin/bash
+URL=http://somedomain.com/foo/bar
+if [[ $URL =~ ^http://somedomain.com/foo.*$ ]]; then
+  echo "matched"
+fi
+
+text="/dev/sda /dev/sdb"
+if [[ ! $text =~ (.sda|.sdb) ]]; then echo 1; else echo 2; fi
+if [[ ! $text =~ ^(.sda|.sdb)$ ]]; then echo 1; else echo 2; fi
+if [[ ! $text =~ (.sda|.sdb)$ ]]; then echo 1; else echo 2; fi
+if [[ ! $text =~ (sda|sdb|sdc) ]]; then echo 1; else echo 2; fi
+
+
+##########################
+## Read the array values with space
+##########################
+
+# 1.
+## put string array into $value
+value=$(ls -1v);
+
+## get length of $value array
+len=${#value[@]};
+
+## Use for loop #https://linuxize.com/post/bash-for-loop/
+for (( i=0; i<$len; i++ ))
+do
+  echo "${value[$i]}"
+done
+
+# 2.
+#### Oder als Einzeiler:
+for val in "$(ls -1v)"; do echo -e "$val \n"; done
+
+
+##########################
+## Examples:
+##########################
+
+### Testing a script with arguments
+
+#!/bin/bash
+echo "Name of the script: $0"
+echo "Total number of arguments: $#"
+echo "Values of all the arguments: $@"
+
+./scriptname.sh Apple Banana Orange
+Name of the script: ./scriptname.sh
+Total number of arguments: 3
+Values of all the arguments: Apple Banana Orange
+
+============================
+
+### Print out the arguments
+for arg in "$@"
+do
+  echo $arg
+done
+
+============================
+
+### Check existence of input argument in a Bash shell script:
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied"
+fi
+
+if [[ ! "$1" ]]; then
+  echo "No arguments supplied"
+fi
+
+============================
+
+# Or you can check if an argument is an empty string or not like:
+if [ -z "$1" ]
+  then
+    echo "No argument supplied"
+fi
+
+# The -z switch will test if the expansion of "$1" is a null string or not. If it is a null string then the body is executed.
+
+============================
+
+### To check if a given file is present or not use the -e flag.
+if [ -e x.txt ]
+then
+    echo "ok"
+else
+    echo "nok"
+fi
+
+============================
+
+[[ -e $HOME/.bashrc ]] && echo "File is present" || echo "File is not present"
+
+
+if [[ -e /home/${USER}/.bashrc ]]
+then
+  echo "File is present"
+else
+  echo "File is not present"
+fi
+
+============================
+
+# To check if a given directory is present or not use the -d flag. Here I am checking for the desktop directory in my home folder.
+if [[ -d ~/Desktop/ ]]
+then
+  echo "Directory is present"
+else
+  echo "Directory is not present"
+fi
+
+============================
+
+# Here is an alternative method using ls:
+(ls x.txt && echo yes) || echo no
+
+============================
+
+# If you want to hide any output from ls so you only see yes or no, redirect stdout and stderr to /dev/null:
+(ls x.txt >> /dev/null 2>&1 && echo yes) || echo no
+
+============================
+
+### Only execute script if user is root:
+if [ `whoami` != 'root' ]
+  then
+    echo "You must be root to do this."
+    exit
+fi
+
+============================
+
+~:$ export STRING="thisisaverylongname"
+
+~:$ echo ${STRING:4}
+isaverylongname
+
+~:$ echo ${STRING:6:5}
+avery
+
+~:$ echo ${ARRAY[*]}
+one two one three one four
+
+~:$ echo ${ARRAY[*]#one}
+two three four
+
+~:$ echo ${ARRAY[*]#t}
+one wo one hree one four
+
+~:$ echo ${ARRAY[*]#t*}
+one wo one hree one four
+
+~:$ echo ${ARRAY[*]##t*}
+one one one four
+
+~:$ echo $STRING
+thisisaverylongname
+
+~:$ echo ${STRING%name}
+thisisaverylong
+
+~:$ echo ${STRING/name/string}
+thisisaverylongstring
+
+============================
+
+# Counter
+count=1
+while true
+do
+  echo -e "\n ${count} start"
+  let count++
+  (( count++ ))
+  let count=count+1
+  count=$((count+1))
+  count=$(($count+1))
+  count=$[ $count+1 ]
+done
+
+============================
+
+# Most efficient methods to empty the contents of a file
+> filename
+filename < /dev/null
+truncate -s 0 filename
+# truncate does not even need to open the file
+echo -n > filename
+
+============================
+
+# Random Numbers  https://tldp.org/LDP/abs/html/randomvar.html
+# $RANDOM is an internal Bash function (not a constant) that returns a pseudorandom integer in the range 0 - 32767. It should not be used to generate an encryption key.
+echo $((1 + $RANDOM % 10))
+
+# This will give a number between 13 and 125 (113-1+13), with reasonable random entropy.
+RANDOM=$(date +%s%N | cut -b10-19)
+echo $(( $RANDOM % 113 + 13 ))
+
+============================
+
+dec2bin=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
+echo ${dec2bin[25]}
+-> 00011001
+
+============================
+
+# This infinite while loop...
+while true
+do
+   echo "hello"
+   sleep 2
+done
+
+# ...does the same thing like this
+while true; do    echo "hello";    sleep 2; done
+
+# ...or like this. But here it will execute the command after the sleep. In the previous answer, the command is executed right away.
+while sleep 2; do echo thinking; done
+
+# Also possible to use the shell builtin ':'
+while :; do foo; sleep 2; done
+
+============================
+# Without Regex
+
+#!/bin/bash
+str1="Nowadays, Linux powers the servers of the Internet."
+if [[ "$str1" == *"Linux"* ]]; then
+  echo "The substring Linux is there."
+else
+  echo "The substring Linux IS NOT there."
+fi
+
+============================
+# Text based Menus in Bash
+# Tipp: Type ENTER to show the menu again
+
+#!/bin/bash
+PS3="Choose a name from the list:"
+select NAME in Tim Alex "Max Mustermann" "Franz Schubert"
+do
+  echo "NAME is $NAME"
+  echo "REPLY is $REPLY"
+done
+
+# REPLY is a pre-defined variable that holds the number value of the menu list item:
+# ...Tim would be 1
+# PS3 is the prompt which can be changed to some text. Without this line, the standard #? will be shown.
+
+
+#!/bin/bash
+PS3="Choose a name from the list:"
+select NAME in Tim Alex "Max Mustermann" "Franz Schubert" Quit
+do
+  case $REPLY in
+  1)
+    echo "Remember to bake the cake! Tim is hungry"
+    ;;
+  2)
+    echo "lalala"
+    ;;
+  3)
+    echo "lololo"
+    ;;
+  4)
+    echo "Christmas Tree"
+    ;;
+  5)
+    echo "Quitting ..."
+    break
+    ;;
+  *)
+    echo "Invalid option $REPLY"
+    ;;
+  esac
+done
+
+
+#!/bin/bash
+PS3="Choose an action from the list: "
+select ACTION in "Do the first step" "Do the second step" "Do the third step" Quit
+do
+  if [[ $REPLY -eq 1 ]]; then
+    echo "ACTION is $ACTION"
+    echo "REPLY is $REPLY"
+  elif [[ $REPLY -eq 2 ]]; then
+    echo "REPLY is $REPLY" 
+  elif [[ $REPLY -eq 5 ]]; then
+    echo "Quitting ..."
+    sleep 1
+    exit
+  else
+    echo "Invalid menu selection."
+  fi
+done
+
+
+# https://www.geeksforgeeks.org/menu-driven-shell-script/
+# https://www.kingcomputerservices.com/unix_101/shell_programming_and_simple_menus_part_1.htm
+
+# How to use case-esac with upper or lower case.
+echo -n "Please enter a letter a through c: "
+while :
+do
+read answer
+case $answer in
+    a|A)    echo You chose a;;
+    b|B)    echo You chose b;;
+    c|C)    echo You chose c;;
+      *)    echo You did not chose a, b or c;;
+esac
+  echo -n "Enter your menu choice [a-c]: "
+done
+
+
+============================
+# 'Grafical' Menu in Bash:
+sudo apt install dialog
+
+dialog --clear --backtitle "Backtitle here" --title "Title here" --menu "Choose one of the following options:" 15 40 4 \
+1 "Option 1" \
+2 "Option 2" \
+3 "Option 3"
+
+# https://linux.die.net/man/1/dialog
+# https://askubuntu.com/questions/1705/how-can-i-create-a-select-menu-in-a-shell-script
+
+
+#!/bin/bash
+
+TERMINAL=$(tty)
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+BACKTITLE="Backtitle here"
+TITLE="Title here"
+MENU="Choose one of the following options:"
+
+OPTIONS=(1 "Option 1"
+         2 "Option 2"
+         3 "Option 3")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >$TERMINAL)
+
+clear
+case $CHOICE in
+        1)
+            echo "You chose Option 1"
+            ;;
+        2)
+            echo "You chose Option 2"
+            ;;
+        3)
+            echo "You chose Option 3"
+            ;;
+esac
+
+============================
+
+

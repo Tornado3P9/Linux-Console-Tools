@@ -1,0 +1,41 @@
+## Merging video and audio / Copying without re-encoding - Extremely Fast!
+
+ffmpeg -i video.mp4 -i audio.m4a -acodec copy -vcodec copy output.mp4
+
+ffmpeg -i video.mp4 -i audio.m4a -c:v copy -c:a copy output.mp4
+
+ffmpeg -i video.webm -i audio.m4a -c:v copy -c:a copy output.mkv
+
+ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
+
+# https://ffmpeg.org/ffmpeg-formats.html#concat-1
+# https://stackoverflow.com/questions/15186500/howto-merge-two-avi-files-using-ffmpeg
+# https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg
+
+
+
+## Merging video and audio, with audio re-encoding
+ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac output.mp4
+
+
+
+## Replacing audio stream
+# If your input video already contains audio, and you want to replace it,
+# you need to tell ffmpeg which audio stream to take.
+# The -map option makes ffmpeg only use the first video stream from the first input
+# and the first audio stream from the second input for the output file.
+ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+
+
+
+https://www.arj.no/2021/05/11/ffmpeg-audio-video/
+## Combining audio and video files with FFmpeg
+# Say that you have two video files:
+#    input1.mp4 = original video with audio
+#    input2.avi = analysis video without audio
+# Then you can use this one-liner to copy the audio from one file to the other:
+ffmpeg -i input1.mp4 -i input2.avi -c copy -map 1:v:0 -map 0:a:0 -shortest output.avi
+
+# If you want to convert (and compress) the file in one operation, you can use this one-liner to export an MP4 file with .h264 video and aac audio compression:
+ffmpeg -i input1.mp4 -i input2.avi -c copy -map 1:v:0 -map 0:a:0 -shortest -c:v mpeg4 -c:a aac output.mp4
+

@@ -1,0 +1,9 @@
+sudo apt install tree
+
+(Wie ls oder dir, aber zeigt alle Unterordner als Baumstruktur an. Sehr nützlich!)
+
+tree directory/     # => Ex: tree .
+tree -d .           # => prints only directories
+tree -f .           # => prints absolute paths
+
+ls -lR #gets you similiar information

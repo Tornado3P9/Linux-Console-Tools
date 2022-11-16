@@ -1,0 +1,14 @@
+# Terminator - Multiple GNOME terminals in one window
+# https://www.linuxshelltips.com/terminator-terminal-emulator/
+
+sudo apt-get install terminator     [On Debian, Ubuntu and Mint]
+sudo yum install terminator         [On RHEL/CentOS/Fedora and Rocky Linux/AlmaLinux]
+sudo emerge -a sys-apps/terminator  [On Gentoo Linux]
+sudo pacman -S terminator           [On Arch Linux]
+sudo zypper install terminator      [On OpenSUSE]
+
+# alternatively use the PPA repository: 
+sudo add-apt-repository ppa:gnome-terminator
+sudo apt-get update
+sudo apt-get install terminator
+

@@ -1,0 +1,4 @@
+#Similar to 'cp -avh /from-stuff /to-stuff'
+
+rsync -avh --progress /from-stuff /to-stuff
+# https://manned.org/rsync

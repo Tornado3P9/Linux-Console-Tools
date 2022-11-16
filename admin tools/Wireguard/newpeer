@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#############
+## I expect that you already generated the server key files at '/etc/wireguard/' with the command:
+## wg genkey | tee privatekey | wg pubkey > publickey
+## The server configuration file at '/etc/wireguard/' (maybe wg0.conf) does not have to exist for this script to run.
+## But ofcourse it has to exist later on if you want to add the peer configuration lines to the server side.
+## Generating wg0.conf for client and show an example for the server with: ./newpeer 0
+#############
+
+if [ $# -eq 0 ]; then echo "Missing a number argument for the peer"; exit; fi
+
+umask 077
+mkdir -p $HOME/wireguard/peer$1 && cd $HOME/wireguard/peer$1
+wg genkey | tee privatekey | wg pubkey > publickey && wg genpsk > presharedkey
+
+cat <<EOF > wg${1}.conf
+[Interface]
+Address = <client wireguard ip>/32
+PrivateKey = $(cat privatekey)
+
+[Peer]
+Endpoint = $(curl ifconfig.me):5182${1}
+AllowedIPs = 10.254.0.0/24
+PublicKey = $(sudo cat /etc/wireguard/publickey)
+PresharedKey = $(cat presharedkey)
+PersistentKeepalive = 25
+EOF
+
+echo "" && cat wg${1}.conf
+
+cat <<EOF
+
+Add/Change the missing things above and then append the client to the wireguard server configuration...like so:
+
+sudo -i
+cd /etc/wireguard
+
+Wireguard-Server-Adressen: 10.254.0.1/24 für wg0, 10.254.1.1/24 für wg1, 10.254.2.1/24, ...
+My Available Ports: 51820 - 51830
+
+#Example Server 'wg0.conf':
+[Interface]
+Address = 10.254.0.1/24
+PostUp = ufw route allow in on wg0 out on eth0
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE;
+PreDown = ufw route delete allow in on wg0 out on eth0
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE;
+ListenPort = 51820
+SaveConfig = false
+PrivateKey = <server pirvate key>
+
+[Peer]
+AllowedIPs = 10.254.0.2/32
+
+#Add further peer lines with these echo commands:
+echo "PublicKey = \$(cat /home/${USER}/wireguard/peer${1}/publickey)" wg${1}.conf
+echo "PresharedKey = \$(cat /home/${USER}/wireguard/peer${1}/presharedkey)" wg${1}.conf
+EOF

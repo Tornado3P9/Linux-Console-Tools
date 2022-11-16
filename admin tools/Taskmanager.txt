@@ -1,0 +1,42 @@
+[ Mit graphischer Benutzeroberfläche ]
+
+xfce4-taskmanager (Xubuntu Standard)
+
+
+
+[ Im Terminal ]
+
+top (Taskmanager UNIX standard)
+
+htop (Taskmanager mit Visualisierung) https://wiki.ubuntuusers.de/htop/
+
+glances (Taskmanager mit Visualisierung - Viele Informationen) https://wiki.ubuntuusers.de/Glances/
+
+bashtop
+(
+  git clone https://github.com/aristocratos/bashtop
+
+  Oder:
+
+  sudo add-apt-repository ppa:bashtop-monitor/bashtop
+  sudo apt update
+  sudo apt install bashtop
+)
+
+powertop
+(
+  sudo apt install tlp powertop xbacklight
+
+  sudo powertop
+
+  xbacklight [options]
+    where options are:
+    -display <display> or -d <display>
+    -help
+    -set <percentage> or = <percentage>
+    -inc <percentage> or + <percentage>
+    -dec <percentage> or - <percentage>
+    -get
+    -time <fade time in milliseconds>
+    -steps <number of steps in fade>
+)
