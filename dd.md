@@ -34,9 +34,9 @@ sudo dd bs=4M if=/path/to/debian-10.0.0-amd64-netinst.iso of=/dev/sdx status=pro
 `oflag=sync` effectively syncs after each output block. `conv=fsync` does one sync at the end.  
 The end result is the same, but the performance along the way is different.  
 `oflag=sync` could be significantly slower. You can mitigate this, by increasing the block size.  
-If device-specific caches are large[1], this will affect the progress reported e.g. by the `status=progress` option.  
-If you do not use `oflag=direct`, then large amounts of writes can build up in the system page cache. This build-up will affect the progress you see[2].  
-But also, Linux sometimes responds badly to the build-up, and degrades performance for all devices[3].  
+If device-specific caches are large, this will affect the progress reported e.g. by the `status=progress` option.  
+If you do not use `oflag=direct`, then large amounts of writes can build up in the system page cache. This build-up will affect the progress you see.  
+But also, Linux sometimes responds badly to the build-up, and degrades performance for all devices.  
 
 Function for the dd command, so to not overwrite main hard drive by accident! Copy it into your `.bash_aliases` or `.bashrc` file.  
 Just type ddimage to see instructions!  
