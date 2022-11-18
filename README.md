@@ -7,7 +7,12 @@ dpkg --help
 
 2. Using `tldr`/too long didn't read:
 ```
+# using pip version:
 pip3 install tldr
+tldr dpkg
+
+# using apt repository version:
+sudo apt install tldr
 tldr dpkg
 ```
 
