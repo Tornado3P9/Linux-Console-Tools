@@ -1,50 +1,48 @@
-https://www.redhat.com/sysadmin/manage-multiple-ssh-key-pairs
-https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/
-https://serverpilot.io/docs/how-to-enable-ssh-password-authentication/
-https://youtu.be/pE3EuiyShoM  # How to use Multiple SSH Keys | Managing Different SSH Keys on your System - Linode
-https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/
-https://www.linode.com/docs/guides/ssh-key-authentication-how-to-troubleshoot-permission-issues/
+## SSH
+
+https://www.redhat.com/sysadmin/manage-multiple-ssh-key-pairs  
+https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/  
+https://serverpilot.io/docs/how-to-enable-ssh-password-authentication/  
+https://youtu.be/pE3EuiyShoM  # How to use Multiple SSH Keys | Managing Different SSH Keys on your System - Linode  
+https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/  
+https://www.linode.com/docs/guides/ssh-key-authentication-how-to-troubleshoot-permission-issues/  
 
 
-###############
-## Installation:
-## https://ubuntu.com/server/docs/service-openssh
-###############
-
+### Installation
+https://ubuntu.com/server/docs/service-openssh  
+```bash
 # Install the OpenSSH client applications on your normal Ubuntu system
 sudo apt install openssh-client
 
 # Install the OpenSSH server application, and related support files
 sudo apt install openssh-server
+```
 
 
-
-###############
-## Intro:
-## On Windows just use Putty or the SSH client used by WSL or by https://gitforwindows.org/
-###############
-
+### Intro
+On Windows just use Putty or the SSH client used by WSL or by https://gitforwindows.org/  
+```bash
 ssh user@hostname
 ssh 10.100.73.107
 ssh -p 1234 user@10.100.73.107              # using a specific port on the target machine
 ssh -v 10.100.73.107                        # verbose = printing more information
 ssh -i ~/.ssh/myprivatekey 10.100.73.107    # using a specific key if you got more than one
+```
 
-# https://www.christitus.com/ssh-guide
-# https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
-# https://www.tecmint.com/disable-ssh-root-login-in-linux/
-# https://ubuntuforums.org/showthread.php?t=2359172
-
+https://www.christitus.com/ssh-guide  
+https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/  
+https://www.tecmint.com/disable-ssh-root-login-in-linux/  
+https://ubuntuforums.org/showthread.php?t=2359172  
+```bash
 sudo nano /etc/ssh/sshd_config
 sudo systemctl reload sshd
 
 # To remove an old/unused ssh-keygen:
 ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "destination-ip-address"
+```
 
-###############
-## Creating a SSH-Configuration where you only use an alias and the configuration knows where to go and which of your keys to use
-###############
-
+### Creating a SSH-Configuration where you only use an alias and the configuration knows where to go and which of your keys to use
+```bash
 nano ~/.ssh/config
 
 # and write the following lines:
@@ -61,13 +59,11 @@ Host superserver
 # Save the file and then login to your server by only typing
 ssh target1
 ssh superserver
+```
 
-
-###############
-## Setup Passwordless SSH Login for Multiple Remote Servers Using Script
-## https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/
-###############
-
+### Setup Passwordless SSH Login for Multiple Remote Servers Using Script  
+https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/  
+```bash
 #!/bin/bash
 USER_NAME="root"
 HOST_FILE="/root/hosts"
@@ -98,9 +94,10 @@ for IP in `cat $HOST_FILE`; do
         fi
         echo ""
 done
+```
 
-## The following actions are:
-
+The following actions are:  
+```bash
 chmod +x ssh-copy.sh
 ./ssh-copy.sh /root/.ssh/prod-rsa.pub
 
@@ -108,14 +105,12 @@ eval "$(ssh-agent -s)"
 ssh-add  ~/.ssh/prod_rsa
 
 ssh user@ip-address
+```
 
 
-
-###############
-## Manually Setup Passwordless SSH Login
-###############
-## SSH-CLIENT
-
+### Manually Setup Passwordless SSH Login  
+SSH-CLIENT  
+```bash
 ssh-keygen -t rsa -b 4096
 # STOP!
 # To create a custom named key pair in the folder ~/.ssh, write the complete path:
@@ -124,10 +119,10 @@ ssh-keygen -t rsa -b 4096
 
 # Use ssh copy function to copy and additionaly -i to specify which key to copy (password login still needs to be enabled ofcourse)
 ssh-copy-id -i ~/.ssh/id_custom_rsa.pub user@ip-address
+```
 
-###############
-## SSH-SERVER
-
+SSH-SERVER  
+```bash
 # Check whether file has got the new key
 cat ~/.ssh/authorized_keys
 
@@ -142,16 +137,15 @@ sudo systemctl restart ssh
 
 # Exit and login again but with the ssh_key, not with password
 ssh user@ip-address
+```
 
-###############
-## Version B: Generate an ed25519 key with the server hostname instead of the email as a comment and specify the file in which to save the key directly
+**Version B:** Generate an ed25519 key with the server hostname instead of the email as a comment and specify the file in which to save the key directly  
+```bash
 ssh-keygen -t ed25519 -C "home-server-hostname" -f ~/.ssh/home_server_key
+```
 
-
-###############
-## Re-Enable SSH Password Authentication
-###############
-
+Re-Enable SSH Password Authentication  
+```bash
 # To enable SSH password authentication, you must SSH in as root to edit this file:
 /etc/ssh/sshd_config
 
@@ -160,13 +154,13 @@ PasswordAuthentication yes
 
 # After making that change, restart the SSH service by running the following command as root:
 sudo service ssh restart
+```
 
-
-## Enable Logging In as root (optional and probably not advisable)
-###############
+Enable Logging In as root (optional and probably not advisable)  
+```bash
 sudo -i
-nano /etc/ssh/sshd_config
--> PermitRootLogin yes
+nano /etc/ssh/sshd_config # PermitRootLogin yes
 sudo service ssh restart
-sudo passwd root #set a strong root password!
+sudo passwd root # set a strong root password!
+```
 
