@@ -11,6 +11,7 @@ cargo check           # verify source code and simulate compilation, but don't c
 
 rustup doc            # open official documentation
 cargo doc --open      # create custom documentation from your dependencies
+rustc --version       # show rust version
 
 cargo build           # only compile binary, don't execute
 cargo build --release # only compile binary, but try optimizing the final build
