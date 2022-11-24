@@ -74,3 +74,36 @@ deep listing the most recently modified files in a directory
 # The cut command syntax for specifying a delimeter -d with a special character is to use the dollar sign: cut -d$'\t' -f2- 
 find . -type f -not -path '*/[@.]*' -printf "\n%T@\t%AD %AT %p" | sort -r | cut -d$'\t' -f2- | head -n10
 ```
+
+## fd
+
+An alternative to `find`.  
+Aims to be faster and easier to use than `find`.  
+More information: https://github.com/sharkdp/fd  
+                  https://youtu.be/f0N_4SgCoMY
+
+```bash
+# Recursively find files matching the given pattern in the current directory:
+fd pattern
+
+# Find files that begin with "foo":
+fd '^foo'
+
+# Find files with a specific extension:
+fd --extension txt
+
+# Find files in a specific directory:
+fd pattern path/to/directory
+
+# Include ignored and hidden files in the search:
+fd --hidden --no-ignore pattern
+
+# Execute a command on each search result returned:
+fd pattern --exec command
+```
+
+```bash
+sudo apt install fd-find
+fdfind --version
+echo "alias fd=fdfind" >> ~/.bash_aliases && source ~/.bashrc
+```

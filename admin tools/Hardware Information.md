@@ -24,10 +24,8 @@ dmidecode -t memory
 dmidecode -t memory | grep -i size
 dmidecode -t memory | grep -i max
 hwinfo --memory
-```
 
-displaying info about free/used memory  https://linux-audit.com/understanding-memory-information-on-linux-systems/
-```bash
+# displaying info about free/used memory  https://linux-audit.com/understanding-memory-information-on-linux-systems/
 free -m                 # => show output in mebibytes
 free -h                 # => human readable
 vmstat -s | grep memory
