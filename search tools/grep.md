@@ -23,7 +23,7 @@ If you use the grep command without any option, you need to use `\|` to separate
 grep 'pattern1\|pattern2' filename
 ```
 
-Look from two different strings by using `|` (pipe OR operator)
+Look for two different strings by using `|` (pipe OR operator)
 ```bash
 grep -E 'Fds|UTR' file
 
