@@ -1,2 +1,0 @@
-sudo snap install micro --classic
-Texteditor like Sublime, VSC, Atom, ... but for Terminal
