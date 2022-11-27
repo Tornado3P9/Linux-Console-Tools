@@ -1,11 +1,13 @@
-# Hexdump
+## Hexdump
 
+```bash
 hexdump -C filename
+```
 
 
+## jeex
 
-# jeex
-
+```bash
 Usage:
   jeex [OPTION...] [FILE 1] [FILE 2] [...] [FILE 64]
 
@@ -24,14 +26,12 @@ Jeex Options:
 	Shows the file's portion.
   -p [FILE:start_byte,end_byte], --show-portion [FILE:start_byte,end_byte]
 	Shows the file's data in structures with types specified.
+```
 
 
+## Hexcurse – Console Hex Editor
 
-# Hexcurse – Console Hex Editor
-
-hexcurse: illegal option -- -
-hexcurse, version 1.58 by FishMoth (jewfish and armoth)
-
+```bash
 usage: hexcurse [-?|help] [-a] [-r rnum] [-o outputfile] [[-i] infile]
 
     -a		Output addresses in decimal format initially
@@ -40,11 +40,12 @@ usage: hexcurse [-?|help] [-a] [-r rnum] [-o outputfile] [[-i] infile]
     -o outfile	Write output to outfile by default
     -? | -help	Display usage and version of hexcurse program
     [-i] infile	Read from data from infile (-i required if not last argument)
+```
 
 
+## Xxd Hex Editor
 
-# Xxd Hex Editor
-
+```bash
 xxd -h
 
 Usage:
@@ -69,4 +70,5 @@ Options:
     -s [+][-]seek  start at <seek> bytes abs. (or +: rel.) infile offset.
     -u          use upper case hex letters.
     -v          show version: "xxd V1.10 27oct98 by Juergen Weigert".
+```
 

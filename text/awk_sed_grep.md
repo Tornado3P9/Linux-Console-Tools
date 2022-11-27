@@ -14,6 +14,12 @@ grep -oP '^.[^ ]+' inputfile
 sed -r 's/(^.[^ ]+).*/\1/' inputfile
 ```
 
+printing ASCII chars from a binary file
+```bash
+strings binary_file
+
+sudo strings /dev/mem | less   # -> printing the computer memory
+```
 
 ## awk
 
@@ -53,23 +59,13 @@ Look for two different strings by using `|` (pipe OR operator)
 grep -E 'Fds|UTR' file
 
 # or
-
 grep -E '(Fds|UTR)' file
 
 # or
-
 grep -P '(?:Fds|UTR)' file
 
 # or
-
 grep 'Fds\|UTR' file
-```
-
-printing ASCII chars from a binary file
-```bash
-strings binary_file
-
-sudo strings /dev/mem | less   # -> printing the computer memory
 ```
 
 
@@ -112,7 +108,7 @@ sed -n 's/[Dd]ay/week/gp' coleridge.txt
 # change strings containing slashes
 sed 's,{some_path},{other_path},'
 # change strings not containing slashes
-sed 's/tausch_das/mit_dem/g'
+sed 's/find_string/exchange_with/g'
 
 # another example:
 #cat BBK.html | grep -Po '(?<=(LEFTSTRING)).*(?=(RIGHTSTRING))' | sed 's/tausch_das/mit_dem/g' > Database.csv
