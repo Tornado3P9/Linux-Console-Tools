@@ -1,3 +1,6 @@
+## cat
+
+```bash
 # The general form for a here document is: 
 command << delimiter
 document
@@ -60,4 +63,4 @@ AllowedIPs = 0.0.0.0/0
 Endpoint = <server_public_ip_or_fqdn>:52001
 PersistentKeepalive = 25
 EOF
-
+```
