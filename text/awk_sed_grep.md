@@ -28,6 +28,13 @@ sudo strings /dev/mem | less   # -> printing the computer memory
 awk 'NF' my_input > my_output
 ```
 
+https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-skip-fields-command/
+```bash
+# Skip first two fields and print the rest.
+# You can specify the input field separator too. In this example use ‘:’ as the the input field separator:
+awk -F':' '{ $1=""; $2=""; print}' filename
+```
+
 
 ## grep
 

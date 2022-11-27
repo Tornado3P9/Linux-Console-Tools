@@ -11,11 +11,11 @@ delimiter
 $wc -l << EOF
 This is a simple lookup program for good (and bad) restaurants in Cape Town.
 EOF
--> 3
+# -> 3
 
 # Counting the number of lines in a text file
 cat filename | wc -l
--> 42
+# -> 42
 
 
 # You can use here document to print multiple lines using your script:
