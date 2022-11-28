@@ -13,7 +13,7 @@ ls -1v
 -d = about the Directory
 -i = inode number
 -R = list subdirectories recursively (ls -lR => aehnlicher Effekt, wie bei 'tree')
-
+-I = Ignore some files (ls -I "*.txt")
 
 ### Get File Size: K, M, G, KB, MB, GB
 # This will give you a long format listing (needed to actually see the file size) and round file sizes up to the nearest MiB

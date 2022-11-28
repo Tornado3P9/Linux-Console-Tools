@@ -43,16 +43,13 @@ sudo strings /dev/mem | less   # -> printing the computer memory
 awk 'NF' my_input > my_output
 ```
 
-https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-skip-fields-command/
 ```bash
-# Skip first two fields and print the rest.
+# Skip first two fields and print the rest. https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-skip-fields-command/
 # You can specify the input field separator too. In this example use ‘:’ as the input field separator:
 awk -F':' '{ $1=""; $2=""; print}' filename
 ```
 
-#### AWK split file on pattern and name new files after string in first line after pattern  
-https://askubuntu.com/questions/1176043/awk-split-file-on-pattern-and-name-new-files-after-string-in-first-line-after-pa  
-
+### [AWK split file on pattern and name new files after string in first line after pattern](https://askubuntu.com/questions/1176043/awk-split-file-on-pattern-and-name-new-files-after-string-in-first-line-after-pa)  
 Starting from the file `example_file.txt` containing:
 ```bash
 sdk,jalxa,9325
@@ -197,10 +194,15 @@ sed -n 's/[Dd]ay/week/gp' coleridge.txt
 # change strings containing slashes
 sed 's,{some_path},{other_path},'
 # change strings not containing slashes
-sed 's/find_string/exchange_with/g'
+sed 's/some_string/exchange_with/g'
+# change strings to line breaks
+sed 's/some_string/&\'$'\n''/g' file
 
 # another example:
 #cat BBK.html | grep -Po '(?<=(LEFTSTRING)).*(?=(RIGHTSTRING))' | sed 's/tausch_das/mit_dem/g' > Database.csv
 cat BBK.html | grep -Po '(?<=(        <DT><A HREF=)).*(?=(/A>))' | sed 's,^,./lzeditor -e ,' | sed 's/ target="_blank"/ /g' | sed 's/>/"/g' | sed 's/</" "BBK"/g' > BBK.txt
+
+# count number of occurances of a certain character(") in each line
+sed 's/[^"]//g' dat | awk '{ print length }'
 ```
 
