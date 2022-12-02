@@ -49,14 +49,15 @@ tar -xvzf file.tar.gz
 tar -xvf archive.tar.xz -C /remote/directory/
     -C   = Extract a tar file into another directory
 tar -xvjf archive.tar.bz2
-    -x, --extract, --get = extract files from an archive
-    -f, --file=ARCHIVE   = specify the use of archive file to extract (--file=archive.tar.gz)
-    -v, --verbose        = enables verbose mode, showing the progress of the command
-    -j, --bzip2          = filter the archive through bzip2 compression
+    -x, --extract, --get # extract files from an archive
+    -f, --file=ARCHIVE   # specify the use of archive file to extract (--file=archive.tar.gz)
+    -v, --verbose        # enables verbose mode, showing the progress of the command
+    -j, --bzip2          # filter the archive through bzip2 compression
 
 #List
 tar -tvf archive.tar.xz
-    -t, --list           = list the content of an archive
+    -t, --list           # list the content of an archive
+tar -tf archive.tar | wc -l    # list the content of an archive and pipe '|' it into wordcount 'wc' to count the number of lines '-l'
 ```
 
 #### rar

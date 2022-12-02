@@ -31,6 +31,9 @@ tree -P directory_name --matchdirs --prune
 
 # Print the tree ignoring the given directories:
 tree -I 'directory_name1|directory_name2'
+
+# Print directory but turn off file/directory count at end of tree listing
+tree --noreport directory_name
 ```
 
 `ls -lR` might get you similar information
