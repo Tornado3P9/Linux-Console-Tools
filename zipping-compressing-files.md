@@ -9,7 +9,7 @@ zip -e archive-name.zip directory_name  # encrypt with a password
 unzip file.zip
 unzip archive-name.zip -d /path/to/directory
 unzip -l compressed.zip  # List files within a specified archive (without extracting them)
-zip -sf compressed.zip     # List files within a specified archive (without extracting them)
+zip -sf compressed.zip   # List files within a specified archive (without extracting them)
 ```
 
 #### xz
@@ -39,15 +39,15 @@ tar -cvf backup.tar /home/user
 
 #Create/Compress
 tar -czf archive-name.tar.gz file1 file2...
-    -c   = instructs tar to create a new archive.
-    -z   = sets the compression method to gzip.
-    file1 file2 ... a space-separated list of files and directories to be added to the archive.
+    -c   # instructs tar to create a new archive.
+    -z   # sets the compression method to gzip.
+    file1 file2 ... # a space-separated list of files and directories to be added to the archive.
 
 #Extract
 tar -xvzf file.tar.gz
-    -z   = Uses gzip, omit this if you just have a .tar
+    -z   # Uses gzip, omit this if you just have a .tar
 tar -xvf archive.tar.xz -C /remote/directory/
-    -C   = Extract a tar file into another directory
+    -C   # Extract a tar file into another directory
 tar -xvjf archive.tar.bz2
     -x, --extract, --get # extract files from an archive
     -f, --file=ARCHIVE   # specify the use of archive file to extract (--file=archive.tar.gz)
@@ -56,19 +56,19 @@ tar -xvjf archive.tar.bz2
 
 #List
 tar -tvf archive.tar.xz
-    -t, --list           # list the content of an archive
-tar -tf archive.tar | wc -l    # list the content of an archive and pipe '|' it into wordcount 'wc' to count the number of lines '-l'
+    -t, --list                # list the content of an archive
+tar -tf archive.tar | wc -l   # list the content of an archive and pipe '|' it into wordcount 'wc' to count the number of lines '-l'
 ```
 
 #### rar
 ```bash
 rar file
 unrar x file.rar
-unrar l file.rar # show information about the RAR archive without extracting any files
+unrar l file.rar   # show information about the RAR archive without extracting any files
 ```
 
 #### 7z
 ```bash
 # sudo apt install p7zip-full
-7z l file.zip # list file content
+7z l file.zip   # list file content
 ```
