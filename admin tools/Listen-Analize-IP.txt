@@ -47,3 +47,9 @@ $ traceroute google.com
 kombiniert die Funktionen von traceroute und ping zu einem Netzwerk-Diagnose-Werkzeug.
 Es sendet absichtlich Pakete mit niedriger Gueltigkeitsdauer.
 $ mtr google.com
+
+# ss
+https://linuxhandbook.com/close-open-ports/
+ss -tl   # get listening TCP ports
+ss -tul  # get listening TCP and UDP ports
+
