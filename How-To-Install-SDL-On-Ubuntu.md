@@ -34,8 +34,8 @@ if you would like to install all the packages at once, copy and paste this into 
 sudo apt update && bash <(wget -qO - https://boredbored.net/sdl2-install)
 ```
 
-if you would like to type less by making an alias in `~/.bash_aliases`:
-use `c hello-world.cpp`
+if you would like to type less by making an alias in `~/.bash_aliases`:  
+use `c hello-world.cpp`  
 ```bash
 function c() {
   g++ $1 -o app `sdl2-config --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf && ./app
