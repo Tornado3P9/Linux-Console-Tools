@@ -1,4 +1,4 @@
-## [How to configure Git Username and Email Address](https://vegastack.com/tutorials/how-to-configure-git-username-and-email-address/) from 
+## [How to configure Git Username and Email Address](https://vegastack.com/tutorials/how-to-configure-git-username-and-email-address/)
 
 #### Set Global Git Username and Password
 
