@@ -58,6 +58,9 @@ tar -xvjf archive.tar.bz2
 tar -tvf archive.tar.xz
     -t, --list                # list the content of an archive
 tar -tf archive.tar | wc -l   # list the content of an archive and pipe '|' it into wordcount 'wc' to count the number of lines '-l'
+
+#Add
+tar -rf archive.tar file.txt  # add `file.txt` to an existing tar archive
 ```
 
 #### rar
