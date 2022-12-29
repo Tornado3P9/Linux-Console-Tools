@@ -60,6 +60,7 @@ cat ~/boot.dmeg
 # inside '/var/log' the 'wtmp' file contains a list of all users who have authenticated to this linux system
 # this file is a binary file which is why the 'simple text tools' can not be used:
 last
+lastb   #for bad logins, meaning failed logins that might be a hackers' attempt to break in
 
 # the 'lastlog' file contains a log of the last time each user authenticated to the system
 # it's also a binary file:

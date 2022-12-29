@@ -506,4 +506,18 @@ esac
 
 ============================
 
+# change between lower and upper case string
+function upper() {
+  echo "$1" | tr '[:lower:]' '[:upper:]';
+}
+function lower() {
+  echo "$1" | tr '[:upper:]' '[:lower:]';
+}
+
+echo "$1" | tr [a-z] [A-Z];
+
+tr [a-z] [A-Z] < convert_to_uppercase.txt
+
+============================
+
 
