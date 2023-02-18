@@ -17,7 +17,7 @@ at hh:mm mmddjj -f path/to/file
 # Display a system notification at 11pm on February 18th:
 echo "notify-send 'Wake up!'" | at 11pm Feb 18
 
-# Show which jobs are sheduled to run at a later time:
+# Show which jobs are scheduled to run at a later time:
 atq
 
 # Delete a waiting job:

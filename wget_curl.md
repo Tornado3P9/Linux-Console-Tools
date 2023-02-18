@@ -27,6 +27,10 @@ curl -sS https://raw.githubusercontent.com/Tornado3P9/installscript-linux/master
 chmod +x ddimage
 sudo mv ddimage /usr/bin/
 ddimage
+
+# Example downloading a binary and installing it to the /usr/local/bin/ directory
+sudo curl -L https://website/downloads/latest/program -o /usr/local/bin/program
+sudo chmod a+rx /usr/local/bin/program
 ```
 
 
@@ -40,6 +44,10 @@ https://website/checksums.sha256
 
 # Then download the content of the file with:
 wget -i urls.txt
+
+# Example downloading a binary and installing it to the /usr/local/bin/ directory
+sudo wget https://website/downloads/latest/program -O /usr/local/bin/program
+sudo chmod a+rx /usr/local/bin/program
 ```
 
 
