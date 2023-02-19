@@ -36,6 +36,12 @@ sudo chmod a+rx /usr/local/bin/program
 
 ## wget
 
+```bash
+# Example downloading a binary and installing it to the /usr/local/bin/ directory
+sudo wget https://website/downloads/latest/program -O /usr/local/bin/program
+sudo chmod a+rx /usr/local/bin/program
+```
+
 Download from multiple URLs:
 ```bash
 # Fill a text file 'urls.txt' with some URLs:
@@ -44,10 +50,6 @@ https://website/checksums.sha256
 
 # Then download the content of the file with:
 wget -i urls.txt
-
-# Example downloading a binary and installing it to the /usr/local/bin/ directory
-sudo wget https://website/downloads/latest/program -O /usr/local/bin/program
-sudo chmod a+rx /usr/local/bin/program
 ```
 
 

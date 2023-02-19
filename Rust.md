@@ -13,8 +13,8 @@ cargo add linfa-trees # add the crate 'linfa-trees' to the Cargo.toml file
 cargo fmt             # format code, just like the rustfmt command
 cargo clippy          # fix better style, correctness, complexity
 
-cargo check           # verify source code and simulate compilation, but don't create final binar
-cargo run             # kompilieren und direkt ausführen
+cargo check           # verify source code and simulate compilation, but don't create final binary
+cargo run             # compile and execute
 
 rustup doc            # open official documentation
 cargo doc --open      # create custom documentation from your dependencies
