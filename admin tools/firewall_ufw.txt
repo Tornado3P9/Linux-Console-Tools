@@ -4,6 +4,7 @@
 # https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
 # https://youtu.be/kgdoVeyoO2E Fail2ban Tutorial | How to Secure Your Server - Linode
 # https://youtu.be/eeaFoZlSq6I Hardening Access to Your Server | Linux Security Tutorial - Linode
+# https://linuxhandbook.com/ufw-logs/
 
 ufw --help
 

@@ -18,3 +18,12 @@
 
 [Tailscale](https://tailscale.com/)  
 [Tailscale Documentation](https://tailscale.com/blog/how-tailscale-works/)  
+
+Dynamic debugging over kernel interface  
+Debugfs under `/sys/kernel/debug`  
+Dynamicly activate via:  
+```
+echo 'module wireguard +p' | sudo tee /sys/kernel/debug/dynamic_debug/control
+```
+then in `dmesg/journal`  
+

@@ -5,6 +5,7 @@
 ## wg genkey | tee privatekey | wg pubkey > publickey
 ## The server configuration file at '/etc/wireguard/' (maybe wg0.conf) does not have to exist for this script to run.
 ## But ofcourse it has to exist later on if you want to add the peer configuration lines to the server side.
+##
 ## Generating wg0.conf for client and show an example for the server with: ./newpeer 0
 #############
 

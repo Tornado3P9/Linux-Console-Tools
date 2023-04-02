@@ -1,5 +1,6 @@
 ## Rust
 
+https://doc.rust-lang.org/rust-by-example/index.html  
 https://www.rust-lang.org/tools/install  
 https://doc.rust-lang.org/book/  
 https://crates.io/  
@@ -22,4 +23,11 @@ cargo doc --no-deps --open # create custom documentation without all the extern 
 
 cargo build           # only compile binary, don't execute
 cargo build --release # only compile binary, but try optimizing the final build
+```
+
+Visualize crates module tree https://crates.io/crates/cargo-modules
+```bash
+cargo install cargo-modules
+
+cargo modules generate tree --with-types
 ```
