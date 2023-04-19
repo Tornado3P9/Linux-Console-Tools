@@ -1,7 +1,7 @@
 ## Rust
 
-https://doc.rust-lang.org/rust-by-example/index.html  
 https://www.rust-lang.org/tools/install  
+https://doc.rust-lang.org/rust-by-example/index.html  
 https://doc.rust-lang.org/book/  
 https://crates.io/  
 

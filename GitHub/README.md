@@ -108,24 +108,170 @@ To make new .gitignore entries affect all files
 
 For Example one configuration might look like this:
 ```
-# Python #
-##########
+# Python
 __pycache__/
 *.py[cod]
+
+# Audio
+*.wav
+*.mp3
+*.wma
+
+# All hidden files (on Mac, Linux and Unix)
+.*
+
+# except these files
+!.gitignore
+```
+When creating a new repository, Github will even ask you whether you want to choose from a gitignore template. Very helpful!
+
+More Examples:
+```
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.bak
+*.swp
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*~
+*.save
+*.swp
+*.*~
+project.lock.json
+
+# Images #
+##########
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+*.ico
+*.psd
+*.xcf
+
+*.ai
+*.eps
+
+# Video #
+#########
+*.wmv
+*.mpg
+*.mpeg
+*.mp4
+*.mov
+*.flv
+*.avi
+*.ogv
+*.webm
 
 # Audio #
 #########
 *.wav
 *.mp3
 *.wma
+*.ogg
+*.m4a
 
-# All hidden files (on Mac, Linux and Unix) #
-#############################################
-.*
+# Fonts #
+#########
+*.eot
+*.ttf
+*.woff
 
-# except these files #
-######################
-!.gitignore
+# IDE (eclipse/intellij) #
+##########################
+.classpath
+.project
+.settings
+nbproject
+.~lock.*
+.buildpath
+.idea
+.metadata
+*.iml
+*.ipr
+composer.lock
+
+# Visual Studio Code
+.vscode
+
+# Visual Studio 2015
+.vs/
+
+#     Python     #
+##################
+__pycache__/
+*.py[cod]
+
+#      Rust      #
+##################
+/target
+
+#      C#        #
+##################
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# TexMaker LaTeX #
+##################
+*.pyg
+*.aux
+*.toc
+*.lof
+*.lol
+*.out
 ```
-When creating a new repository, Github will even ask you whether you want to choose from a gitignore template. Very helpful!
-
