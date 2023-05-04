@@ -1,12 +1,10 @@
 user@pc:~$ type echo
--> echo ist eine von der Shell mitgelieferte Funktion.
+-> echo is a shell builtin
 
-### Was verbirgt sich hinter jenem Alias?
 user@pc:~$ type -a ls
-ls ist ein Alias von »ls --color=auto«.
-ls ist /usr/bin/ls
-ls ist /bin/ls
-user@pc:~$
+ls is aliased to `ls --color=auto'
+ls is /usr/bin/ls
+ls is /bin/ls
 
 user@pc:~$ whatis echo
 -> echo (1)             - display a line of text

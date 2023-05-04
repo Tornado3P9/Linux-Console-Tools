@@ -169,7 +169,6 @@ Thumbs.db
 desktop.ini
 *~
 *.save
-*.swp
 *.*~
 project.lock.json
 
