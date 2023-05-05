@@ -13,9 +13,9 @@ ps
 
 # displaying all processes running in the system
 ps -ef
-ps -ef | wc -l      # => counting number of processes
+ps -ef | wc -l      # counting number of processes
 ps aux
-ps aux | less       # => piping to less
+ps aux | less       # piping to less
 
 # sorting by memory and piping to less
 ps aux --sort=%mem | less
@@ -44,7 +44,7 @@ pstree -c
 kill -l
 
 # sending a signal (default SIGTERM - 15) to a process by pid 
-kill pid        # => Ex: kill 12547
+kill 12547   # kill pid
 
 # sending a signal to more processes
 kill -SIGNAL pid1 pid2 pid3 ...
@@ -60,7 +60,7 @@ killall process_name
 kill $(pidof process_name)  # => Ex: kill -HUP $(pidof sshd)
 
 # running a process in the background
-command &   # => Ex: sleep 100 &
+sleep 100 &   # command &
 
 # Showing running jobs
 jobs
@@ -75,9 +75,9 @@ fg %job_id
 bg %job_id
 
 # starting a process immune to SIGHUP
-nohup command &     # => Ex: nohup wget http://site.com &
+nohup wget http://site.com &   # nohup command &
 ```
-Alternative commands for 'nohub':  
+Alternative commands for `nohub`:  
 https://www.gnu.org/software/screen/  
 https://github.com/tmux/tmux/wiki  
 

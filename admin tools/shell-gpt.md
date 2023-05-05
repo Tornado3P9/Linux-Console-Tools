@@ -11,7 +11,7 @@ pip3 install shell-gpt
 # then
 export OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey
 
-# check
+# verify
 env | grep -i openai
 
 # if it works you might want to make it permanent like so
