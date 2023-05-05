@@ -18,30 +18,26 @@ env | grep -i openai
 echo 'export OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey' >> ~/.bashrc
 source ~/.bashrc
 
-# or like so
-cat <<EOF >>~/.config/shell_gpt/.sgptrc
-OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey
-OPENAI_API_HOST=https://api.openai.com
+# or like so `nano ~/.config/shell_gpt/.sgptrc`
+CHAT_CACHE_PATH=/tmp/chat_cache
+CACHE_PATH=/tmp/cache
 CHAT_CACHE_LENGTH=100
-CHAT_CACHE_PATH=/tmp/shell_gpt/chat_cache
 CACHE_LENGTH=100
-CACHE_PATH=/tmp/shell_gpt/cache
 REQUEST_TIMEOUT=60
-EOF
+OPENAI_API_HOST=https://api.openai.com
+DEFAULT_COLOR=magenta
+OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey
 ```
 
 Examples:
 ```bash
-# Use it as a search engine, asking for the mass of the sun:
+# Use it as a search engine:
 sgpt "mass of the sun"
 sgpt "make a short and concise summary of the ss command"
 
-# Execute Shell commands, and apply `chmod 444` to all files in the current directory:
-sgpt --shell "make all files in current directory read only"
-sgpt -s "make all files in current directory read only"
-
-# Actually execute the command
-sgpt -s -e "install firefox"
+# Execute Shell commands:
+sgpt -shell "install firefox"
+sgpt -s "show all open ports"
 
 # Generate code:
 sgpt --code "solve fizz buzz problem using Rust"
@@ -55,4 +51,5 @@ sgpt --repl command
 
 # Display help:
 sgpt --help
+tldr sgpt
 ```
