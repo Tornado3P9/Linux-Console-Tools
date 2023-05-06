@@ -20,11 +20,13 @@ myvariable="My username is `id -un`"
 
 # How can I get the current hostname in Bash?
 hostname           # => host01
+#or
 echo $HOSTNAME     # => host01
-
+#or
 hs=`hostname`
 echo $hs           # => host01
-
+#or
 cat /proc/sys/kernel/hostname  # => host01
+#or
 cat /etc/hostname  # => host01
 ```
