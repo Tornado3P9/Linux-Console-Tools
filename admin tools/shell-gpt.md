@@ -19,15 +19,18 @@ echo 'export OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey' >> ~/.bashr
 source ~/.bashrc
 
 # or like so `nano ~/.config/shell_gpt/.sgptrc`
-CHAT_CACHE_PATH=/tmp/chat_cache
-CACHE_PATH=/tmp/cache
-CHAT_CACHE_LENGTH=100
-CACHE_LENGTH=100
-REQUEST_TIMEOUT=60
-OPENAI_API_HOST=https://api.openai.com
-DEFAULT_COLOR=magenta
 OPENAI_API_KEY=exampleapikeyexampleapikeyexampleapikey
+OPENAI_API_HOST=https://api.openai.com
+CHAT_CACHE_LENGTH=100
+CHAT_CACHE_PATH=/tmp/shell_gpt/chat_cache
+CACHE_LENGTH=100
+CACHE_PATH=/tmp/shell_gpt/cache
+REQUEST_TIMEOUT=60
+DEFAULT_MODEL=gpt-3.5-turbo
+DEFAULT_COLOR=magenta
+SYSTEM_ROLES=false
 ```
+https://github.com/TheR1D/shell_gpt#runtime-configuration-file  
 
 Examples:
 ```bash

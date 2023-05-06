@@ -7,7 +7,6 @@ echo "$USER"       # => user01
 id -u -n           # => user01
 
 # To save these values to a variable, do
-
 myvariable=$(whoami)
 #or
 myvariable=$USER
@@ -15,7 +14,6 @@ myvariable=$USER
 myvariable=$(id -un)
 #or
 myvariable="My username is `id -un`"
-
 # Of course, you don't need to make a variable since that is what the $USER variable is for.
 
 # How can I get the current hostname in Bash?
