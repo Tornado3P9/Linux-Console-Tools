@@ -90,7 +90,7 @@ git branch -d develop
 ```
 The `-d` means delete.
 
-### git-diff (Show changes made)
+### git-diff (show changes made)
 https://git-scm.com/docs/git-diff  
 ```bash
 # Print out differences between your working directory and the index:
