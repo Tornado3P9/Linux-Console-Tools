@@ -90,6 +90,45 @@ git branch -d develop
 ```
 The `-d` means delete.
 
+### git-diff (Show changes made)
+https://git-scm.com/docs/git-diff  
+```bash
+# Print out differences between your working directory and the index:
+git diff   # (no parameters)
+
+# Print out differences between the index and HEAD (current commit):
+git diff --cached
+
+# Show only staged (added, but not yet committed) changes:
+git diff --staged
+
+# Print out differences between your working directory and the HEAD:
+git diff HEAD
+
+# Show changes from all commits since a given date/time (a date expression, e.g. "1 week 2 days" or an ISO date):
+git diff 'HEAD@{3 months|weeks|days|hours|seconds ago}'
+
+# Show only names of changed files:
+git diff --name-only
+
+# Show only names of changed files since a given commit:
+git diff --name-only commit
+
+# Output a summary of file creations, renames and mode changes since a given commit:
+git diff --summary commit
+
+# Compare a single file between two branches or commits:
+git diff branch_1..branch_2 [--] path/to/file
+
+# Compare different files from the current branch to other branch:
+git diff branch:path/to/file2 path/to/file
+
+# Show only names and status of changed files:
+git diff --name-status
+
+# Word by word diff instead of line by line:
+git diff --color-words
+```
 
 ### About .gitignore
 https://stackoverflow.com/questions/8021441/how-to-ignore-all-hidden-directories-files-recursively-in-a-git-repository  
