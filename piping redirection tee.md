@@ -30,7 +30,7 @@ cat -n /var/log/auth.log | grep -ai "authentication failure" > auth.txt     # =>
 df -h | tee disk_usage.txt
 ```
 
-tee Examples (the 'tee-fork' splits the stream, displaying one while redirecting the other):
+**tee** Examples (the *tee fork* splits the stream into two outputs):
 ```bash
 # This program is part of the coreutils package which is being installed by default
 apt show coreutils
@@ -66,7 +66,7 @@ tee  /etc/telegraf/telegraf.conf << END
 END
 
 # Creating private and public wireguard keys
-wg genkey | tee privatekey | wg pubkey > publickey
+wg genkey | tee privatekey | wg pubkey > publickey     # writing one output to the file 'privatekey' while piping the other
 ```
 https://linuxize.com/post/linux-tee-command/
 
