@@ -66,7 +66,8 @@ tee  /etc/telegraf/telegraf.conf << END
 END
 
 # Creating private and public wireguard keys
-wg genkey | tee privatekey | wg pubkey > publickey     # writing one output to the file 'privatekey' while piping the other
+# using tee to write one output to the file 'privatekey' while piping the other
+wg genkey | tee privatekey | wg pubkey > publickey
 ```
 https://linuxize.com/post/linux-tee-command/
 
