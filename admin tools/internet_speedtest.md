@@ -1,5 +1,6 @@
 ## Simple Internet Speed Test
 
+```bash
 #Speedtest_consoletool from Netflix
 sudo snap install fast
 fast
@@ -17,14 +18,15 @@ mtr google.com
 
 #ping
 ping google.com
-
+```
 
 
 ## How to Test Network Throughput Between Linux Servers
-#######################################################
-# https://www.techtarget.com/searchnetworking/tip/How-to-use-iPerf-to-measure-throughput
-# https://www.tecmint.com/test-network-throughput-in-linux/
 
+https://www.techtarget.com/searchnetworking/tip/How-to-use-iPerf-to-measure-throughput  
+https://www.tecmint.com/test-network-throughput-in-linux/  
+
+```bash
 sudo apt install iperf3
 
 
@@ -42,3 +44,4 @@ iperf3 -c 10.10.10.1 -p 3000 -bidir
 
 # Print out version number
 iperf3 -v
+```
