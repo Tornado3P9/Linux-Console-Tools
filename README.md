@@ -31,5 +31,5 @@ man dpkg
    - https://devhints.io/bash
 
 5. Watch Linux Tutorials:
-   - [Linux Administration: The Complete Linux Bootcamp 2022](https://www.udemy.com/course/master-linux-administration/) from Andrei Dumitrescu
+   - [Linux Administration: The Complete Linux Bootcamp 2023](https://www.udemy.com/course/master-linux-administration/) from Andrei Dumitrescu
 
