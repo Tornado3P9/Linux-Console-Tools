@@ -118,8 +118,9 @@
     # creating hard link to a file
     ln path/to/target_file path/to/link_file
 
-    # creating soft link to a file (use -sf to remove existing destination files)
+    # creating soft link to a file
     ln -s path/to/target_file path/to/link_file
+    ln -sf path/to/target_file path/to/link_file  # force override of existing link file
 
     # creating soft link to a directory
     ln -s path/to/target_directory path/to/link_name

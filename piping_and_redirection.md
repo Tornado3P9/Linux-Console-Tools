@@ -5,6 +5,7 @@ Piping Examples:
 ls -lSh /etc/ | head             # see the first 10 files by size
 ps -ef | grep sshd               # checking if sshd is running
 ps aux --sort=-%mem | head -n 3  # showing the first 3 process by memory consumption
+tree project_directory | less    # use the less text viewer to easily jump through the output
 ```
 
 Command Redirection
