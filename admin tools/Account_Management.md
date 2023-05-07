@@ -20,14 +20,18 @@ getent group      # => does the same like "cat /etc/group"
 getent passwd     # => does the same like "cat /etc/passwd"
 
 
-## User Passwords:
+####################
+## USER PASSWORDS: #
+####################
 # changing your password
 passwd
 # changing another user's password
 sudo passwd jeff
 
 
-## User Accounts:
+###################
+## USER ACCOUNTS: #
+###################
 # creating a user account
 useradd [OPTIONS] username
 # OPTIONS:
@@ -66,7 +70,10 @@ userdel -r username
 # add the user to sudo group in Ubuntu and wheel group in CentOS
 usermod -aG sudo john
 
-## Full-Example creating a sudo user (admin):
+
+###############################################
+## Full-Example creating a sudo user (admin): #
+###############################################
 # Log in to your server as the root user.
 ssh root@server_ip_address
 # Use the adduser command to add a new user to your system. (adduser is a perl script that uses useradd. slightly more userfriendly as it automaticly creates a home directory for the user)
@@ -80,7 +87,9 @@ su - username
 sudo apt update
 
 
-## Linux Groups:
+##################
+## LINUX GROUPS: #
+##################
 # The primary user’s group is stored in the /etc/passwd file and the
 # supplementary groups, if any, are listed in the /etc/group file.
 
@@ -109,7 +118,9 @@ getent group cdrom
 less /etc/group
 
 
-## Monitoring Users:
+######################
+## Monitoring Users: #
+######################
 who -H   # => displays logged in users
 id       # => displays the current user and its groups
 id -u    # => is the EUID (Effective UID is the user you changed to)
