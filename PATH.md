@@ -2,6 +2,8 @@ If a script or application is unknown by the terminal shell,
 then it probably wasn't added to the path variable:
 ```bash
 echo $PATH
+
+env | grep ^PATH   # grep lines starting with 'PATH' from env output also works
 ```
 gets you all the directories that are part of the path-environment-variable  
 you can place your program or script in one of these subdirectories.  

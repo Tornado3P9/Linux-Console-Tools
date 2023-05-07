@@ -3,6 +3,6 @@
 ```bash
 env
 
-# look for sth specific
-env | grep -i user
+env | grep -i user  # grep lines containing 'user' ignoring upper or lower case
+env | grep ^PATH    # grep lines starting with 'PATH'
 ```
