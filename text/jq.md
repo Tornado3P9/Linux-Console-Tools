@@ -6,26 +6,27 @@ https://stedolan.github.io/jq/manual/
 Usage: `jq [options] <jq filter> [file...]`  
 
 Some of the options include:  
--c              compact instead of pretty-printed output;  
--n              use `null` as the single input value;  
--e              set the exit status code based on the output;  
--s              read (slurp) all inputs into an array; apply filter to it;  
--r              output raw strings, not JSON texts;  
--R              read raw strings, not JSON texts;  
--C              colorize JSON;  
--M              monochrome (don't colorize JSON);  
--S              sort keys of objects on output;  
---tab            use tabs for indentation;  
---arg a v        set variable $a to value <v>;  
---argjson a v    set variable $a to JSON value <v>;  
---slurpfile a f  set variable $a to an array of JSON texts read from <f>;  
---rawfile a f    set variable $a to a string consisting of the contents of <f>;  
---args           remaining arguments are string arguments, not files;  
---jsonargs       remaining arguments are JSON arguments, not files;  
---               terminates argument processing;  
-
-Named arguments are also available as $ARGS.named[], while  
-positional arguments are available as $ARGS.positional[].  
+```bash
+-c               # compact instead of pretty-printed output
+-n               # use `null` as the single input value
+-e               # set the exit status code based on the output
+-s               # read (slurp) all inputs into an array; apply filter to it
+-r               # output raw strings, not JSON texts
+-R               # read raw strings, not JSON texts
+-C               # colorize JSON
+-M               # monochrome (don't colorize JSON)
+-S               # sort keys of objects on output
+--tab            # use tabs for indentation
+--arg a v        # set variable $a to value <v>
+--argjson a v    # set variable $a to JSON value <v>
+--slurpfile a f  # set variable $a to an array of JSON texts read from <f>
+--rawfile a f    # set variable $a to a string consisting of the contents of <f>
+--args           # remaining arguments are string arguments, not files
+--jsonargs       # remaining arguments are JSON arguments, not files
+--               # terminates argument processing
+```
+Named arguments are also available as `$ARGS.named[]`, while  
+positional arguments are available as `$ARGS.positional[]`.  
 
 ```bash
 # Execute a specific expression:
