@@ -46,6 +46,10 @@ sgpt -s "show all open ports"
 sgpt --code "solve fizz buzz problem using Rust"
 sgpt "command to print 'pc or npc' to the terminal. Answer with the command only"
 
+# Pipe code and add comments:
+curl -sSL https://raw.githubusercontent.com/techwithtim/Python-Planet-Simulation/main/tutorial.py | tee example.py | python -m sgpt --code "Explain what my code does in a single comment and also generate comments for each line of my code" > example_commented.py
+diff -y -W 250 example.py example_commented.py  # compare --side-by-side
+
 # Start a chat session with a unique session name:
 sgpt --chat session_name "please remember my favorite number: 4"
 
