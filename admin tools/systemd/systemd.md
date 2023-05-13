@@ -1,6 +1,6 @@
 # Service Management using Systemd[^1]
-- [systemd with multiple execstart](https://github.com/Tornado3P9/ProjektC/blob/doc/systemd%20with%20multiple%20execstart.md)
-- [systemd custom service](https://github.com/Tornado3P9/ProjektC/blob/doc/systemd%20custom%20service.md)
+- [systemd with multiple execstart](https://github.com/Tornado3P9/Linux-Console-Tools/blob/master/admin%20tools/systemd/systemd%20with%20multiple%20execstart.md)
+- [systemd custom service](https://github.com/Tornado3P9/Linux-Console-Tools/blob/master/admin%20tools/systemd/systemd%20custom%20service.md)
 
 Most systemd commands can work with these unit types:  
 `services, paths, slices, snapshots, sockets, swaps, targets, timers`  
