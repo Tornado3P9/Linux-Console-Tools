@@ -2,6 +2,7 @@
 # https://gist.github.com/m14t/3056747
 #-- Script to automate https://help.github.com/articles/why-is-git-always-asking-for-my-password
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+# https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories
 
 REPO_URL=`git remote -v | grep -m1 '^origin' | sed -Ene's#.*(https://[^[:space:]]*).*#\1#p'`
 if [ -z "$REPO_URL" ]; then

@@ -1,4 +1,6 @@
 #/bin/bash
+# https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories
+
 # https://gist.github.com/chuckbjones/9dc6634fe52e56ba45ac
 #-- Script to automate https://help.github.com/articles/why-is-git-always-asking-for-my-password
 # Forked from the original to do the opposite:  Switch ssh repo urls to https
