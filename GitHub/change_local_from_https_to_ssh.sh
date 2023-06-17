@@ -41,7 +41,9 @@ echo "Success"
 # You can get your $NEW_URL by just logging in to your Github account and copying the link.
 # Click on the green 'Code' button and then on SSH and then copy the new URL.
 # Or if you know your Github username and your repository name (which I hope you do)
-# then just use a single liner by typing: git remote set-url origin git@github.com:username/repo-name-here.git
+# then just use a single liner by typing:
+# git remote show origin
+# git remote set-url origin git@github.com:username/repo-name-here.git
 
 
 
