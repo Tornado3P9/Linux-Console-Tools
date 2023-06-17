@@ -15,3 +15,7 @@ The timing format is: hh:mm:ss
 
 For more information, look at this official ffmpeg
 https://trac.ffmpeg.org/wiki/Seeking#Cuttingsmallsections
+
+
+"ffmpeg trim video from 00:15:17 to end of video"
+ffmpeg -i input.mp4 -ss 00:15:17 -c copy output.mp4
