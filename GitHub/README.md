@@ -96,6 +96,9 @@ https://git-scm.com/docs/git-diff
 # Print out differences between your working directory and the index:
 git diff   # (no parameters)
 
+# Print out differences between the last two commits:
+git diff 1234567 2345678
+
 # Print out differences between the index and HEAD (current commit):
 git diff --cached
 
