@@ -67,6 +67,19 @@ or
 #!/bin/python3
 # /bin/ is a directory link to /usr/bin/ so using one or the other should not make any difference!
 ```
+
+[link](https://stackoverflow.com/questions/12691461/exactly-what-does-env-do-in-bash)  
+Commonly, `env` is also used in the hash-bang lines of scripts that strive to be portable.
+The reason being that `env` is nearly always at `/usr/bin/env`, while bash isn't always at `/bin/bash` as many a hash-bang line implies.
+Example:
+```bash
+#!/usr/bin/env bash
+```
+also works for other programs/interpreters:
+```bash
+#!/usr/bin/env python
+```
+
 If you execute one of those scripts by running `/bin/sh script`, then they will not work at all.  
 
 Ubuntu does use the bash shell, the point is that `sh` corresponds to `dash`, but not to `bash`.  

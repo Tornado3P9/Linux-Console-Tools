@@ -1,6 +1,6 @@
 ## ls (list file or directory)
 
-```
+```bash
 ls -1v
 -l  # Auflistung
 -A  # show everything, except for "." or ".."

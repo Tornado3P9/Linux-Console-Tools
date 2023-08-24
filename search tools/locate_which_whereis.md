@@ -2,7 +2,7 @@
 
 `locate` searches in it's own databank. Therefore it is possible that a newly created file can not be found. In this case use `find.
 
-```
+```bash
 # updating the locate db
 sudo updatedb
 
