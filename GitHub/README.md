@@ -71,7 +71,8 @@ You may also revert to an earlier commit:
 git log --oneline   # show your complete commit history
 git revert af6b84c  # (save operation) copy that commit and add it at the end of your commit history, basicly creating a new commit with an older content
                     # save and close the popping self opening text editor by typing  :wq   in vim or using the shortcut  Ctrl+s Ctrl+x  in nano
-git reset af6b84c   # (unsave operation) reset to an earlier commit, deleting any following commits after that
+git reset af6b84c   # (unsave operation) reset to an earlier commit, deleting any following commits after that but leaves the file of last commit in the directory
+git reset af6b84c --hard  # (unsave operation) complete reset, no way to return
 ```
 
 ### Making changes on develop
