@@ -29,6 +29,11 @@ git log
 git log --oneline
 ```
 
+Rename the current branch:
+```bash
+git branch -m <name>
+```
+
 To create a new branch named develop, use the following command:
 ```bash
 git checkout -b develop
@@ -46,13 +51,28 @@ base the new-branch off of an existing-branch instead of the current HEAD.
 git checkout -b new-branch existing-branch
 ```
 
-### Changing branches
+### Switching branches
 You shouldn't commit anything directly to the `main` branch. Instead do all your work on the `develop` branch and then merge `develop` into main whenever you have a new public release.  
 You are already in your develop branch, but if you weren't, the way to switch is as follows:
 ```bash
 git checkout develop
 ```
 That's the same way you create a branch but without the `-b`.
+
+You may also checkout an earlier commit:
+```bash
+git log --oneline     # show your complete commit history
+git checkout af6b84c  # choose an earlier stage in your commit history
+git checkout main     # switch back to the latest main branch commit
+```
+
+You may also revert to an earlier commit:
+```bash
+git log --oneline   # show your complete commit history
+git revert af6b84c  # (save operation) copy that commit and add it at the end of your commit history, basicly creating a new commit with an older content
+                    # save and close the popping self opening text editor by typing  :wq   in vim or using the shortcut  Ctrl+s Ctrl+x  in nano
+git reset af6b84c   # (unsave operation) reset to an earlier commit, deleting any following commits after that
+```
 
 ### Making changes on develop
 When making changes, add and commit as usual:
