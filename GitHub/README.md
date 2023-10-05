@@ -7,21 +7,22 @@
 [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)  
 [README: Insert graphics](https://github.com/minhhoangp/graphics/blob/master/README.md)  
 [GitHub the right way using the 'gh' utility](https://christitus.com/using-github-correctly/)  
+[Git Checkout - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches/git-checkout)  
 
 ### Creating a git develop branch
 You can list all of your current branches like this:
-```
+```bash
 git branch -a
 ```
 This shows all of the local and remote branches. Assuming you only have a single `main` branch, you'd see the following:
-```
+```bash
 * main
   remotes/origin/main
 ```
 The `*` means the current branch.
 
 Show commit logs:
-```
+```bash
 # detailed
 git log
 # outputs reduced to a single line - helps with huge numbers of logs
@@ -29,51 +30,57 @@ git log --oneline
 ```
 
 To create a new branch named develop, use the following command:
-```
+```bash
 git checkout -b develop
 ```
 The `-b` flag creates the branch. Listing the branches now should show:
-```
+```bash
 * develop
   main
   remotes/origin/main
+```
+By default `git checkout -b` will base the new-branch off the current HEAD.  
+An optional additional branch parameter can be passed to git checkout to  
+base the new-branch off of an existing-branch instead of the current HEAD.
+```bash
+git checkout -b new-branch existing-branch
 ```
 
 ### Changing branches
 You shouldn't commit anything directly to the `main` branch. Instead do all your work on the `develop` branch and then merge `develop` into main whenever you have a new public release.  
 You are already in your develop branch, but if you weren't, the way to switch is as follows:
-```
+```bash
 git checkout develop
 ```
 That's the same way you create a branch but without the `-b`.
 
 ### Making changes on develop
 When making changes, add and commit as usual:
-```
+```bash
 git add .
 git commit -m "whatever"
 ```
 The first time you push to your remote do it like so:
-```
+```bash
 git push -u origin develop
 ```
 The `-u` flag stands for `--set-upstream`. After the first time you only need to do it like this:
-```
+```bash
 git push
 ```
 
 ### Merging develop to main
 Once your `develop` is ready to merge into `main` you can do it like so:  
 First switch to your local main branch:
-```
+```bash
 git checkout main
 ```
 To merge develop into main do the following:
-```
+```bash
 git merge develop
 ```
 Then push the changes in local main to the remote main:
-```
+```bash
 git push
 ```
 Done.
@@ -81,11 +88,11 @@ Done.
 ### Deleting a branch
 If you don't need the `develop` branch anymore, or you just want to delete it and start over, you can do the following:  
 Delete the remote develop branch:
-```
+```bash
 git push -d origin develop
 ```
 Then delete the local branch:
-```
+```bash
 git branch -d develop
 ```
 The `-d` means delete.
