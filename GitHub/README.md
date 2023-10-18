@@ -93,15 +93,15 @@ git push
 ### Before merging develop to main, you might want to merge main to develop first
 ..because other people you work with might have already made changes to main and the develop branch may not be up to date anymore.
 
-First switch to your local main branch:
+First switch to your local develop branch:
 ```bash
 git checkout develop
 ```
-To merge develop into main do the following:
+Then merge main into develop:
 ```bash
 git merge main
 ```
-Now, if all is well and things still work, you can do the merge of develop to main.
+Now, if all is well and things still work, you can do the merge of develop into main.
 
 ### Merging develop to main
 Once your `develop` is ready to merge into `main` you can do it like so:  
