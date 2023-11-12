@@ -1,0 +1,7 @@
+# https://stackoverflow.com/questions/9913032/how-can-i-extract-audio-from-video-with-ffmpeg
+
+# To extract the audio stream without re-encoding:
+ffmpeg -i input-video.avi -vn -acodec copy output-audio.aac
+
+-vn is no video.
+-acodec copy says use the same audio stream that's already in there.
