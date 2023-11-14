@@ -10,6 +10,11 @@
 [Git Checkout - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches/git-checkout)  
 
 ### Creating a git develop branch
+Print the current GitHub URL of a local GitHub folder:
+```bash
+git remote get-url origin
+```
+
 You can list all of your current branches like this:
 ```bash
 git branch -a
