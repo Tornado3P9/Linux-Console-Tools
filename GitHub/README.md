@@ -9,7 +9,7 @@
 [GitHub the right way using the 'gh' utility](https://christitus.com/using-github-correctly/)  
 [Git Checkout - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches/git-checkout)  
 
-### Creating a git develop branch
+
 Print the current GitHub URL of a local GitHub folder:
 ```bash
 git remote get-url origin
@@ -39,6 +39,7 @@ Rename the current branch:
 git branch -m <name>
 ```
 
+### Creating a git develop branch
 To create a new branch named develop, use the following command:
 ```bash
 git checkout -b develop
