@@ -34,5 +34,5 @@ man dpkg
 - https://github.com/jlevy/the-art-of-command-line/blob/master/README.md
 
 6. Watch Linux Tutorials:
-   - [Linux Administration: The Complete Linux Bootcamp 2023](https://www.udemy.com/course/master-linux-administration/) from Andrei Dumitrescu
+   - [Linux Administration: The Complete Linux Bootcamp 2024](https://www.udemy.com/course/master-linux-administration/) from Andrei Dumitrescu
 
