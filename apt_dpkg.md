@@ -101,6 +101,10 @@ sudo apt remove --autoremove <package-name>
 # delete only the repository
 ls -l /etc/apt/sources.list.d/
 sudo rm /etc/apt/sources.list.d/<Repo_Filename>.list
+
+# delete the package lists and metadata for the installed software packages managed by APT
+ls /var/lib/apt/dists/
+rm -rf /var/lib/apt/dists/*
 ```
 
 Hold
