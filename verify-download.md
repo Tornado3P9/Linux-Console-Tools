@@ -4,6 +4,9 @@
 echo "b317d87b0a3d5b568f48a92dcabfc4bc51fe58d9f67ca13b013f1b8329d1306d *debian-10.7.0-amd64-netinst.iso" | shasum -a 256 --check
 #debian-10.7.0-amd64-netinst.iso: OK
 
+shasum -a 256 -c program-*.DIGEST
+# program-x86_64.AppImage: OK
+
 sha256sum program.deb
 #cb673127833245c3f7793072bf477049c3e0595f87bb12515452f60898b83288  program.deb
 

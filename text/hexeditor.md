@@ -71,4 +71,8 @@ Options:
     -u          use upper case hex letters.
     -v          show version: "xxd V1.10 27oct98 by Juergen Weigert".
 ```
+Because on Linux, everything is a file, the mouse is too:
+```bash
+sudo xxd /dev/input/mouse0
+```
 

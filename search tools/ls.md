@@ -18,6 +18,7 @@ ls -1v
 -i  # inode number
 -R  # list subdirectories recursively (ls -lR => aehnlicher Effekt, wie bei 'tree')
 -I  # Ignore some files (ls -I "*.txt")
+-ln # Show UserID (UID) instead of human readable name
 
 # This will give you a long format listing (needed to actually see the file size: K, M, G, KB, MB, GB) and round file sizes up to the nearest MiB
 ls -l --block-size=M filename
