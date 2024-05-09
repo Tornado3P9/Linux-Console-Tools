@@ -5,7 +5,7 @@ More information: https://github.com/TheR1D/shell_gpt#readme.
 
 Installation:
 ```bash
-pip3 install shell-gpt
+pip install shell-gpt
 
 # go to platform.openai.com/signup and get a valid api-key
 # then
@@ -60,3 +60,18 @@ sgpt --repl command
 sgpt --help
 tldr sgpt
 ```
+
+Bash Alias for automaticly starting sgpt with the correct virtualenv:
+```bash
+# Usage: gpt "what are the six quarks?"
+function gpt() {
+  if [[ "$VIRTUAL_ENV" == "$HOME/virtualenvs/venv" ]]; then
+    sgpt "$1"
+  else
+    deactivate &> /dev/null;
+    source $HOME/virtualenvs/venv/bin/activate;
+    sgpt "$1"
+  fi
+}
+```
+.
