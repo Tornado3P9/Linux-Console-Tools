@@ -19,4 +19,7 @@ ae
 
 # and stop virtual environments
 de
+
+# show active virtual environment
+echo $VIRTUAL_ENV
 ```
