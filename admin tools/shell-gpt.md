@@ -61,7 +61,7 @@ sgpt --help
 tldr sgpt
 ```
 
-Bash Alias for automaticly starting sgpt with the correct virtualenv:
+Bash Alias for automatically starting sgpt with the correct virtualenv:
 ```bash
 # Usage: gpt "what are the six quarks?"
 function gpt() {
