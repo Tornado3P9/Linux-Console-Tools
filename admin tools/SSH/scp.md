@@ -6,11 +6,12 @@ You can also use `rsync`.
 On Windows just use WinSCP or FileZilla  
 ```bash
 ssh
-    -P - Specifies the remote host ssh port.
-    -p - Preserves files modification and access times.
-    -q - Use this option if you want to suppress the progress meter and non-error messages.
-    -C - This option forces scp to compresses the data as it is sent to the destination machine.
-    -r - This option tells scp to copy directories recursively.
+    -P  Specifies the remote host ssh port.
+    -p  Preserves files modification and access times.
+    -q  Use this option if you want to suppress the progress meter and non-error messages.
+    -C  This option forces scp to compresses the data as it is sent to the destination machine.
+    -r  This option tells scp to copy directories recursively.
+    -i  Specifies the SSH private key for authentication with the remote host
 
 # Copy the file 'test.txt' to a remote PC
 scp test.txt 192.168.0.14:~/Desktop/test.txt
@@ -29,4 +30,7 @@ scp user1@host1.com:/files/file.txt user2@host2.com:/files
 
 # To route the traffic through the machine on which the command is issued, use the -3 option:
 scp -3 user1@host1.com:/files/file.txt user2@host2.com:/files
+
+# Using a specific SSH private key for authentication with the remote host:
+scp -i ~/.ssh/private_key path/to/local_file remote_host:path/to/remote_file
 ```
