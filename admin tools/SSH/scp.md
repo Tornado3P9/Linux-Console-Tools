@@ -20,7 +20,7 @@ scp test.txt 192.168.0.14:~/Desktop/test.txt
 scp -r /home/user/Directory 192.168.0.14:
 
 # Specify a Port
-scp -P 22 test.txt user@192.168.0.14:~/test.txt
+scp -P 22 test.txt user2@192.168.0.14:~/test.txt
 
 # Get a file from a remote server
 scp remote_username@10.10.0.2:/remote/file.txt /local/directory
@@ -33,4 +33,7 @@ scp -3 user1@host1.com:/files/file.txt user2@host2.com:/files
 
 # Using a specific SSH private key for authentication with the remote host:
 scp -i ~/.ssh/private_key path/to/local_file remote_host:path/to/remote_file
+
+# Combined:
+scp -i ~/.ssh/private_key -P 22 ~/files.tar.gz user2@192.168.0.14:~/
 ```
