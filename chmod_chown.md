@@ -3,12 +3,21 @@ https://wiki.ubuntuusers.de/chown/
 https://manpages.ubuntu.com/manpages/trusty/man1/chown.1.html  
 https://linuxhint.com/give-user-folder-permission-linux/  
 
-Permission Execute(x), Write(w), Read(r):
-```bash
-sudo chmod 777 /media/disk
-sudo chmod 764 filename
+File ownership and permissions are crucial in a multi-user system like Linux for security and data integrity. Each file and directory has an associated owner and a group, and permissions that determine who can read, write, or execute the
+file.
 
-# Version with numbers:
+- **Ownership (chown)**: Determines which user and group own the file. This affects who can change permissions and modify the file.
+- **Permissions (chmod)**: Define what actions specific users and groups can perform on the file (read, write, execute).
+
+There are two separate commands because ownership and permissions are distinct properties:
+
+- **`chown`** changes the owner and group of a file, which is typically an administrative action.
+- **`chmod`** changes the permissions, which can be done by the owner to control access.
+
+Separating these commands provides fine-grained control over files and directories, allowing administrators to manage access rights and ownership securely and flexibly.
+
+```bash
+# Permission Execute(x), Write(w), Read(r):
 0 	Keine
 1 	x
 2 	w
@@ -17,6 +26,9 @@ sudo chmod 764 filename
 5 	r+x
 6 	r+w
 7 	r+w+x
+
+sudo chmod -R 700 /media/disk
+sudo chmod 764 filename
 
 # Examples:
 644 	# The owner can read and write. Everyone else can only read. (6 = 4 + 2)
@@ -36,7 +48,7 @@ sudo chown -R 1000:1000 /media/disk
 
 # Set directory permissions to root and also make the files readable by administrator only:
 sudo chown -R root:root ~/directory/
-sudo chown -R og-rwx ~/directory/*
+sudo chmod -R og-rwx ~/directory/
 
 # Take rights away for everyone else besides root for everything that you do in this root session...always a good idea when handling system configurations
 sudo -i && umask 077

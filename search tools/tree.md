@@ -34,6 +34,10 @@ tree -I 'directory_name1|directory_name2'
 
 # Print directory but turn off file/directory count at end of tree listing
 tree --noreport directory_name
+
+# Print the size of each file and directory in a human-readable format
+tree --du -h
+tree -s -h
 ```
 
 `ls -lR` might get you similar information
