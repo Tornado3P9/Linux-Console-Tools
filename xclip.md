@@ -10,5 +10,5 @@ xclip -h
 xclip -selection clipboard < textfile.txt
 
 # Then paste it to where you want to put it
-STRG+V
+Ctrl+V
 ```

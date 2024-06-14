@@ -44,6 +44,14 @@ cargo test             # Run tests
 cargo bench            # Run benchmarks
 ```
 
+reinstall cargo if problem
+```bash
+rustup update          # update rust just in case
+rustup component remove cargo
+rustup component add cargo
+cargo --version
+```
+
 visualize crates module tree https://crates.io/crates/cargo-modules
 ```bash
 cargo install cargo-modules
