@@ -59,6 +59,8 @@ tar -tzf archive.tar.gz
     -t, --list                # list the content of an archive
 tar -tvf archive.tar.xz
 tar -tf archive.tar | wc -l   # (list number of files in archive) list the content of an archive and pipe '|' it into wordcount 'wc' to count the number of lines '-l'
+tar tf your-archive.tar --exclude='*/*'    # display only the first directory hierarchy in a tar file
+tar -tf archive.tar | grep 'filename'      # look for a specific file in a tar archive
 
 #Add
 tar -rf archive.tar file.txt  # add `file.txt` to an existing tar archive
