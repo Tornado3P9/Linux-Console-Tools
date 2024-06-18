@@ -197,6 +197,9 @@ sed 's,{some_path},{other_path},'
 sed 's/some_string/exchange_with/g'
 # change strings to line breaks
 sed 's/some_string/&\'$'\n''/g' file
+# change each occurrence of 'abc' in a file to '.' (you can omit the -i option to print the results to the terminal)
+sed -i 's/abc/./g' filename.txt
+sed -i 's|/media/user/data|.|g' example.txt
 
 # another example:
 #cat BBK.html | grep -Po '(?<=(LEFTSTRING)).*(?=(RIGHTSTRING))' | sed 's/tausch_das/mit_dem/g' > Database.csv
