@@ -2,8 +2,9 @@
 
 On Unix-like operating systems, the scp command copies files over a secure, encrypted network connection.  
 scp stands for "secure copy." It is similar to the standard Unix command `cp` but it operates over a secure network connection.  
-You can also use `rsync`.  
-On Windows just use WinSCP or FileZilla  
+You can also use [**`rsync`**](https://github.com/Tornado3P9/Linux-Console-Tools/blob/master/Working_with_files_and_directory/rsync.md).  
+On Windows just use WinSCP or FileZilla.
+
 ```bash
 ssh
     -P  Specifies the remote host ssh port.
