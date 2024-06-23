@@ -1,3 +1,14 @@
-Super System- und Hardwareinformation in Bash Terminal!
+## Terminal tool for fetching system information and displaying them in a pretty way
 
-neofetch, same as screenfetch which is available for any OS!
+[screenFetch](https://github.com/KittyKatt/screenFetch) is a command-line system information tool.
+```bash
+sudo apt install screenfetch
+```
+
+[Neofetch](https://github.com/dylanaraps/neofetch) is a command-line system information tool written in bash 3.2+, but it is not being maintained anymore.
+```bash
+sudo apt install neofetch
+```
+
+[Fastfetch](https://github.com/fastfetch-cli/fastfetch) is faster than neofetch (it's written in c), it is more feature-rich and it's being actively maintained.  
+Either download a precompiled package from the github webpage or compile the source code yourself.

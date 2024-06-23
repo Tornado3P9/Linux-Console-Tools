@@ -1,6 +1,7 @@
 # Bash Terminal
 Tipp: Try [McFly - fly through your shell history](https://github.com/cantino/mcfly)  
 Tipp: [18 Commands That Will Change The Way You Use Linux Forever](https://youtu.be/AVXYq8aL47Q)  
+Tipp: https://github.com/ChrisTitusTech/mybash/blob/main/.bashrc
 
 Which Console Type are you using? Type `echo $SHELL` to find out.  
 
