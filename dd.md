@@ -23,6 +23,9 @@ dd if=/dev/zero of=/dev/sda
 # (redundant!) overwriting harddrive "/dev/sda" with random numbers ("/dev/urandom")
 dd if=/dev/urandom of=/dev/sda
 
+# Creating a large file for testing
+dd if=/dev/urandom of=testfile bs=1M count=100
+
 ## Creating Bootable Debian 10 USB Stick on Linux
 lsblk -p
 umount /dev/sdx1
