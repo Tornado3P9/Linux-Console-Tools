@@ -1,5 +1,6 @@
 ## Working directly with device files (dd)
 
+
 ```bash
 # backing up the MBR (the first sector of /dev/sda)
 dd if=/dev/sda of=~/mbr.dat bs=512 count=1
@@ -24,6 +25,8 @@ dd if=/dev/zero of=/dev/sda
 dd if=/dev/urandom of=/dev/sda
 
 # Creating a large file for testing
+# The bs stands for "block size." This tells dd how much data to read and write at a time.
+# count=100 tells dd how many blocks of the specified size to copy.
 dd if=/dev/urandom of=testfile bs=1M count=100
 
 ## Creating Bootable Debian 10 USB Stick on Linux
