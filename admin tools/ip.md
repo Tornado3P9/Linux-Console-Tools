@@ -193,20 +193,16 @@ ss -tul  # get listening TCP and UDP ports
 
 
 ## Bash Alias
-https://github.com/ChrisTitusTech/mybash/blob/main/.bashrc
 ```bash
 function whatsmyip () {
   # Internal IP Lookup.
-  if [ -e /sbin/ip ]; then
-    echo -n "Internal IP: "
-    /sbin/ip addr show wlan0 | grep "inet " | awk -F: '{print $1}' | awk '{print $2}'
-  else
-    echo -n "Internal IP: "
-    /sbin/ifconfig wlan0 | grep "inet " | awk -F: '{print $1} |' | awk '{print $2}'
-  fi
+  # /sbin/ifconfig wlan0 | grep "inet " | awk -F: '{print $1} |' | awk '{print $2}'
+  echo -n "Internal IP: "
+  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
 
   # External IP Lookup
   echo -n "External IP: "
   curl -s ifconfig.me
+  echo ""
 }
 ```
