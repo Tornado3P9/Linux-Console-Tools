@@ -21,7 +21,10 @@ cargo init
 
 most used commands
 ```bash
-cargo add linfa-trees  # add the crate 'linfa-trees' to the Cargo.toml file
+cargo add some-create  # add a crate to the Cargo.toml file
+
+cargo install cargo-generate  # add the developer tool to help you get up and running quickly with a new Rust project by leveraging a pre-existing git repository as a template
+cargo generate --git https://github.com/slint-ui/slint-rust-template --name my-project
 
 cargo fmt              # format code, just like the rustfmt command
 cargo clippy           # fix better style, correctness, complexity

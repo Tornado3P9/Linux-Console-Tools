@@ -45,8 +45,9 @@ ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "destination-ip-address"
 ### Creating a SSH-Configuration where you only use an alias and the configuration knows where to go and which of your keys to use
 ```bash
 nano ~/.ssh/config
-
-# and write the following lines:
+```
+and write the following lines:
+```bash
 Host target1
   Hostname 10.100.73.107
   User root
@@ -57,7 +58,15 @@ Host superserver
   Hostname super.server.cloud
   IdentityFile ~/.ssh/superserver_key
 
-# Save the file and then login to your server by only typing
+# my_github_account
+Host github.com-my_github_account github account
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Save the file and then login to your server by only typing
+```bash
 ssh target1
 ssh superserver
 ```
