@@ -189,9 +189,6 @@ ss -tl   # get listening TCP ports
 ss -tul  # get listening TCP and UDP ports
 ```
 
-
-
-
 ## Bash Alias
 ```bash
 function whatsmyip () {
