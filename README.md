@@ -31,7 +31,7 @@ man dpkg
    - https://devhints.io/bash
 
 5. Read other Github posts:
-- https://github.com/jlevy/the-art-of-command-line/blob/master/README.md
+   - https://github.com/jlevy/the-art-of-command-line/blob/master/README.md
 
 6. Watch Linux Tutorials:
    - [Linux Administration: The Complete Linux Bootcamp 2024](https://www.udemy.com/course/master-linux-administration/) from Andrei Dumitrescu

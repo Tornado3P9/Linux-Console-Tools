@@ -8,6 +8,7 @@
 [README: Insert graphics](https://github.com/minhhoangp/graphics/blob/master/README.md)  
 [GitHub the right way using the 'gh' utility](https://christitus.com/using-github-correctly/)  
 [Git Checkout - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches/git-checkout)  
+[So, you've committed a secret, what next? - Dreams of Code](https://youtu.be/G6Qbnitlwjk)  
 
 
 Print the current GitHub URL of a local GitHub folder:
