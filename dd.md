@@ -1,7 +1,11 @@
 ## Working directly with device files (dd)
 
-
 ```bash
+# Creating a large file of size 100GB for testing
+# The bs stands for "block size." This tells dd how much data to read and write at a time.
+# count=100 tells dd how many blocks of the specified size to copy.
+dd if=/dev/zero of=filename bs=1G count=100
+
 # backing up the MBR (the first sector of /dev/sda)
 dd if=/dev/sda of=~/mbr.dat bs=512 count=1
 
@@ -24,11 +28,6 @@ dd if=/dev/zero of=/dev/sda
 # (redundant!) overwriting harddrive "/dev/sda" with random numbers ("/dev/urandom")
 dd if=/dev/urandom of=/dev/sda
 
-# Creating a large file for testing
-# The bs stands for "block size." This tells dd how much data to read and write at a time.
-# count=100 tells dd how many blocks of the specified size to copy.
-dd if=/dev/urandom of=testfile bs=1M count=100
-
 ## Creating Bootable Debian 10 USB Stick on Linux
 lsblk -p
 umount /dev/sdx1
@@ -44,24 +43,6 @@ If device-specific caches are large, this will affect the progress reported e.g.
 If you do not use `oflag=direct`, then large amounts of writes can build up in the system page cache. This build-up will affect the progress you see.  
 But also, Linux sometimes responds badly to the build-up, and degrades performance for all devices.  
 
-Function for the dd command, so to not overwrite main hard drive by accident! Copy it into your `.bash_aliases` or `.bashrc` file.  
-Just type ddimage to see instructions!  
-```bash
-ddimage () {
-  # check if number of parameter equals 2 and only allow images and ISOs
-  # and only allow to write to drives which do not belong to the system!! (in this case /dev/sda and /dev/sdb, check with "lsblk -p")
-  if [[ $# -eq 2 && $1 =~ (\.img|\.iso)$ && ! $2 =~ (sda|sdb) ]]
-  then
-    printf "sudo dd if=$1 of=$2 bs=4M status=progress oflag=sync \n"
-    sudo dd if=$1 of=$2 bs=4M status=progress oflag=sync
-  else
-    echo ddimage [name_of_the_image] [path_to_the_usb_drive]
-    echo Example: ddimage debian.iso /dev/sdc
-    echo -e "\nDisplay Images:"; ls -1v *.iso *.img ; echo -e "\nDisplay drives:"; lsblk -pdn -o NAME
-  fi
-}
-```
-
 ### Bmaptool
 is a generic tool for creating the block map (bmap) for a file and copying files using the block map.  
 The idea is that large files, like raw system image files, can be copied or flashed a lot faster and more reliably with bmaptool than with traditional tools, like dd or cp.  
@@ -73,4 +54,3 @@ Examples:
 sudo apt install bmap-tools
 sudo bmaptool copy debian.img /dev/sdx
 ```
-
