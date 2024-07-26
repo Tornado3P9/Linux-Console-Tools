@@ -28,3 +28,8 @@ cat /proc/sys/kernel/hostname  # => host01
 #or
 cat /etc/hostname  # => host01
 ```
+
+Change your hostname with:
+```bash
+sudo nano /etc/hostname
+```
