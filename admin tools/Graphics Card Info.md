@@ -8,6 +8,8 @@ nvidia-smi | grep "Driver Version"
 For AMD/ATI cards:
 ```bash
 lshw -c video | grep 'configuration' | awk '{print $2}'
+amdconfig
+amdgpu
 ```
 
 For Intel integrated graphics, you can use:
@@ -22,6 +24,10 @@ lspci | grep NVIDIA
 lspci | grep Magewell
 
 lspci -nnk | grep -A3 "\[03..\]:"
+
+hwinfo --gfxcard
+
+ubuntu-drivers devices
 ```
 
 Make sure you have the necessary tools installed (**`nvidia-smi`** for NVIDIA, **`lshw`** for general hardware listing, and **`mesa-utils`** for **`glxinfo`**). If **`glxinfo`** is not installed, you can install it using:

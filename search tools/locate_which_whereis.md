@@ -24,7 +24,7 @@ locate -r 'regex'
 # checking that the file exists
 locate -e filename
 
-# showing command path
+# The which command in Linux is used to locate the executable file associated with a given command.
 which command
 which -a command
 which ls      # => /usr/bin/ls
