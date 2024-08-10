@@ -27,7 +27,7 @@ apt show ./program.deb
 apt show coreutils
 dpkg --info program.deb
 dpkg -s coreutils
-dpkg -L coreutils
+dpkg -L coreutils  # create a list of files installed by the coreutils package
 dpkg --contents program.deb  # -c, --contents
 ar tv program.deb (if possible just use a grafical UI, maybe 'Engrampa')
 
