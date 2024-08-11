@@ -45,7 +45,7 @@ Now optionally start a small camera video with mpv player and move it into the c
 mpv --no-border --ontop --geometry=20% /dev/video0
 ```
 
-## Now re-encode your raw video
+## Now cut and re-encode your raw recording using a video editor of your choice
 
 The video size is still very huge because the recording used the best possible quality.
 Now use an encoder like HandBrake to easily encode your raw recording to a specific use case, e.g. youtube web videos:
