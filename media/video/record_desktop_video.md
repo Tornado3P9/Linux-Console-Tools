@@ -1,3 +1,5 @@
+## .mp4
+
 To record the desktop video without audio using ffmpeg, you can use the x11grab input device, which allows you to capture the content of your X11 screen. Here's a basic command to record the desktop video:
 
 ```bash
@@ -14,14 +16,17 @@ Explanation of the options:
 - **`-i :0.0`**: Defines the input source, where :0.0 is the display and screen number of your X11 session (default for the first display and screen).
 - **`-vcodec libx264`**: Sets the video codec to libx264 for H.264 encoding.
 - **`-preset ultrafast`**: Uses the ultrafast preset for minimal compression to achieve a faster encoding speed, which is useful for capturing video in real-time.
-- **`-crf 18`**: This sets the Constant Rate Factor to 18, which is a good balance between quality and file size.
-- **`-pix_fmt yuv420p`**: This specifies the pixel format which is widely compatible with most services and devices.
-- **`-qp 0`**: Sets the quality of the output video. A value of 0 means lossless compression.
 - **`output.mp4`**: The name of the output file.
 
-Make sure you have the necessary permissions to capture the screen, and ffmpeg is installed on your system. Adjust the command according to your specific needs, such as setting the resolution or the frame rate.
+When using ffmpeg for video recording, the options **`-qp`** and **`-crf`** are related to video quality settings, but they work differently:
 
-To record the desktop video using ffmpeg and save it as an .ogv file, you can use the following command:
+- **`-qp 0`**: This option sets the Quantization Parameter to 0, which effectively means lossless compression for most codecs that support this parameter. When you set -qp 0, you're telling ffmpeg to encode the video with the highest possible quality, with no loss due to compression.
+- **`-crf 18`**: The Constant Rate Factor (CRF) is a quality-controlled variable bitrate setting. CRF values can range from 0 to 51, with lower values resulting in better quality and higher file sizes. A value of 18 is generally considered to be visually "near lossless", but not mathematically lossless. It's a good balance between quality and file size.
+- **`-pix_fmt yuv420p`**: This option specifies the pixel format to use. yuv420p is a widely compatible pixel format that uses chroma subsampling, making it a good choice for compatibility and reasonable file sizes. It's the standard format for many video services and devices.
+
+In summary, -qp 0 will give you lossless video, which is the highest quality and largest file size, while -crf 18 -pix_fmt yuv420p will give you a high-quality video that is not lossless but is more compressed, with a smaller file size and good compatibility.
+
+## .ogv
 
 ```bash
 ffmpeg -f x11grab -r 30 -i :0.0 -codec:v libtheora -qscale:v 7 output.ogv
