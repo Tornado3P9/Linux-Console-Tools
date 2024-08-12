@@ -78,3 +78,17 @@ unrar l file.rar   # show information about the RAR archive without extracting a
 # sudo apt install p7zip-full
 7z l file.zip   # list file content
 ```
+
+#### zgrep
+zgrep is a command-line utility in Linux that allows you to perform grep searches on compressed files without explicitly decompressing them first. It works similarly to the grep command, which is used to search text or search for a string in files. The zgrep command can handle files compressed with gzip, and it can be very useful when you want to search through large log files that have been compressed to save space.
+
+```bash
+zgrep 'search-pattern' /path/to/compressed-file.gz
+```
+
+#### zcat
+zcat is a command-line utility in Unix-like operating systems that displays the contents of compressed files. It is equivalent to running gunzip -c and is typically used to view the contents of files compressed with gzip without actually decompressing the file on disk. The zcat command reads the compressed file, decompresses it, and sends the output to standard output (usually the terminal), allowing you to view the contents or pipe it to other commands.
+
+```bash
+zcat file.gz
+```
