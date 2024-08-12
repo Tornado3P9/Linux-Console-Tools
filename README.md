@@ -30,6 +30,7 @@ If command unknown (apt, dpkg, ...)
    - https://ss64.com/bash/
    - https://ss64.com/bash/syntax.html
    - https://devhints.io/bash
+   - https://www.golinuxcloud.com/linux-commands-cheat-sheet/
 
 5. Read other Github posts:
    - https://github.com/jlevy/the-art-of-command-line/blob/master/README.md
