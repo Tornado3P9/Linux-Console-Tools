@@ -33,6 +33,7 @@ reboot
 
 ## Further Tutorials:
 
+https://absprog.com/post/qemu-kvm-ubuntu-24-04  
 https://www.christitus.com/vm-setup-in-linux  
 https://youtu.be/HOH6YgPkDrE  
 https://youtu.be/vyLNpPY-Je0  
