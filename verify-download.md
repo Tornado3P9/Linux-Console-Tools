@@ -61,4 +61,6 @@ gpg --verify $signature-filename $program-filename
 #Primary key fingerprint: 9376 16F3 450B 7D80 6CBD  9725 D581 6730 3B78 9C72
 ```
 
+## sign files and verify signatures with minisign
 
+https://jedisct1.github.io/minisign/
