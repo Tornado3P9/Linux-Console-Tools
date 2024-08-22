@@ -10,6 +10,7 @@ unzip file.zip
 unzip archive-name.zip -d /path/to/directory
 unzip -l compressed.zip  # List files within a specified archive (without extracting them)
 zip -sf compressed.zip   # List files within a specified archive (without extracting them)
+zipinfo compressed.zip   # List files within a specified archive (without extracting them)
 ```
 
 #### xz
