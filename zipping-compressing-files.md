@@ -93,3 +93,22 @@ zcat is a command-line utility in Unix-like operating systems that displays the 
 ```bash
 zcat file.gz
 ```
+
+#### bsdtar
+bsdtar is an archiving utility that is part of the **`libarchive-tools`** package. It is a modern replacement for the traditional tar command found on many Unix-like systems, including Linux and BSD variants. bsdtar provides a number of enhancements over traditional tar implementations.
+
+```bash
+# To install with:
+sudo apt install libarchive-tools
+
+# To create an archive:
+bsdtar -cf archive.tar directory/
+
+# To extract an archive:
+bsdtar -xf archive.tar
+
+# To view the contents of an archive without extracting:
+bsdtar -tf archive.tar
+```
+
+
