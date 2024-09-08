@@ -42,6 +42,7 @@ The end result is the same, but the performance along the way is different.
 If device-specific caches are large, this will affect the progress reported e.g. by the `status=progress` option.  
 If you do not use `oflag=direct`, then large amounts of writes can build up in the system page cache. This build-up will affect the progress you see.  
 But also, Linux sometimes responds badly to the build-up, and degrades performance for all devices.  
+Instead of `conv=fsync` you could also write `&& sync` at the end of the command.
 
 ### Bmaptool
 is a generic tool for creating the block map (bmap) for a file and copying files using the block map.  
