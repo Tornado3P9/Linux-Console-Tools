@@ -21,7 +21,7 @@ cargo init
 
 most used commands
 ```bash
-cargo add some-create  # add a crate to the Cargo.toml file
+cargo add some_crate  # add a crate to the Cargo.toml file
 
 cargo install cargo-generate  # add the developer tool to help you get up and running quickly with a new Rust project by leveraging a pre-existing git repository as a template
 cargo generate --git https://github.com/slint-ui/slint-rust-template --name my-project
@@ -38,6 +38,8 @@ cargo doc --no-deps --open  # create custom documentation without all the extern
 
 cargo build            # only compile binary, don't execute
 cargo build --release  # only compile binary, but try optimizing the final build
+
+strip target/release/my_program  # Discard symbols from executables or object files and thus reducing the final size.
 ```
 
 other commands
