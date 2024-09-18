@@ -47,6 +47,7 @@ other commands
 cargo update           # Update project dependencies
 cargo test             # Run tests
 cargo bench            # Run benchmarks
+cargo clean            # Deletes the target directory
 ```
 
 reinstall cargo if problem
