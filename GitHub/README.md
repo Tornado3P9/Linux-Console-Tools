@@ -118,12 +118,13 @@ If you don't need the `develop` branch anymore, or you just want to delete it an
 Delete the remote develop branch:
 ```bash
 git push -d origin develop
+# OR write it out to make you think more before deleting something:
+git push origin --delete develop
 ```
 Then delete the local branch:
 ```bash
 git branch -d develop
 ```
-The `-d` means delete.
 
 ### git-diff (show changes made)
 https://git-scm.com/docs/git-diff  
