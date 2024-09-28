@@ -97,6 +97,26 @@ The `-u` flag stands for `--set-upstream`. After the first time you only need to
 git push
 ```
 
+### Restoring the project directory to the last commit state
+
+```bash
+git restore .
+# OR:
+git restore --source=HEAD -- path/to/folder/
+```
+
+If you want to restore a specific file or files, you can specify them instead of the dot:  
+```bash
+git restore file1.txt file2.txt
+```
+
+Remember that git restore will discard local changes in the files you are restoring, so use it with caution. If you want to keep the changes, consider stashing them before restoring:  
+```bash
+git stash push --keep-index
+git restore .
+git stash pop
+```
+
 ### Merging develop to main
 Once your `develop` is ready to merge into `main` you can do it like so:  
 First switch to your local main branch:
