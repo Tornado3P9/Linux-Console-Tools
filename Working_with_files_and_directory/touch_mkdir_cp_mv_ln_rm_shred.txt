@@ -39,7 +39,12 @@
     # copy file1 and file2 from directory1 to directory2
     cp directory1/{file1,file2} directory2/
 
-     
+    # copy entire directory structures, producing a full copy of a directory and all its contents, including files and other directories (note that the copies aren't exactly the same as the originals)
+    cp -R docs backup-docs
+
+    # use -a (for "archive") instead of -R to also copy the modification time
+    cp -a docs backup-docs
+
     ######################
     ### The mv command ###
     ######################
