@@ -44,6 +44,10 @@ cat -n filename
 
 # concatenating 2 files
 cat filename1 filename2 > filename3
+
+cat -s  # will squeeze several blank lines together, making certain file formats easier to view in a terminal
+cat -b  # adds line numbers to the output, but only for non-blank lines. This can be useful when you're writing references to line numbers
+cat -sb # use together for even better output
 ```
 
 less
