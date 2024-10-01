@@ -2,6 +2,7 @@
 
 - [Yocto](#yocto)
 - [isar](#isar)
+- [Buildroot](#buildroot)
 - [Ubuntu Core](#ubuntu-core)
 
 ## Yocto
