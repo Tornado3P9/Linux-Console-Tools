@@ -1,12 +1,12 @@
 ## SSH
 
-https://www.redhat.com/sysadmin/manage-multiple-ssh-key-pairs  
-https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/  
-https://serverpilot.io/docs/how-to-enable-ssh-password-authentication/  
-https://youtu.be/pE3EuiyShoM  # How to use Multiple SSH Keys | Managing Different SSH Keys on your System - Linode  
-https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/  
-https://www.linode.com/docs/guides/ssh-key-authentication-how-to-troubleshoot-permission-issues/  
-
+- https://www.redhat.com/sysadmin/manage-multiple-ssh-key-pairs
+- https://www.tecmint.com/passwordless-ssh-login-for-multiple-remote-servers/
+- https://serverpilot.io/docs/how-to-enable-ssh-password-authentication/
+- [How to use Multiple SSH Keys | Managing Different SSH Keys on your System - Linode](https://youtu.be/pE3EuiyShoM)
+- https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/
+- https://www.linode.com/docs/guides/ssh-key-authentication-how-to-troubleshoot-permission-issues/
+- https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
 
 ### Installation
 https://ubuntu.com/server/docs/service-openssh  
