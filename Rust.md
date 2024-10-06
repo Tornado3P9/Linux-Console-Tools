@@ -46,7 +46,7 @@ other commands
 ```bash
 cargo update           # Update project dependencies
 cargo test             # Run tests
-cargo bench            # Run benchmarks
+cargo bench            # Run benchmarks, run `rustup default nightly` to use this feature and return to stable with `rustup default stable`
 cargo clean            # Deletes the target directory
 ```
 
