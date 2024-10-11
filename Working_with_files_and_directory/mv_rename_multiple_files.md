@@ -1,4 +1,4 @@
-# Renaming multiple files with the mv and the rename Command:
+# Renaming multiple files with the `mv` and the `rename` Command:
 
 https://www.howtogeek.com/423214/how-to-use-the-rename-command-on-linux/  
 https://linuxize.com/post/how-to-rename-files-in-linux/
