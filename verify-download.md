@@ -21,7 +21,7 @@ echo -n "Your-String-Here" | md5sum
 # (-n) do not output the trailing newline but actually stop the string right after the 'e'
 
 # From a checksums file with multiple checksums for different binaries...just check any and ignore errors and return just return the lines containing OK
-sha512sum --check SHA2-512SUMS 2>/dev/null | grep "OK"
+sha512sum --check SHA2-512SUMS.txt 2>/dev/null | grep "OK"
 ```
 
 

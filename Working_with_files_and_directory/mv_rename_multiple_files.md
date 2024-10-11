@@ -33,10 +33,14 @@ sudo apt install rename
 rename --version
 rename --help
 
-rename 's/chooseOldTextPartUsingRegex/changeTo/' *.m4a
+# Simple example:
+rename 's/oldtext/newtext/' *.m4a
 
 # Delete each '#' in all filenames by leaving the changeTo part empty:
 rename 's/#//' *.m4a
+
+# Remove the first 11 characters from a file name:
+rename 's/^.{11}//' *
 
 # You can use the -n option to print names of files to be renamed, without renaming them.
 rename -n 's/.html/.php/' \*.html
@@ -50,7 +54,7 @@ rename 'y/A-Z/a-z/' \*
 # Convert filenames to uppercase
 rename 'y/a-z/A-Z/' \*
 
-# Command to remove 'beginning - ' from the beginning of all file names in the current directory:
+# Remove 'beginning - ' from the beginning of all file names in the current directory:
 rename 's/^beginning - //' *
 
 # Alternative
