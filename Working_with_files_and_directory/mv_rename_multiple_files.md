@@ -39,9 +39,6 @@ rename 's/oldtext/newtext/' *.m4a
 # Delete each '#' in all filenames by leaving the changeTo part empty:
 rename 's/#//' *.m4a
 
-# Remove the first 11 characters from a file name:
-rename 's/^.{11}//' *
-
 # You can use the -n option to print names of files to be renamed, without renaming them.
 rename -n 's/.html/.php/' \*.html
 
@@ -57,6 +54,6 @@ rename 'y/a-z/A-Z/' \*
 # Remove 'beginning - ' from the beginning of all file names in the current directory:
 rename 's/^beginning - //' *
 
-# Alternative
-for filename in ./*; do mv "./$filename" "./$(echo "$filename" | sed -e 's/test.extra//g')";  done
+# Remove the first 11 characters from a file name:
+rename 's/^.{11}//' *
 ```
