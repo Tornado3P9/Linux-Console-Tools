@@ -18,12 +18,17 @@ for f in "beginning of a file name - "*; do
   mv -- "$f" "${f#beginning of a file name - }"
 done
 ```
-
-Let’s analyze the code line by line:
 - The first line creates a for loop and iterates through a list of all files edging with .html
 - The second line applies to each item of the list and moves the file to a new one replacing .html with .php
   The part `${file%.html}` is using the shell parameter expansion to remove the .html part from the filename
 - done indicates the end of the loop segment
+
+```bash
+# Adding a word at the beginning of a filename:
+for file in *.txt; do
+  mv "$file" "prefix_$file"
+done
+```
 
 
 ## Better Way:
@@ -56,4 +61,7 @@ rename 's/^beginning - //' *
 
 # Remove the first 11 characters from a file name:
 rename 's/^.{11}//' *
+
+# Adding a word at the beginning of a filename:
+rename 's/^/prefix_/' *.txt
 ```
