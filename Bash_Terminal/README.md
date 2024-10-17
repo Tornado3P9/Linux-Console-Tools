@@ -98,3 +98,10 @@ eval script
 eval . script
 ```
 and so on.
+
+### standard streams
+
+There are three standard streams: **standard input** (stdin), **standard output** (stdout), and **standard error** (stderr).
+They are represented by file descriptors **0**, **1**, and **2**, respectively.  
+*`/dev/null`* is a special file that discards all data written to it. It's often used to get rid of unwanted output.
+Therefore *`command 2>/dev/null`* will redirect any error messages that would normally be printed to the terminal to /dev/null, effectively silencing them.
