@@ -5,14 +5,30 @@ Tipp: https://github.com/ChrisTitusTech/mybash/blob/main/.bashrc
 
 Which Console Type are you using? Type `echo $SHELL` to find out.  
 
-Use the `Arrow Keys`, the `Page Up` and `Page Down` keys and the `Home` and `End` keys for maneuvering  
-Also try holding the `Strg` key while using the `Arrow Keys`.  
 
-`Strg+w` to delete a word and `Strg+u` to delete a whole line  
-`Strg+a` to jump the beginning of a line and `Strg+e` to jump to the end of a line. Just typing the `Home` and `End` keys will also do the job.
+Optionally start with:  
+```bash
+xfce4-terminal --hide-menubar --hide-toolbar --hide-scrollbar --maximize
+```
+
+Use the `Arrow Keys`, the `Page Up` and `Page Down` keys and the `Home` and `End` keys for maneuvering.  
+Also try holding the `Ctrl` key while using the `Arrow Keys`.  
+
+`Ctrl+w` to delete a word and `Ctrl+u` to delete a whole line,  
+`Ctrl+a` to jump the beginning of a line and `Ctrl+e` to jump to the end of a line.  
+Just typing the `Home` and `End` keys will also do the job.
+
+```
+Shift+Home         Jump to top
+Shift+End          Jump to bottom
+Shift+Page Up      Jump one page up
+Shift+Home         Jump one page down
+
+Ctrl+Shift+F       Find
+```
 
 ### [Sending a job to the background](https://superuser.com/questions/83220/how-to-bring-a-background-job-to-foreground)
-`Strg+z` or `bg` to send a running foreground job (maybe your text editor) to the background, `fg` to send it back to the foreground  
+`Ctrl+z` or `bg` to send a running foreground job (maybe your text editor) to the background, `fg` to send it back to the foreground  
 
 `jobs` to get a list of all the stopped jobs and background jobs  
 Example:
@@ -99,9 +115,9 @@ eval . script
 ```
 and so on.
 
-### standard streams
+### Standard streams
 
 There are three standard streams: **standard input** (stdin), **standard output** (stdout), and **standard error** (stderr).
 They are represented by file descriptors **0**, **1**, and **2**, respectively.  
-*`/dev/null`* is a special file that discards all data written to it. It's often used to get rid of unwanted output.
-Therefore *`command 2>/dev/null`* will redirect any error messages that would normally be printed to the terminal to /dev/null, effectively silencing them.
+**`/dev/null`** is a special file that discards all data written to it. It's often used to get rid of unwanted output.
+Therefore **`command 2>/dev/null`** will redirect any error messages that would normally be printed to the terminal to /dev/null, effectively silencing them.
