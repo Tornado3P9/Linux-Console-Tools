@@ -10,6 +10,22 @@ crontab -l
 # removing the current user’s crontab file 
 crontab -r
 
+#  * * * * * command_to_execute
+#  - - - - -
+#  | | | | |
+#  | | | | +---- Day of the week (0 - 7) (Sunday=0 or 7)
+#  | | | +------ Month (1 - 12)
+#  | | +-------- Day of the month (1 - 31)
+#  | +---------- Hour (0 - 23)
+#  +------------ Minute (0 - 59)
+#
+# Each field can have a specific value, a range of values (2-5), a list of values separated by commas (1,3,5), or an asterisk (*) which represents all possible values for that field.
+
+# 1 Open a terminal window.
+# 2 Type crontab -e to edit the cron jobs for your user.
+# 3 Add the following line to the crontab file to schedule a popup every 45 minutes:
+*/45 * * * * DISPLAY=:0 /usr/bin/notify-send "Reminder" "Your custom text message here"
+
 ## COMMON EXAMPLES ##
 # run every minute
 * * * * * /path_to_task_to_run.sh
