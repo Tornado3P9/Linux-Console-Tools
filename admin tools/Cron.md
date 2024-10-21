@@ -19,7 +19,9 @@ crontab -r
 #  | +---------- Hour (0 - 23)
 #  +------------ Minute (0 - 59)
 #
-# Each field can have a specific value, a range of values (2-5), a list of values separated by commas (1,3,5), or an asterisk (*) which represents all possible values for that field.
+# Each field can have a specific value, a range of values (2-5),  
+# a list of values separated by commas (1,3,5), or an asterisk (*)  
+# which represents all possible values for that field.
 
 # 1 Open a terminal window.
 # 2 Type crontab -e to edit the cron jobs for your user.
