@@ -11,6 +11,7 @@ cd                 # changing the current directory to user's home directory
 cd ~               # changing the current directory to user's home directory
 cd $HOME           # changing the current directory to user's home directory
 cd -               # flip between the previous two directories you navigated to
+                   # for that, cd looks up the variable $OLDPWD
 cd /path_to_dir    # changing the current directory to path_to_dir
 cd ~/Documents     # changing the current directory to ~/Documents
 cd $HOME/Documents # changing the current directory to ~/Documents

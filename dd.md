@@ -44,6 +44,15 @@ If you do not use `oflag=direct`, then large amounts of writes can build up in t
 But also, Linux sometimes responds badly to the build-up, and degrades performance for all devices.  
 Instead of `conv=fsync` you could also write `&& sync` at the end of the command.
 
+Creating a file with random data for testing can be done in many ways. Here is another:  
+```bash
+base64 /dev/urandom | head -c 1000000 > random_text_file.txt
+```  
+- **base64 /dev/urandom**: Generates a stream of random data encoded in base64.
+- **head -c 1000000**: Truncates the stream to the first 1,000,000 characters (which is roughly 1MB).
+- **> random_text_file.txt**: Redirects the output to a file named random_text_file.txt.
+
+
 ### Bmaptool
 is a generic tool for creating the block map (bmap) for a file and copying files using the block map.  
 The idea is that large files, like raw system image files, can be copied or flashed a lot faster and more reliably with bmaptool than with traditional tools, like dd or cp.  
