@@ -19,14 +19,26 @@ notify-send "Title" "Message body"
 # Show a notification with a custom icon:
 notify-send -i icon.png "Test" "This is a test"
 
-# Show a notification for 5 seconds:
+# You can also specify the duration of the notification (in milliseconds):
 notify-send -t 5000 "Test" "This is a test"
 
-# Show a notification with an app's icon and name:
-notify-send "Test" --icon=google-chrome --app-name="Google Chrome"
+# Common icon names you can try with notify-send include:
+notify-send -i dialog-information "Title" "Message"
+notify-send -i dialog-warning "Title" "Message"
+notify-send -i dialog-error "Title" "Message"
+notify-send -i dialog-question "Title" "Message"
+notify-send -i emblem-important "Title" "Message"
+notify-send -i face-smile "Title" "Message"
+notify-send -i user-available "Title" "Message"
+notify-send -i face-glasses "Title" "Message"
+notify-send -i multimedia-player "Title" "Message"
+notify-send -i web-browser "Title" "Message"
 
-# You can also specify the duration of the notification (in milliseconds) and an icon:
-notify-send -t 5000 -i icon-name "Title" "Message body"
+# Furthermore you should be able to use the icons of all of your installed apps:
+notify-send -i blender "Title" "Message"
+notify-send -i steam "Title" "Message"
+notify-send -i obsidian "Title" "Message"
+notify-send -i google-chrome "Title" "Message"
 ```
 
 ## zenity
