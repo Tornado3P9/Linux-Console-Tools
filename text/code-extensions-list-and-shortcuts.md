@@ -10,6 +10,7 @@ code --list-extensions
 #!/bin/bash
 
 extensions=(
+  fill-labs.dependi
   hashicorp.terraform
   mechatroner.rainbow-csv
   ms-python.debugpy
