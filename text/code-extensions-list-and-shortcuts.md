@@ -17,6 +17,7 @@ extensions=(
   ms-python.python
   ms-python.vscode-pylance
   ms-vscode.makefile-tools
+  postman.postman-for-vscode
   reditorsupport.r
   rust-lang.rust-analyzer
   slint.slint
