@@ -47,7 +47,8 @@ other commands
 cargo update           # Update project dependencies
 cargo test             # Run tests
 cargo bench            # Run benchmarks, run `rustup default nightly` to use this feature and return to stable with `rustup default stable`
-cargo clean            # Deletes the target directory
+cargo clean            # Deletes the target directory. Somethimes using clean does resolve some issues.
+cargo build --verbose  # If there are issues, the --verbose option might give helpful information.
 ```
 
 reinstall cargo if problem
