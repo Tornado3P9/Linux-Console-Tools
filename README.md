@@ -2,7 +2,7 @@
 
 This is a reupload of an earlier directory to my primary GitHub account.  
 I have excluded the Macromedia Flash 8 content from 2011, which, while enjoyable, is not relevant to this Linux directory.  
-I do not plan to organize or update many of these notes or scripts, as this is a personal collection intended for my own use. However, I have no objections if others choose to view it.  
+I do not plan to organize or update many of these notes or scripts, as this is a personal collection intended for my own use. However, others might find it useful nevertheless, so feel free to look around.
 
 - https://explainshell.com/
 - https://ss64.com/bash/
