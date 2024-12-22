@@ -84,3 +84,25 @@ alias iptlistin='sudo iptables -L INPUT -n -v --line-numbers'   #this will displ
 alias iptlistout='sudo iptables -L OUTPUT -n -v --line-numbers' #this will display all your OUTGOING rules in iptables
 ```
 
+## Firewall Configuration Example
+
+```bash
+apt install -y ufw fail2ban
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow from 10.0.0.0/8 to any port 22 proto tcp
+ufw allow from 172.16.0.0/12 to any port 22 proto tcp
+ufw allow from 192.168.0.0/16 to any port 22 proto tcp
+ufw allow from 169.254.0.0/16 to any port 22 proto tcp
+ufw allow from fc00::/7 to any port 22 proto tcp
+ufw allow from fe80::/10 to any port 22 proto tcp
+ufw allow from ff00::/8 to any port 22 proto tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+yes | ufw enable
+```
+This **`yes`** command outputs a continuous stream of "y" characters followed by a newline. It's often used to automatically answer "yes" to prompts in scripts or commands.
+When you run **`ufw enable`**, it typically asks for confirmation. By using **`yes |`**, you automatically confirm the prompt, allowing the command to proceed without manual intervention.
+
+Note: Changing the default SSH port from 22 to another port like 2222 was a common practice to reduce the risk of automated attacks and port scanning.
+However, today this is considered obsolete because it is security through obscurity which doesn't provide substantial protection against attackers.
