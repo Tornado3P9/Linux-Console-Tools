@@ -191,9 +191,9 @@ ss -tul  # get listening TCP and UDP ports
 
 ## Bash Alias
 ```bash
+alias whatismyip="whatsmyip"
 function whatsmyip () {
   # Internal IP Lookup.
-  # /sbin/ifconfig wlan0 | grep "inet " | awk -F: '{print $1} |' | awk '{print $2}'
   echo -n "Internal IP: "
   ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
 
@@ -201,5 +201,53 @@ function whatsmyip () {
   echo -n "External IP: "
   curl -s ifconfig.me
   echo ""
+}
+
+function ipconfig() {
+  # Get all the network interfaces
+  interfaces=$(ip -o link show | awk -F': ' '{print $2}')
+
+  # Loop through each interface and display relevant information
+  for iface in $interfaces; do
+    echo "==================================================="
+    echo "Ethernet adapter $iface:"
+    echo ""
+
+    # Check if the interface is up
+    ip link show $iface | grep -q "state UP" && status="Up" || status="Down"
+    echo "   Status . . . . . . . . . . . : $status"
+
+    # Get the IPv4 address, mask and gateway for the interface
+    ip_info=$(ip -o -f inet addr show $iface | awk '{print $4, $6}')
+    IFS=' ' read -r ip_address broadcast <<< "$ip_info"
+
+    # subnet_mask=""
+    # if [[ $status == "Up" ]]; then
+    #   local cidr=${ip_address#*/}
+    #   local mask=$((0xffffffff << (32 - cidr)))
+    #   subnet_mask="$(( (mask >> 24) & 0xff )).$(( (mask >> 16) & 0xff )).$(( (mask >> 8) & 0xff )).$(( mask & 0xff ))"
+    # fi
+
+    echo "   IPv4 Address . . . . . . . . : $ip_address"
+    # echo "   Subnet Mask. . . . . . . . . : $subnet_mask"
+    echo "   Broadcast Address. . . . . . : $broadcast"
+
+    # Get the IPv6 address and prefix
+    ipv6_info=$(ip -o -f inet6 addr show $iface | awk '{print $4}')
+    IFS='/' read -r ipv6_address ipv6_prefix <<< "$ipv6_info"
+
+    echo "   IPv6 Address . . . . . . . . : $ipv6_address"
+    echo "   IPv6 Prefix Length . . . . . : $ipv6_prefix"
+
+    # Get the default gateway for IPv4
+    gateway=$(ip route show default 0.0.0.0/0 dev $iface | awk '/default/ {print $3}')
+    echo "   Default Gateway (IPv4) . . . : $gateway"
+
+    # Get the default gateway for IPv6
+    ipv6_gateway=$(ip -6 route show default dev $iface | awk '/default/ {print $3}')
+    echo "   Default Gateway (IPv6) . . . : $ipv6_gateway"
+    echo ""
+  done
+  echo "==================================================="
 }
 ```
