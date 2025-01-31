@@ -62,6 +62,9 @@ rename 's/^beginning - //' *
 # Remove the first 11 characters from a file name:
 rename 's/^.{11}//' *
 
+# Replace the original filename with the first 20 characters and the original extension using Perl expression:
+rename 's/^(.{20}).*(\..+)$/$1$2/' *
+
 # Adding a word at the beginning of a filename:
 rename 's/^/prefix_/' *.txt
 ```
