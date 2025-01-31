@@ -191,17 +191,17 @@ ss -tul  # get listening TCP and UDP ports
 
 ## Bash Alias
 ```bash
-alias whatismyip="whatsmyip"
-function whatsmyip () {
-  # Internal IP Lookup.
-  echo -n "Internal IP: "
-  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+# alias whatismyip="whatsmyip"
+# function whatsmyip () {
+#   # Internal IP Lookup.
+#   echo -n "Internal IP: "
+#   ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
 
-  # External IP Lookup
-  echo -n "External IP: "
-  curl -s ifconfig.me
-  echo ""
-}
+#   # External IP Lookup
+#   echo -n "External IP: "
+#   curl -s ifconfig.me
+#   echo ""
+# }
 
 function ipconfig() {
   # Get all the network interfaces
