@@ -30,3 +30,6 @@ pip list --format=freeze > requirements.txt
 # install packages from list:
 pip install -r requirements.txt
 ```
+
+# show requirements for the a pip package (e.g. krpc)
+pip show krpc
