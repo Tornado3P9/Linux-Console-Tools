@@ -33,6 +33,7 @@ Show commit logs:
 git log
 # outputs reduced to a single line - helps with huge numbers of logs
 git log --oneline
+git log --pretty=oneline
 ```
 
 Rename the current branch:
