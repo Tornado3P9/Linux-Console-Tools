@@ -46,16 +46,28 @@ Run a command (in this case the python console) in the project's environment:
 uv run python
 ```
 
-Update a project's environment from **`pyproject.toml`**:
-
+Typical help:
 ```bash
-uv sync
+uv --help
+uv help
+
+# To view the long help menu for a specific command, e.g., for uv init:
+uv help init
 ```
 
-Create a lock file for the project's dependencies:
+## Python environments
 
+[https://docs.astral.sh/uv/pip/environments/](https://docs.astral.sh/uv/pip/environments/)
+
+Create a virtual environment
 ```bash
-uv lock
+uv venv
+# uv venv my-name
+```
+
+Create a virtual environment at **`.venv`** with Python 3.11
+```bash
+uv venv --python 3.11
 ```
 
 List installed packages:
@@ -68,11 +80,20 @@ List installed packages and their versions:
 uv pip freeze
 ```
 
-Typical help:
+Install from a **`requirements.txt`** file:
 ```bash
-uv --help
-uv help
+uv add -r requirements.txt
+# uv pip install -r requirements.txt
+```
 
-# To view the long help menu for a specific command, e.g., for uv init:
-uv help init
+Update a project's environment from **`pyproject.toml`**:
+
+```bash
+uv sync
+```
+
+Create a lock file for the project's dependencies:
+
+```bash
+uv lock
 ```
