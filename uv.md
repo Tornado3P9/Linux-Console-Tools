@@ -65,7 +65,7 @@ uv venv
 # uv venv my-name
 ```
 
-Create a virtual environment at **`.venv`** with Python 3.11
+Create a virtual environment at **.venv** with **Python 3.11**
 ```bash
 uv venv --python 3.11
 ```
