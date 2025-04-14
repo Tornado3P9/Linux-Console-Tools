@@ -40,6 +40,15 @@ apt-cache policy obs-studio
 ```
 https://www.linuxfordevices.com/tutorials/ubuntu/apt-command-to-search-for-a-package
 
+```bash
+# Using the ldd command will list all the shared libraries that the program depends on. Note that ldd works for dynamically linked executables:
+ldd /path/to/your/program
+
+# For packages installed via a package manager like apt, you can use:
+apt-cache depends <package-name>
+```
+
+
 Update (get the info) + Upgrade (make the changes)
 ```bash
 sudo apt update
@@ -83,6 +92,18 @@ sudo apt install package_name --fix-missing
 # The option re-installs packages that are already installed and at the newest version.
 sudo apt-get --reinstall install Package1 Package2
 ```
+
+
+Download
+```bash
+# Download a program and all it's dependencies
+apt-get download program_name
+apt-get download $(apt-cache depends program_name | grep -E 'Depends|Recommends' | awk '{print $2}')
+
+# Optionally extract all to the same directory (.)
+for pkg in *.deb; do dpkg-deb -x "$pkg" .; done
+```
+
 
 Delete
 ```bash
