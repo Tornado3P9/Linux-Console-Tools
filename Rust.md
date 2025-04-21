@@ -70,6 +70,8 @@ cargo modules generate tree --with-types
 
 cross-compile to other operating systems
 ```bash
+sudo apt-get install podman
+
 cargo install cross
 
 rustup target add x86_64-pc-windows-gnu
