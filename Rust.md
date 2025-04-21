@@ -6,6 +6,8 @@ https://doc.rust-lang.org/book/
 https://learning-rust.github.io/docs/cargo-crates-and-basic-project-structure/  
 https://play.rust-lang.org/  
 https://crates.io/  
+https://blog.logrocket.com/guide-cross-compilation-rust/  
+https://github.com/cross-rs/cross  
 
 start new project
 ```bash
@@ -66,3 +68,13 @@ cargo install cargo-modules
 cargo modules generate tree --with-types
 ```
 
+cross-compile to other operating systems
+```bash
+cargo install cross
+
+rustup target add x86_64-pc-windows-gnu
+rustup target add x86_64-apple-darwin
+
+cross build --release --target x86_64-pc-windows-gnu
+cross build --release --target x86_64-apple-darwin
+```
