@@ -8,6 +8,7 @@ https://play.rust-lang.org/
 https://crates.io/  
 https://blog.logrocket.com/guide-cross-compilation-rust/  
 https://github.com/cross-rs/cross  
+https://github.com/guedou/cargo-strip  
 
 start new project
 ```bash
@@ -41,7 +42,13 @@ cargo doc --no-deps --open  # create custom documentation without all the extern
 cargo build            # only compile binary, don't execute
 cargo build --release  # only compile binary, but try optimizing the final build
 
-strip target/release/my_program  # Discard symbols from executables or object files and thus reducing the final size.
+strip target/release/my_program  # Discard symbols from executables or object files and thus reducing the final size (strip is part of the binutils package and not rust binary specific)
+```
+
+reduce rust binary file size: https://github.com/guedou/cargo-strip
+```bash
+cargo install --force cargo-strip
+cargo strip
 ```
 
 other commands
