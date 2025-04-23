@@ -80,3 +80,12 @@ rustup target add x86_64-apple-darwin
 cross build --release --target x86_64-pc-windows-gnu
 cross build --release --target x86_64-apple-darwin
 ```
+
+strip cross compiled windows binary
+```bash
+# 1. Install the MinGW toolchain:
+sudo apt-get install mingw-w64
+
+# 2. Use the x86_64-w64-mingw32-strip tool to strip the executable:
+x86_64-w64-mingw32-strip target/x86_64-pc-windows-gnu/release/program.exe
+```
