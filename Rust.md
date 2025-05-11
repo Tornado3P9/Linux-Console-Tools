@@ -34,6 +34,7 @@ cargo clippy           # fix better style, correctness, complexity
 
 cargo check            # verify source code and simulate compilation, but don't create final binary
 cargo run              # compile and execute
+cargo run --quiet      # compile and execute without compilation messages or other informational output from Cargo
 
 rustup doc             # open official documentation
 cargo doc --open       # create custom documentation from your dependencies
@@ -82,10 +83,8 @@ sudo apt-get install podman
 cargo install cross
 
 rustup target add x86_64-pc-windows-gnu
-rustup target add x86_64-apple-darwin
 
 cross build --release --target x86_64-pc-windows-gnu
-cross build --release --target x86_64-apple-darwin
 ```
 
 strip cross compiled windows binary
