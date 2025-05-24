@@ -10,6 +10,7 @@ However, others might find it useful nevertheless, so feel free to look around. 
 - https://ss64.com/bash/
 - https://ss64.com/bash/syntax.html
 - https://devhints.io/bash
+- https://github.com/dylanaraps/pure-bash-bible
 - https://www.golinuxcloud.com/linux-commands-cheat-sheet/
 - https://github.com/jlevy/the-art-of-command-line/blob/master/README.md
 - [Linux Administration: The Complete Linux Bootcamp 2024 from Andrei Dumitrescu](https://www.udemy.com/course/master-linux-administration/)
