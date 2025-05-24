@@ -43,6 +43,8 @@ mediainfo filename
 ######################
 ### The cp command ###
 ######################
+# https://github.com/jarun/advcpmv
+
 # copying file1 to file2 in the current directory
 cp file1 file2
 
