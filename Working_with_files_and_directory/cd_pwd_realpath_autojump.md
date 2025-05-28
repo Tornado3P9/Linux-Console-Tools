@@ -17,6 +17,8 @@ cd ~/Documents     # changing the current directory to ~/Documents
 cd $HOME/Documents # changing the current directory to ~/Documents
 
 pwd                # printing the current working directory file path
+realpath filename  # printing the complete file path of a file
+readlink -f filename
 echo $HOME         # printing the home directory file path
 echo ~             # printing the home directory file path
 
