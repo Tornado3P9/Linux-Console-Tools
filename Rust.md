@@ -24,7 +24,8 @@ cargo init
 
 most used commands
 ```bash
-cargo add some_crate  # add a crate to the Cargo.toml file
+cargo add dependency  # add a crate to the Cargo.toml file: https://doc.rust-lang.org/cargo/commands/cargo-add.html
+cargo add tokio -F|--features full  # tokio = { version = "1.45.1", features = ["full"] }
 
 cargo install cargo-generate  # add the developer tool to help you get up and running quickly with a new Rust project by leveraging a pre-existing git repository as a template
 cargo generate --git https://github.com/slint-ui/slint-rust-template --name my-project
