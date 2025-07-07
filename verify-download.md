@@ -22,6 +22,7 @@ echo -n "Your-String-Here" | md5sum
 
 # From a checksums file with multiple checksums for different binaries...just check any and ignore errors and return just return the lines containing OK
 sha512sum --check SHA2-512SUMS.txt 2>/dev/null | grep "OK"
+sha512sum --ignore-missing --check SHA2-512SUMS
 ```
 
 
