@@ -118,6 +118,9 @@ PasswordAuthentication yes
 
 # After making that change, restart the SSH service by running the following command as root:
 sudo service ssh restart
+
+# Show the configuration settings that sshd will use, including both default settings and those specified in the configuration files (like /etc/ssh/sshd_config):
+sudo sshd -T
 ```
 
 Enable Logging In as root (optional and probably not advisable)  
