@@ -40,6 +40,9 @@ sudo systemctl reload sshd
 
 # To remove an old/unused ssh-keygen:
 ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "destination-ip-address"
+
+# To locally verify key/password:
+ssh-keygen -y -f ~/.ssh/keyfile
 ```
 
 ### Creating a SSH-Configuration where you only use an alias and the configuration knows where to go and which of your keys to use
