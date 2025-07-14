@@ -16,10 +16,10 @@ dd if=~/mbr.dat of=/dev/sda bs=512 count=1
 dd if=/dev/sda1 of=/dev/sdb2 bs=4M status=progress
 
 # copying the contents of the SD card to our file system
-dd if=/dev/sdc of=~/MyImage.img bs=32M
+dd if=/dev/sdc of=~/MyImage.img bs=32M status=progress
 
 # flashing the new image back to the SD card
-dd if=/path/to/image.img of=/dev/sdc bs=32M conv=fsync
+dd if=/path/to/image.img of=/dev/sdc bs=32M conv=fsync status=progress
 # With bs=32M, you specify that the SD card is written in 32-megabyte blocks, conv=fsync forces the process to physically write each block.
 
 # overwriting harddrive "/dev/sda" with zeros ("/dev/zero")
