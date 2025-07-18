@@ -66,3 +66,9 @@ ls -l | sed -n 2,4p
 ls -l | sed -n -e 2,4p -e 20,30p
 ls -l | sed -n -e '2,4p;20,30p'
 ```
+
+## eza
+
+**`eza`** is a modern replacement for **`ls`**.
+
+https://eza.rocks/
