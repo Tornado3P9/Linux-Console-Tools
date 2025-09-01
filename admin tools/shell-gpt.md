@@ -65,12 +65,16 @@ Bash Alias for automatically starting sgpt with the correct virtualenv:
 ```bash
 # Usage: gpt "what are the six quarks?"
 function gpt() {
-  if [[ "$VIRTUAL_ENV" == "$HOME/virtualenvs/venv" ]]; then
-    sgpt "$1"
-  else
+  if [[ "$VIRTUAL_ENV" != "$HOME/virtualenvs/venv" ]]; then
     deactivate &> /dev/null;
     source $HOME/virtualenvs/venv/bin/activate;
-    sgpt "$1"
+  fi
+
+  if [[ $1 == "--code" ]]; then
+    shift
+    sgpt --no-md --code "$1"
+  else
+    sgpt --no-md "$1"
   fi
 }
 ```

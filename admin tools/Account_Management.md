@@ -12,7 +12,7 @@ https://manned.org/groupadd
 ```bash
 ## IMPORTANT FILES
 /etc/passwd       # => users and info: username:x:uid:gid:comment:home_directory:login_shell
-/etc/shadow       # => users' passwords
+/etc/shadow       # => users' passwords (for information: man shadow)
 /etc/group        # => groups
 /etc/pam.d/passwd # => PAM configuration for passwd
 
