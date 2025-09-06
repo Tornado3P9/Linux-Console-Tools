@@ -3,6 +3,7 @@
 Print and concatenate files.  
 A cat clone with syntax highlighting and Git integration.  
 More information: https://github.com/sharkdp/bat.  
+https://github.com/eth-p/bat-extras  
 
 Pretty print the contents of one or more files to stdout:
 
