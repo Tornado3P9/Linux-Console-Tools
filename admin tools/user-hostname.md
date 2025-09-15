@@ -32,4 +32,6 @@ cat /etc/hostname  # => host01
 Change your hostname with:
 ```bash
 sudo nano /etc/hostname
+# or
+sudo hostnamectl set-hostname "hostname"  # danach nochmal laden oder "bash" eintippen oder so
 ```
