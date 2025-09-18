@@ -191,63 +191,66 @@ ss -tul  # get listening TCP and UDP ports
 
 ## Bash Alias
 ```bash
-# alias whatismyip="whatsmyip"
-# function whatsmyip () {
-#   # Internal IP Lookup.
-#   echo -n "Internal IP: "
-#   ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+alias whatismyip="whatsmyip"
+function whatsmyip ()
+{
+  # Internal IP Lookup.
+  echo -n "Internal IP: "
+  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
 
-#   # External IP Lookup
-#   echo -n "External IP: "
-#   curl -s ifconfig.me
-#   echo ""
-# }
+  # External IP Lookup (ident.me, ifconfig.me)
+  echo -n "External IP: "
+  curl -s ident.me
+  echo ""
+}
 
 function ipconfig() {
-  # Get all the network interfaces
-  interfaces=$(ip -o link show | awk -F': ' '{print $2}')
-
-  # Loop through each interface and display relevant information
-  for iface in $interfaces; do
+ip -o -f inet addr show | while read -r line; do
+    # Extract interface name, IP address, and CIDR
+    iface=$(echo "$line" | awk '{print $2}')
+    ip_cidr=$(echo "$line" | awk '{print $4}')
+    
+    # Split IP and CIDR
+    ip=$(echo "$ip_cidr" | cut -d'/' -f1)
+    prefix_length=$(echo "$ip_cidr" | cut -d'/' -f2)
+    
+    # Calculate subnet mask from prefix_length
+    subnet_mask=$(awk -v prefix_length="$prefix_length" 'BEGIN {
+      for (i=0; i<4; i++) {
+          n = (prefix_length >= 8) ? 255 : (256 - 2^(8-prefix_length%8));
+          prefix_length -= 8;
+          printf "%s%s", n, (i<3 ? "." : "\n");
+      }
+    }')
+    
+    # Determine interface status
+    ip link show $iface | grep --color=auto -q "state UP" && status="Up" || status="Down"
+    
+    # Get broadcast address
+    broadcast=$(ip -o -f inet addr show $iface | awk '{print $6}')
+    
+    # Get IPv6 information
+    ipv6_info=$(ip -o -f inet6 addr show $iface | awk '{print $4}')
+    IFS='/' read -r ipv6_address ipv6_prefix <<< "$ipv6_info"
+    
+    # Get gateways
+    gateway=$(ip route show default 0.0.0.0/0 dev $iface | awk '/default/ {print $3}')
+    ipv6_gateway=$(ip -6 route show default dev $iface | awk '/default/ {print $3}')
+    
+    # Print in a format similar to ipconfig from windows
     echo "==================================================="
     echo "Ethernet adapter $iface:"
     echo ""
-
-    # Check if the interface is up
-    ip link show $iface | grep -q "state UP" && status="Up" || status="Down"
     echo "   Status . . . . . . . . . . . : $status"
-
-    # Get the IPv4 address, mask and gateway for the interface
-    ip_info=$(ip -o -f inet addr show $iface | awk '{print $4, $6}')
-    IFS=' ' read -r ip_address broadcast <<< "$ip_info"
-
-    # subnet_mask=""
-    # if [[ $status == "Up" ]]; then
-    #   local cidr=${ip_address#*/}
-    #   local mask=$((0xffffffff << (32 - cidr)))
-    #   subnet_mask="$(( (mask >> 24) & 0xff )).$(( (mask >> 16) & 0xff )).$(( (mask >> 8) & 0xff )).$(( mask & 0xff ))"
-    # fi
-
-    echo "   IPv4 Address . . . . . . . . : $ip_address"
-    # echo "   Subnet Mask. . . . . . . . . : $subnet_mask"
+    echo "   IPv4 Address . . . . . . . . : $ip/$prefix_length"
+    echo "   Subnet Mask. . . . . . . . . : $subnet_mask"
     echo "   Broadcast Address. . . . . . : $broadcast"
-
-    # Get the IPv6 address and prefix
-    ipv6_info=$(ip -o -f inet6 addr show $iface | awk '{print $4}')
-    IFS='/' read -r ipv6_address ipv6_prefix <<< "$ipv6_info"
-
     echo "   IPv6 Address . . . . . . . . : $ipv6_address"
     echo "   IPv6 Prefix Length . . . . . : $ipv6_prefix"
-
-    # Get the default gateway for IPv4
-    gateway=$(ip route show default 0.0.0.0/0 dev $iface | awk '/default/ {print $3}')
     echo "   Default Gateway (IPv4) . . . : $gateway"
-
-    # Get the default gateway for IPv6
-    ipv6_gateway=$(ip -6 route show default dev $iface | awk '/default/ {print $3}')
     echo "   Default Gateway (IPv6) . . . : $ipv6_gateway"
     echo ""
-  done
-  echo "==================================================="
+done
+echo "==================================================="
 }
 ```
