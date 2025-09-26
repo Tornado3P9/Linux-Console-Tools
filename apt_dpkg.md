@@ -16,6 +16,7 @@ dpkg --get-selections
 dpkg --list
 dpkg --list | grep package_name
 dpkg --list | grep apache
+dpkg -p package_name
 
 # Count the number of installed packages
 apt list --installed | wc -l
@@ -32,7 +33,7 @@ dpkg --contents program.deb  # -c, --contents
 ar tv program.deb (if possible just use a grafical UI, maybe 'Engrampa')
 
 # https://itsfoss.com/apt-cache-command/
-# apt-cache
+# The apt-cache command is used to interact with the package cache on your system. It doesn't create or modify the cache but allows you to query it. 
 apt-cache search --names-only package_name
 
 # show detailed information on this package
@@ -113,7 +114,7 @@ sudo dpkg -r <application_name>
     
 # delete completely (also delete the repository from the 'apt update' list)
 sudo apt-get purge <package-name>
-sudo dpkg -p <package-name>
+sudo dpkg -P <package-name>
     
 # remove any unused packages
 sudo apt autoremove
@@ -140,3 +141,18 @@ apt-mark showhold
 sudo apt-mark unhold snapd
 ```
 
+
+Problems?
+```bash
+# Clear the Cache
+sudo apt-get clean
+
+# Update Package Lists
+sudo apt-get update
+
+# Fix Broken Dependencies
+sudo apt-get install -f
+
+# Remove Unused Packages
+sudo apt-get autoremove
+```
