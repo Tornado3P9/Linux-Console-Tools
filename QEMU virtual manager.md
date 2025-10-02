@@ -1,5 +1,10 @@
 # QEMU virtual manager
 
+display which environment i am currently on:
+```bash
+systemd-detect-virt
+```
+
 Installation of KVM:
 ```bash
 # Check whether you've enabled virtualization on your computer. It should be above 0
