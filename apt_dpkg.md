@@ -35,19 +35,18 @@ ar tv program.deb (if possible just use a grafical UI, maybe 'Engrampa')
 # https://itsfoss.com/apt-cache-command/
 # The apt-cache command is used to interact with the package cache on your system. It doesn't create or modify the cache but allows you to query it. 
 apt-cache search --names-only package_name
+apt-cache depends package_name
+
+# The `apt-file` command will return all the packages where the package name or any file name stored in it matches the specified search keyword.
+# If you get an error while using this utility, you can run apt install apt-file and then do an apt-file update before beginning your search.
+apt-file search [keyword]
 
 # shows detailed information on this package and the available versions from the repositories. It also shows the priority of each version, which determines which version will be installed or upgraded.
 apt-cache policy obs-studio
 apt policy obs-studio
-```
-https://www.linuxfordevices.com/tutorials/ubuntu/apt-command-to-search-for-a-package
 
-```bash
 # Using the ldd command will list all the shared libraries that the program depends on. Note that ldd works for dynamically linked executables:
 ldd /path/to/your/program
-
-# For packages installed via a package manager like apt, you can use:
-apt-cache depends <package-name>
 ```
 
 Verify
