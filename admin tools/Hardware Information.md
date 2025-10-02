@@ -17,6 +17,9 @@ lscpu
 lshw -C cpu
 lscpu -J    => json format
 
+# find the actually available cores for a program on the system
+nproc --all
+
 # test cpu performance
 sysbench cpu --cpu-max-prime=20000 --threads=4 --time=0 --events=10000 run
 ```
@@ -56,6 +59,9 @@ free -h                 # => human readable
 vmstat -s | grep memory
 sysctl vm.swappiness    # => show value of how much the system should try to use swap (which is very slow and therefore should not be used very often)
                              the lower the swappiness, the less likely swap is going to be used
+
+# displaying info about swap (restart/clear swap: `swapoff;swapon`)
+swapon --show
 ```
 
 getting info about pci buses and about the devices connected to them

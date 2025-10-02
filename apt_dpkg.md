@@ -36,8 +36,9 @@ ar tv program.deb (if possible just use a grafical UI, maybe 'Engrampa')
 # The apt-cache command is used to interact with the package cache on your system. It doesn't create or modify the cache but allows you to query it. 
 apt-cache search --names-only package_name
 
-# show detailed information on this package
+# shows detailed information on this package and the available versions from the repositories. It also shows the priority of each version, which determines which version will be installed or upgraded.
 apt-cache policy obs-studio
+apt policy obs-studio
 ```
 https://www.linuxfordevices.com/tutorials/ubuntu/apt-command-to-search-for-a-package
 

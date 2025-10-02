@@ -65,6 +65,19 @@ zone = 'Europe/Berlin'
 sudo timedatectl set-timezone $zone
 ```
 
+If you wish to create an alias for different time zones:
+```bash
+alias mytime='date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias chinatime='TZ="Asia/Shanghai" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias germantime='TZ="Europe/Berlin" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias austriantime='TZ="Europe/Vienna" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias swisstime='TZ="Europe/Zurich" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias taiwantime='TZ="Asia/Taipei" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias portugaltime='TZ="Europe/Lisbon" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias irelandtime='TZ="Europe/Dublin" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+alias uktime='TZ="Europe/London" date +"%A %Y-%m-%d %T %Z (UTC%:z)"'
+```
+
 another option is:
 ```bash
 dpkg-reconfigure tzdata
