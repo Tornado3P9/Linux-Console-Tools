@@ -50,6 +50,14 @@ ldd /path/to/your/program
 apt-cache depends <package-name>
 ```
 
+Verify
+```bash
+# `dpkg -V` checks the installed files against the package database and reports any discrepancies.
+# The '5' indicates a change in the MD5 checksum, and 'c' denotes a configuration file.
+# By using `grep -v`, the command excludes this line from the output, showing only other types of changes.
+dpkg -V | grep -v '??5?????? c'
+```
+
 
 Update (get the info) + Upgrade (make the changes)
 ```bash
