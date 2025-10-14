@@ -155,6 +155,9 @@ sudo arp-scan 192.168.1.1-192.168.1.254  #Scans the obvious rang
 sudo netdiscover
 
 # nmap
+To scan for SSH-Ports:
+nmap -p- -sV <ip-address>
+
 To scan for alive hosts on a network, run any of the following commands
 (they all do the same thing):
 sudo nmap -sP 192.168.1.0/24             #Scans 192.168.1.0 255.255.255.0
