@@ -30,6 +30,11 @@ for file in *.txt; do
 done
 ```
 
+```bash
+# renaming a file by adding the year to the end
+mv filename{,_2025}
+```
+
 
 ## Better Way:
 ```bash
