@@ -96,3 +96,10 @@ sudo apt-get install mingw-w64
 # 2. Use the x86_64-w64-mingw32-strip tool to strip the executable:
 x86_64-w64-mingw32-strip target/x86_64-pc-windows-gnu/release/program.exe
 ```
+
+Install/Remove Non-Stable Toolchains
+```bash
+rustup toolchain install nightly
+rustup toolchain list
+rustup toolchain uninstall nightly
+```
