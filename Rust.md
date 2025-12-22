@@ -97,7 +97,7 @@ sudo apt-get install mingw-w64
 x86_64-w64-mingw32-strip target/x86_64-pc-windows-gnu/release/program.exe
 ```
 
-Install/Remove Non-Stable Toolchains
+Install/Remove Non-Stable Toolchains (https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust)
 ```bash
 rustup toolchain install nightly
 rustup toolchain list
