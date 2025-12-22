@@ -19,6 +19,12 @@ https://manned.org/groupadd
 getent group      # => does the same like "cat /etc/group"
 getent passwd     # => does the same like "cat /etc/passwd"
 
+visudo            # => Edit the sudoers file (/etc/sudoers) with automatic syntax error check
+EDITOR=vim visudo # => Edit the sudoers file using a specific editor
+visudo -c         # => Check the sudoers file for errors
+
+/etc/default/useradd  # => Default behavior for useradd
+
 
 ####################
 ## USER PASSWORDS: #
@@ -43,17 +49,27 @@ useradd [OPTIONS] username
 # -c "comment"
 # -s shell
 # -G => specify the secondary groups (must exist)
-# -g => specify the primary group (must exist)
+# -g => specify the primary group (must exist and by default has the same name as the username)
 # -e => specify the expiration date
+# -u => specify a user ID
+
 # Exemple:
 useradd -m -d /home/john -c "Python Developer" -s /bin/bash -G sudo,adm,mail john
 useradd -e 2021-01-01 benjamin
+useradd -m -G sudo -s /bin/bash <newuser>
 
-# See the expiration date of user benjamin
-sudo chage -l benjamin
+# Expiration date
+chage -l benjamin                            # See the expiration date of user benjamin
+chage [-M|--maxdays] 10 username             # Enable password expiration in 10 days
+chage [-M|--maxdays] -1 username             # Disable password expiration
+chage [-E|--expiredate] YYYY-MM-DD username  # Set account expiration date
+chage [-d|--lastday] 0 username              # Force user to change password on next log in
+chage [-E|--expiredate] -1 username          # Re-enable an account
 
-# See default behavior of useradd
-less /etc/default/useradd
+# User shell
+chsh [-l|--list-shells]                   # List available shells
+chsh [-s|--shell] path/to/shell           # Set a specific login shell for the current user
+chsh [-s|--shell] path/to/shell username  # Set a login shell for a specific user
 
 # display last 10 lines/users in the passwd file and their settings, groups, .. (one user per line)
 tail /etc/passwd
@@ -68,9 +84,25 @@ userdel username
 # removing the user, their home folder, and their files
 userdel -r username
 
-# creating admin users
-# add the user to sudo group in Ubuntu and wheel group in CentOS
+# creating admin users: add the user to `sudo` group in Ubuntu and `wheel` group in CentOS
 usermod -aG sudo john
+
+# for doing sudo without password prompt, which is nice for ansible:
+visudo  # ansible ALL=(ALL) NOPASSWD:ALL
+
+##################
+## Install sudo: #
+##################
+# change to root user
+su
+
+# install sudo package
+apt update && apt install sudo
+
+# Now either add the user to the sudo group via the perl script:
+/sbin/adduser mynormaluser sudo
+# Or with the default method:
+usermod -aG sudo mynormaluser
 
 
 ###############################################
