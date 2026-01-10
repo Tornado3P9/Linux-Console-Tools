@@ -20,6 +20,7 @@ Add a new dependency to the project:
 
 ```bash
 uv add package
+uv add --upgrade package
 ```
 
 Remove a dependency from the project:
