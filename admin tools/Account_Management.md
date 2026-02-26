@@ -86,6 +86,7 @@ userdel [-r|--remove] username
 
 # creating admin users: add the user to `sudo` group in Ubuntu and `wheel` group in CentOS
 usermod -aG sudo john
+usermod -aG wheel john
 
 # for doing sudo without password prompt, which is nice for ansible:
 visudo  # ansible ALL=(ALL) NOPASSWD:ALL
