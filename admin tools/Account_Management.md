@@ -82,7 +82,7 @@ usermod -aG developers,managers john # => adding the user to two secondary group
 userdel username
 
 # removing the user, their home folder, and their files
-userdel -r username
+userdel [-r|--remove] username
 
 # creating admin users: add the user to `sudo` group in Ubuntu and `wheel` group in CentOS
 usermod -aG sudo john
@@ -108,6 +108,7 @@ usermod -aG sudo mynormaluser
 ###############################################
 ## Full-Example creating a sudo user (admin): #
 ###############################################
+# Verion A with `adduser` command:
 # Log in to your server as the root user.
 ssh root@server_ip_address
 # Use the adduser command to add a new user to your system. (adduser is a perl script that uses useradd. slightly more userfriendly as it automaticly creates a home directory for the user)
@@ -119,6 +120,14 @@ usermod -aG sudo username
 su - username
 # As the new user, verify that you can use sudo by prepending “sudo” to the command that you want to run with superuser privileges.
 sudo apt update
+
+# Verion B with standard `useradd` command:
+useradd -m -c "important comment like a ticket number" -s /bin/bash admin
+passwd admin
+usermod -aG sudo admin
+su - admin
+sudo whoami  # You should be prompted for a password, and the output should be `root` if successful.
+grep "^admin" /etc/passwd
 
 
 ##################
