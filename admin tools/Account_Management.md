@@ -24,6 +24,8 @@ EDITOR=vim visudo # => Edit the sudoers file using a specific editor
 visudo -c         # => Check the sudoers file for errors
 
 /etc/default/useradd  # => Default behavior for useradd
+/etc/login.defs   # => Default settings for user account creation and login behavior, like ENCRYPT_METHOD and more
+/etc/shells       # => Available shells
 
 
 ####################
@@ -66,10 +68,11 @@ chage [-E|--expiredate] YYYY-MM-DD username  # Set account expiration date
 chage [-d|--lastday] 0 username              # Force user to change password on next log in
 chage [-E|--expiredate] -1 username          # Re-enable an account
 
-# User shell
+# User shell (Both commands require the new shell to be listed in `/etc/shells`)
 chsh [-l|--list-shells]                   # List available shells
 chsh [-s|--shell] path/to/shell           # Set a specific login shell for the current user
 chsh [-s|--shell] path/to/shell username  # Set a login shell for a specific user
+usermod -s /path/to/new/shell username
 
 # display last 10 lines/users in the passwd file and their settings, groups, .. (one user per line)
 tail /etc/passwd
@@ -77,6 +80,7 @@ tail /etc/passwd
 # changing a user account
 usermod [OPTIONS] username           # => uses the same options as useradd
 usermod -aG developers,managers john # => adding the user to two secondary groups
+usermod -c "Your comment here" john
 
 # remove a user account (Issuing this command only deletes the user’s account. Their files and home directory are not be deleted.)
 userdel username
@@ -109,7 +113,7 @@ usermod -aG sudo mynormaluser
 ###############################################
 ## Full-Example creating a sudo user (admin): #
 ###############################################
-# Verion A with `adduser` command:
+# Verion A with `adduser` command, beginning at `root` user level:
 # Log in to your server as the root user.
 ssh root@server_ip_address
 # Use the adduser command to add a new user to your system. (adduser is a perl script that uses useradd. slightly more userfriendly as it automaticly creates a home directory for the user)
@@ -122,13 +126,14 @@ su - username
 # As the new user, verify that you can use sudo by prepending “sudo” to the command that you want to run with superuser privileges.
 sudo apt update
 
-# Verion B with standard `useradd` command:
+# Verion B with standard `useradd` command, beginning at `root` user level:
 useradd -m -c "important comment like a ticket number" -s /bin/bash admin
 passwd admin
 usermod -aG sudo admin
 su - admin
 sudo whoami  # You should be prompted for a password, and the output should be `root` if successful.
 grep "^admin" /etc/passwd
+grep "^admin" /etc/shadow
 
 
 ##################
