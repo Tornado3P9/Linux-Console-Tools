@@ -132,8 +132,8 @@ passwd admin
 usermod -aG sudo admin
 su - admin
 sudo whoami  # You should be prompted for a password, and the output should be `root` if successful.
-grep "^admin" /etc/passwd
-grep "^admin" /etc/shadow
+grep ^admin /etc/passwd
+sudo grep ^admin /etc/shadow
 
 
 ##################
