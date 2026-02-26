@@ -11,6 +11,7 @@ apt list -a firefox
 apt list --installed
 apt list --installed | grep package_name
 apt list --installed | grep apache
+apt list --installed | grep "auto-removable"  # To list removable packages, which are packages that were automatically installed to satisfy dependencies for other packages and are no longer needed
 
 dpkg --get-selections
 dpkg --list
