@@ -36,6 +36,8 @@ https://www.tecmint.com/disable-ssh-root-login-in-linux/
 https://ubuntuforums.org/showthread.php?t=2359172  
 ```bash
 sudo nano /etc/ssh/sshd_config
+
+# Restart SSH service (check syntax with sshd -t)
 sudo systemctl reload sshd
 
 # To remove an old/unused ssh-keygen:
