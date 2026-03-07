@@ -5,6 +5,7 @@
 curl ifconfig.me
 curl zx2c4.com/ip
 curl icanhazip.com
+curl -s http://ipinfo.io
 ```
 
 ## Getting info about the network interfaces (ifconfig, ip, route, nmap)

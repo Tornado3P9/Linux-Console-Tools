@@ -5,6 +5,11 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/ne
 https://www.rene-pickhardt.de/index.html%3Fp=1955.html Cleaning up my network connections on ubuntu linux using the network manager nmcli
 
 
+Show a list of your system’s active connections:
+```bash
+nmcli connection show --active
+```
+
 Disable Network:
 ```bash
 # Disable networking completely
