@@ -59,6 +59,7 @@ useradd [OPTIONS] username
 useradd -m -d /home/john -c "Python Developer" -s /bin/bash -G sudo,adm,mail john
 useradd -e 2021-01-01 benjamin
 useradd -m -G sudo -s /bin/bash <newuser>
+useradd -m -d /var/www -c "comment" -s /usr/sbin/nologin <newuser>
 
 # Expiration date
 chage -l benjamin                            # See the expiration date of user benjamin
