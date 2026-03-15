@@ -27,6 +27,9 @@ find . -type f -name "*.log"
 # Find files matching multiple path/name patterns:
 find / -path '**/path/**/*.ext' -or -name '*pattern*'
 
+# Find files matching a given name, in case-insensitive mode, in current directory recursively:
+find . -type f -iname "*string*"
+
 # Find directories matching a given name, in case-insensitive mode:
 find / -type d -iname '*lib*'
 
