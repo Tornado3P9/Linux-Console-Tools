@@ -24,4 +24,7 @@ tr "[:lower:]" "[:upper:]" < filename
 
 # Strip out non-printable characters from a file:
 tr -cd "[:print:]" < filename
+
+# Remove all spaces (including line breaks) from 'input.txt' and save the result to 'output.txt'.
+tr -d '[:space:]' < input.txt > output.txt
 ```
