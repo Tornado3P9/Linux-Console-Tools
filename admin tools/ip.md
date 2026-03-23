@@ -3,8 +3,7 @@
 ## Public
 ```bash
 curl ifconfig.me
-curl zx2c4.com/ip
-curl icanhazip.com
+curl ipinfo.io/ip
 curl -s http://ipinfo.io
 ```
 
@@ -155,8 +154,7 @@ sudo arp-scan 192.168.1.1-192.168.1.254  #Scans the obvious rang
 # netdiscover (arp-scan)
 sudo netdiscover
 
-# nmap
-To scan for SSH-Ports:
+# Scan for any SSH-Ports
 nmap -p- -sV <ip-address>
 
 To scan for alive hosts on a network, run any of the following commands

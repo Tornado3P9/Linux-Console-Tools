@@ -82,9 +82,8 @@ SSH-CLIENT
 ```bash
 ssh-keygen -t rsa -b 4096
 # STOP!
-# To create a custom named key pair in the folder ~/.ssh, write the complete path:
-/home/user/.ssh/id_custom_rsa
--> id_custom_rsa  id_custom_rsa.pub
+# To create a custom named key pair in the folder ~/.ssh, write the complete path, like: `/home/user/.ssh/id_custom_rsa`
+# This will create the files: id_custom_rsa  id_custom_rsa.pub
 
 # Use ssh copy function to copy and additionaly -i to specify which key to copy (password login still needs to be enabled ofcourse)
 ssh-copy-id -i ~/.ssh/id_custom_rsa.pub user@ip-address
