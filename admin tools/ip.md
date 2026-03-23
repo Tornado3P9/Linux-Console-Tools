@@ -138,11 +138,13 @@ route -a
 
 ## Abhör-/AnalyseTool
 ```bash
-# ngrep 'USER|PASS' src host 192.168.0.20 and tcp port 21 
--> Sucht im Datenstrom nach "USER" oder "PASS". Untersucht werden alle Pakete, die vom Host 192.168.0.20 kommen und Quell- oder Zielport 21 (FTP) besitzen, womit im Handumdrehen Klartextpasswörter für FTP ermittelt werden können. Damit wirklich nur FTP-Verbindungen untersucht werden, ist es besser hier "and src tcp port 21" zu schreiben. 
+# Sucht im Datenstrom nach "USER" oder "PASS". Untersucht werden alle Pakete, die vom Host 192.168.0.20
+# kommen und Quell- oder Zielport 21 (FTP) besitzen, womit im Handumdrehen Klartextpasswörter für FTP ermittelt werden können.
+# Damit wirklich nur FTP-Verbindungen untersucht werden, ist es besser hier "and src tcp port 21" zu schreiben. 
+ngrep 'USER|PASS' src host 192.168.0.20 and tcp port 21 
 
-# tcpdump
--> Dient der Analyse von IP-Paketen, um Fehler oder ungewollte Netzwerkzugriffe zu finden. 
+# Dient der Analyse von IP-Paketen, um Fehler oder ungewollte Netzwerkzugriffe zu finden. 
+tcpdump
 
 # arp-scan
 The easiest way to scan the network you are in is to run any of the following commands
