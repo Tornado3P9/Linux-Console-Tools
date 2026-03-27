@@ -82,10 +82,15 @@ cross-compile to other operating systems
 sudo apt-get install podman
 
 cargo install cross
-
+rustup show
+rustup target list
 rustup target add x86_64-pc-windows-gnu
 
 cross build --release --target x86_64-pc-windows-gnu
+
+# And remove
+rustup target list --installed
+rustup target remove x86_64-pc-windows-gnu
 ```
 
 strip cross compiled windows binary
