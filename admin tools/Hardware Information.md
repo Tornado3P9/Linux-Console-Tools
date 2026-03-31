@@ -86,6 +86,12 @@ lsblk -p
 hdparm -i /dev/sda
 hdparm -I /dev/sda
 
+# Test Harddrive
+apt install smartmontools
+smartctl --info /dev/sdX
+# Test Filesystem
+fsck /dev/sdXn
+
 # benchmarking disk read performance
 hdparm -tT --direct /dev/sda
 ```
