@@ -113,6 +113,11 @@ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.ta
 sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
+Find active NTP Service
+```bash
+systemctl list-units --type=service | grep -iE "ntp|chrony|systemd-timesyncd|OpenNTPD"
+```
+
 
 [^1]: https://www.freedesktop.org/software/systemd/man/systemctl.html  
 https://www.commandlinux.com/man-page/man5/systemd.service.5.html  
