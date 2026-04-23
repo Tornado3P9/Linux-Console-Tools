@@ -1,0 +1,185 @@
+%post
+#!/bin/bash
+set -euo pipefail
+
+# Generate a hashed NEWUSER password with: openssl passwd -6
+HASHED_PASSWORD='$6$somesalt$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789...'
+NEWUSER=username
+SSH_PUBLIC_KEY='ssh-ed25519 xyz123abc'
+POST_INSTALL_LOG='/root/post-install.log'
+
+# # Update all packages (idempotent)
+# if command -v dnf >/dev/null 2>&1; then
+#   # retry once if network transient failure
+#   dnf -y upgrade --refresh || dnf -y upgrade --refresh || true
+# elif command -v yum >/dev/null 2>&1; then
+#   yum -y update || yum -y update || true
+# fi
+
+# Create user with home direcotry, and add to wheel for sudo
+user --name=$NEWUSER --groups=wheel --password=$HASHED_PASSWORD --homedir=/home/$NEWUSER --createhome
+
+# wait for user entry (timeout 15s)
+timeout=15
+elapsed=0
+while ! getent passwd "$NEWUSER"; do
+  sleep 1
+  elapsed=$((elapsed+1))
+  if [ "$elapsed" -ge "$timeout" ]; then
+    echo "User $NEWUSER not found after $timeout seconds" >> "$POST_INSTALL_LOG"
+    exit 1
+  fi
+done
+
+HOME_DIR="/home/$NEWUSER"
+# ensure home exists and owned by user:primary group
+if [ ! -d "$HOME_DIR" ]; then
+  mkdir -p "$HOME_DIR"
+fi
+chown "$NEWUSER":"$NEWUSER" "$HOME_DIR"
+chmod 700 "$HOME_DIR"
+
+# # Check if SSH server is installed
+# if rpm -q openssh-server &>/dev/null; then
+#   echo "OpenSSH server is installed." >> "$POST_INSTALL_LOG"
+#
+#   # Check if SSH server is running
+#   if systemctl is-active --quiet sshd; then
+#       echo "OpenSSH server is running." >> "$POST_INSTALL_LOG"
+#   else
+#       echo "OpenSSH server is not running. Starting the service..." >> "$POST_INSTALL_LOG"
+#       systemctl start sshd
+#       sleep 2
+#   fi
+# else
+#   echo "OpenSSH server is not installed." >> "$POST_INSTALL_LOG"
+#   exit 1
+# fi
+# Check if SSH server is installed
+if rpm -q openssh-server &>/dev/null; then
+  echo "OpenSSH server is installed." >> "$POST_INSTALL_LOG"
+
+  # Determine if systemctl is available
+  if command -v systemctl &>/dev/null; then
+    # Check if SSH server is running using systemctl
+    if systemctl is-active --quiet sshd; then
+      echo "OpenSSH server is running." >> "$POST_INSTALL_LOG"
+    else
+      echo "OpenSSH server is not running. Starting the service..." >> "$POST_INSTALL_LOG"
+      systemctl start sshd
+      sleep 2
+    fi
+  else
+    # Check if SSH server is running using service
+    if service sshd status &>/dev/null; then
+      echo "OpenSSH server is running." >> "$POST_INSTALL_LOG"
+    else
+      echo "OpenSSH server is not running. Starting the service..." >> "$POST_INSTALL_LOG"
+      service sshd start
+      sleep 2
+    fi
+  fi
+else
+  echo "OpenSSH server is not installed." >> "$POST_INSTALL_LOG"
+  exit 1
+fi
+
+SSH_DIR="$HOME_DIR/.ssh"
+AUTH_KEYS="$SSH_DIR/authorized_keys"
+
+mkdir -p "$SSH_DIR"
+chown "$NEWUSER":"$NEWUSER" "$SSH_DIR"
+chmod 700 "$SSH_DIR"
+
+# safely write pubkey (append if already present)
+if [ -n "${SSH_PUBLIC_KEY:-}" ]; then
+  # create temp file then install to avoid race/perm issues
+  tmpf="$(mktemp)"
+  printf '%s\n' "$SSH_PUBLIC_KEY" > "$tmpf"
+  # append only if not already present
+  if ! grep -qxFf "$tmpf" "$AUTH_KEYS" 2>/dev/null; then
+    umask 077
+    cat "$tmpf" >> "$AUTH_KEYS"
+  fi
+  rm -f "$tmpf"
+  chown "$NEWUSER":"$NEWUSER" "$AUTH_KEYS"
+  chmod 600 "$AUTH_KEYS"
+fi
+
+SSHD_DROPIN_DIR=/etc/ssh/sshd_config.d
+DROPIN_FILE="$SSHD_DROPIN_DIR/99-kickstart.conf"
+mkdir -p "$SSHD_DROPIN_DIR"
+
+# backup existing drop-in if present
+if [ -f "$DROPIN_FILE" ]; then
+  cp -a "$DROPIN_FILE" "${DROPIN_FILE}.ksbak.$(date +%s)"
+fi
+
+cat > "$DROPIN_FILE" <<'EOF'
+# Kickstart SSH hardening
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+PubkeyAuthentication yes
+Protocol 2
+UsePAM yes
+PermitEmptyPasswords no
+# AllowUsers <username>   # replaced below if needed
+EOF
+
+# ensure AllowUsers matches NEWUSER (replace or append)
+if [ -n "${NEWUSER:-}" ]; then
+  # remove existing AllowUsers lines in drop-in and append desired one
+  sed -i '/^[[:space:]]*AllowUsers\b/Id' "$DROPIN_FILE"
+  echo "AllowUsers $NEWUSER" >> "$DROPIN_FILE"
+fi
+
+# set proper perms
+chown root:root "$DROPIN_FILE"
+chmod 644 "$DROPIN_FILE"
+
+# # Enable and start firewalld, allow SSH (idempotent)
+# if command -v firewall-cmd >/dev/null 2>&1; then
+#   systemctl enable --now firewalld
+#   # allow ssh service permanently and reload runtime
+#   firewall-cmd --permanent --add-service=ssh || true
+#   firewall-cmd --reload || true
+#   # ensure runtime also allows ssh (useful if --reload failed)
+#   firewall-cmd --add-service=ssh || true
+# else
+#   echo "Command 'firewall-cmd' not found on system." >> "$POST_INSTALL_LOG"
+# fi
+if command -v firewall-cmd >/dev/null 2>&1; then
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl enable --now firewalld
+  else
+    service firewalld start
+    chkconfig firewalld on
+  fi
+
+  # Allow SSH service permanently and reload runtime
+  firewall-cmd --permanent --add-service=ssh || true
+  firewall-cmd --reload || true
+  # Ensure runtime also allows SSH (useful if --reload failed)
+  firewall-cmd --add-service=ssh || true
+else
+  echo "Command 'firewall-cmd' not found on system." >> "$POST_INSTALL_LOG"
+fi
+
+# Set local keymap to German
+if command -v localectl >/dev/null 2>&1; then
+  localectl set-keymap de || true
+else
+  echo "Command 'localectl' not found on system." >> "$POST_INSTALL_LOG"
+fi
+
+# reload sshd
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl reload sshd || systemctl restart sshd
+else
+  service sshd reload || service sshd restart || true
+fi
+
+# Verify installation
+echo "Post-installation complete." >> "$POST_INSTALL_LOG"
+%end
