@@ -42,6 +42,13 @@ rsync -r|--recursive --delete rsync://host:path/to/source path/to/destination
 # Transfer a file over SSH using a different port than the default (22) and show global progress:
 rsync -e|--rsh 'ssh -p port' --info=progress2 host:path/to/source path/to/destination
 
+# delete unwanted files in destination so that only the new copied files exist
+rsync -ahPz --delete /path/to/source_directory/ root@remote_server_ip:/root/
+
+# After copying process has finished, also remove the data from source_directory
+rsync -ahPz --remove-source-files /path/to/source_directory/ root@remote_server_ip:/root/
+find /path/to/source_directory/ -type d -empty -delete  # remove empty source directories that were left over after all the files were deleted
+
 # with ssh-key:
 rsync -ahPz -e "ssh -i /path/to/private_key" /path/to/source_directory/ root@remote_server_ip:/root/
 # with password
