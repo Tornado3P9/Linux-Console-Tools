@@ -165,3 +165,83 @@ sudo apt-get install -f
 # Remove Unused Packages
 sudo apt-get autoremove
 ```
+
+Keys https://mangohost.net/blog/how-to-handle-apt-key-and-add-repository-deprecation-using-gpg-on-ubuntu-24/
+```bash
+# ------------------------------------------
+# Modern GPG Key Management Implementation
+# ------------------------------------------
+
+# Old deprecated method (don't use this)
+wget -qO - https://example.com/key.gpg | sudo apt-key add -
+
+# New method - step by step
+# 1. Create directory if it doesn't exist
+sudo mkdir -p /etc/apt/keyrings
+
+ls -lh /etc/apt/keyrings
+ls -lh /usr/share/keyrings
+
+# 2. Download and convert the key
+wget -qO- https://example.com/key.gpg | gpg --dearmor | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+
+# 3. Set proper permissions
+sudo chmod 644 /etc/apt/keyrings/example.gpg
+
+# 4. Add repository with signed-by parameter
+echo "deb [signed-by=/etc/apt/keyrings/example.gpg] https://example.com/repo stable main" | sudo tee /etc/apt/sources.list.d/example.list
+
+# -----------------------------------------------
+# Handling Different Key Formats and Conversion
+# -----------------------------------------------
+
+# For ASCII-armored keys (usually .asc files)
+wget -qO- https://example.com/key.asc | gpg --dearmor | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+
+# For keys that need keyserver retrieval
+gpg --keyserver keyserver.ubuntu.com --recv-keys KEYID
+gpg --export KEYID | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+
+# For keys distributed as .pub files
+curl -fsSL https://example.com/key.pub | sudo gpg --dearmor -o /etc/apt/keyrings/example.gpg
+
+# Verify key fingerprint (important security step)
+gpg --show-keys /etc/apt/keyrings/example.gpg
+
+# --------------------------------
+# Permission Issues?
+# --------------------------------
+
+# Fix common permission problems
+sudo chmod 644 /etc/apt/keyrings/*.gpg
+sudo chown root:root /etc/apt/keyrings/*.gpg
+
+# Verify permissions
+ls -la /etc/apt/keyrings/
+
+# --------------------------------
+# Key Format Errors?
+# --------------------------------
+
+# Check if key is already in binary format
+file downloaded-key.gpg
+
+# If it's already binary, don't use gpg --dearmor
+sudo cp downloaded-key.gpg /etc/apt/keyrings/example.gpg
+
+# If it's ASCII, convert it
+gpg --dearmor downloaded-key.asc | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+
+# --------------------------------
+# Repository Update Failures?
+# --------------------------------
+
+# Check repository syntax
+sudo apt update 2>&1 | grep -i "malformed\|invalid"
+
+# Verify key association
+grep -r "signed-by" /etc/apt/sources.list.d/
+
+# Test specific repository
+sudo apt-cache policy package-name
+```

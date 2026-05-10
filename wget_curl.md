@@ -52,7 +52,10 @@ https://website/checksums.sha256
 wget -i urls.txt
 ```
 
-
+The `-` after `-O` specifies that the output should go to the terminal, sending the downloaded content to standard output (stdout) instead of saving it to a file.
+```bash
+wget -qO- https://example.com/key.gpg | gpg --dearmor | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+```
 
 
 
