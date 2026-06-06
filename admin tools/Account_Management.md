@@ -36,7 +36,7 @@ passwd
 # changing another user's password
 sudo passwd jeff
 # changing the passwords for multiple users (The input text must not contain any spaces.)
-printf "username_1:new_password_1\nusername_2:new_password_2" | sudo chpasswd
+printf "username_1:new_password_1\nusername_2:new_password_2" | sudo chpasswd  # 'chpasswd -e' for pre-hashed passwords used with 'openssl passwd -6'
 
 
 ###################

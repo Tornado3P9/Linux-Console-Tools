@@ -1,26 +1,43 @@
 %post
 #!/bin/bash
-set -euo pipefail
+
+#set -euo pipefail
+POST_INSTALL_LOG='/root/post-install.log'
+
+# Set local keymap to German
+if command -v localectl >/dev/null 2>&1; then
+  localectl set-keymap de || true
+  localectl status >> "$POST_INSTALL_LOG"
+else
+  echo "Command 'localectl' not found on system." >> "$POST_INSTALL_LOG"
+fi
 
 # Generate a hashed NEWUSER password with: openssl passwd -6
 HASHED_PASSWORD='$6$somesalt$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789...'
 NEWUSER=username
 SSH_PUBLIC_KEY='ssh-ed25519 xyz123abc'
-POST_INSTALL_LOG='/root/post-install.log'
+HOME_DIR="/home/$NEWUSER"
+SSH_DIR="$HOME_DIR/.ssh"
+AUTH_KEYS="$SSH_DIR/authorized_keys"
 
-# # Update all packages (idempotent)
-# if command -v dnf >/dev/null 2>&1; then
-#   # retry once if network transient failure
-#   dnf -y upgrade --refresh || dnf -y upgrade --refresh || true
-# elif command -v yum >/dev/null 2>&1; then
-#   yum -y update || yum -y update || true
-# fi
+# Update all packages
+echo "Trying to update all packages" >> "$POST_INSTALL_LOG"
+if command -v dnf >/dev/null 2>&1; then
+  # retry once if network transient failure
+  dnf -y upgrade --refresh || dnf -y upgrade --refresh || true
+elif command -v yum >/dev/null 2>&1; then
+  yum -y update || yum -y update || true
+fi
 
 # Create user with home direcotry, and add to wheel for sudo
-user --name=$NEWUSER --groups=wheel --password=$HASHED_PASSWORD --homedir=/home/$NEWUSER --createhome
+# user --name=$NEWUSER --groups=wheel --password=$HASHED_PASSWORD --homedir=/home/$NEWUSER --createhome
+useradd -m $NEWUSER
+echo "${NEWUSER}:${HASHED_PASSWORD}" | chpasswd -e
+usermod -aG wheel $NEWUSER
+usermod -c "user added by ks script" $NEWUSER
 
 # wait for user entry (timeout 15s)
-timeout=15
+timeout=5
 elapsed=0
 while ! getent passwd "$NEWUSER"; do
   sleep 1
@@ -31,7 +48,6 @@ while ! getent passwd "$NEWUSER"; do
   fi
 done
 
-HOME_DIR="/home/$NEWUSER"
 # ensure home exists and owned by user:primary group
 if [ ! -d "$HOME_DIR" ]; then
   mkdir -p "$HOME_DIR"
@@ -84,9 +100,6 @@ else
   exit 1
 fi
 
-SSH_DIR="$HOME_DIR/.ssh"
-AUTH_KEYS="$SSH_DIR/authorized_keys"
-
 mkdir -p "$SSH_DIR"
 chown "$NEWUSER":"$NEWUSER" "$SSH_DIR"
 chmod 700 "$SSH_DIR"
@@ -112,7 +125,7 @@ mkdir -p "$SSHD_DROPIN_DIR"
 
 # backup existing drop-in if present
 if [ -f "$DROPIN_FILE" ]; then
-  cp -a "$DROPIN_FILE" "${DROPIN_FILE}.ksbak.$(date +%s)"
+  cp -a "$DROPIN_FILE" "${DROPIN_FILE}.bak.$(date +%s)"
 fi
 
 cat > "$DROPIN_FILE" <<'EOF'
@@ -164,13 +177,6 @@ if command -v firewall-cmd >/dev/null 2>&1; then
   firewall-cmd --add-service=ssh || true
 else
   echo "Command 'firewall-cmd' not found on system." >> "$POST_INSTALL_LOG"
-fi
-
-# Set local keymap to German
-if command -v localectl >/dev/null 2>&1; then
-  localectl set-keymap de || true
-else
-  echo "Command 'localectl' not found on system." >> "$POST_INSTALL_LOG"
 fi
 
 # reload sshd
