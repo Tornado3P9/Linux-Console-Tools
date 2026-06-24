@@ -31,10 +31,9 @@ fi
 
 # Create user with home direcotry, and add to wheel for sudo
 # user --name=$NEWUSER --groups=wheel --password=$HASHED_PASSWORD --homedir=/home/$NEWUSER --createhome
-useradd -m $NEWUSER
+useradd -m -d $HOME_DIR -c "user added by ks script" -s /bin/bash $NEWUSER
 echo "${NEWUSER}:${HASHED_PASSWORD}" | chpasswd -e
 usermod -aG wheel $NEWUSER
-usermod -c "user added by ks script" $NEWUSER
 
 # wait for user entry (timeout 15s)
 timeout=5

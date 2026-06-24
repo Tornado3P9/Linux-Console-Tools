@@ -73,6 +73,16 @@ find . -mmin +60
 find . -mmin +720
 ```
 
+Modify multiple files using find with -exec
+```bash
+# linux-x64 being a relative file path, exactly the same as ./linux-x64/ or .
+# the command uses `\;` at the end, which executes `chmod` on each file individually. It is less efficient because it calls `chmod` separately for each file found.
+find linux-x64 -type f -exec chmod +x {} \;
+
+# This command uses `+` at the end, which groups multiple files together and executes `chmod` on them in batches. This is more efficient because it reduces the number of times `chmod` is called.
+find linux-x64 -type f -exec chmod +x {} +
+```
+
 deep listing the most recently modified files in a directory
 ```bash
 # This command will provide you the 10 most recently modified files, excluding any hidden directories that start with a period.

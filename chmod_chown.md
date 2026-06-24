@@ -78,3 +78,14 @@ Here's a quick example to illustrate the difference:
 - Before any **`chmod`** operation, let's say the file permissions are **`-rw-r--r--`**.
 - After **`chmod u+x`**, the permissions would change to **`-rwxr--r--`**.
 - After **`chmod a+x`**, the permissions would change to **`-rwxr-xr-x`**.
+
+### Modify multiple files
+
+```bash
+# linux-x64 being a relative file path, exactly the same as ./linux-x64/ or .
+# the command uses `\;` at the end, which executes `chmod` on each file individually. It is less efficient because it calls `chmod` separately for each file found.
+find linux-x64 -type f -exec chmod +x {} \;
+
+# This command uses `+` at the end, which groups multiple files together and executes `chmod` on them in batches. This is more efficient because it reduces the number of times `chmod` is called.
+find linux-x64 -type f -exec chmod +x {} +
+```
