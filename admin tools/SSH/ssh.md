@@ -7,6 +7,7 @@
 - https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/
 - https://www.linode.com/docs/guides/ssh-key-authentication-how-to-troubleshoot-permission-issues/
 - https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
+- https://blog.g3rt.nl/upgrade-your-ssh-keys.html
 
 ### Installation
 https://ubuntu.com/server/docs/service-openssh  
@@ -45,6 +46,9 @@ ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "destination-ip-address"
 
 # To locally verify key/password:
 ssh-keygen -y -f ~/.ssh/keyfile
+
+# List the fingerprints of the SSH keys
+for keyfile in ~/.ssh/id_*; do ssh-keygen -l -f "${keyfile}"; done | uniq
 ```
 
 ### Creating a SSH-Configuration where you only use an alias and the configuration knows where to go and which of your keys to use
@@ -53,7 +57,7 @@ nano ~/.ssh/config
 ```
 and write the following lines:
 ```bash
-Host target1
+Host target1 t1
   Hostname 10.100.73.107
   User root
   Port 2222
@@ -64,7 +68,7 @@ Host superserver
   IdentityFile ~/.ssh/superserver_key
 
 # my_github_account
-Host github.com-my_github_account github account
+Host github.com-my_github_account github
   HostName github.com
   User git
   IdentityFile ~/.ssh/id_ed25519
@@ -73,6 +77,9 @@ Host github.com-my_github_account github account
 Save the file and then login to your server by only typing
 ```bash
 ssh target1
+# or
+ssh t1
+
 ssh superserver
 ```
 
@@ -189,4 +196,29 @@ done
 # ssh-add  ~/.ssh/server_key
 #
 # ssh user@ip-address
+```
+
+### Increase resistance to brute-force password cracking
+
+https://blog.g3rt.nl/upgrade-your-ssh-keys.html#increase-resistance-to-brute-force-password-cracking
+
+When generating the keypair, you're asked for a passphrase to encrypt the private key with. If you will ever lose your private key it should protect others from impersonating you because it will be encrypted with the passphrase. To actually prevent this, one should make sure to prevent easy brute-forcing of the passphrase.
+
+OpenSSH key generator offers two options to resistance to brute-force password cracking: using the new OpenSSH key format and increasing the amount of key derivation function rounds. It slows down the process of unlocking the key, but this is what prevents efficient brute-forcing by a malicious user too. I'd say experiment with the amount of rounds on your system. Start at about 100 rounds. On my system it takes about one second to decrypt and load the key once per day using an agent. Very much acceptable, imo.
+
+With `ssh-keygen` use the `-o` option for the new RFC4716 key format and the use of a modern key derivation function powered by bcrypt. Use the `-a <num>` option for `<num>` amount of rounds.
+
+Actually, it appears that when creating a Ed25519 key the `-o` option is implied.
+
+```
+:::console hl_lines="1"
+$ ssh-keygen -o -a 100 -t ed25519
+Generating public/private ed25519 key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/gert/.ssh/id_ed25519.
+Your public key has been saved in /home/gert/.ssh/id_ed25519.pub.
+The key fingerprint is:
+SHA256: [...] gert@hostname
+The key's randomart image is: [...]
 ```
