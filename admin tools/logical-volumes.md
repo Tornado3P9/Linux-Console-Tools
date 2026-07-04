@@ -4,6 +4,11 @@
 # Go root
 sudo -i
 
+# Get an idea
+df -h
+lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,MODEL,SERIAL,TRAN
+blkid
+
 # Rescan all SCSI hosts to detect newly added disks
 for i in /sys/class/scsi_host/host*; do
   echo "- - -" > "$i/scan"
