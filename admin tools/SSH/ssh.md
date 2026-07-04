@@ -87,13 +87,13 @@ ssh superserver
 
 SSH-CLIENT  
 ```bash
-ssh-keygen -t rsa -b 4096
+ssh-keygen -t rsa -b 4096 -o -a 100 -f ~/.ssh/id_rsa
 # STOP!
-# To create a custom named key pair in the folder ~/.ssh, write the complete path, like: `/home/user/.ssh/id_custom_rsa`
-# This will create the files: id_custom_rsa  id_custom_rsa.pub
+# To create a custom named key pair in the folder ~/.ssh, write the complete path, like: `/home/user/.ssh/id_rsa` if you did not specify it using the `-f` option. Also, using only `-o` without the `-a 100` seems to result in bcrypt using 16 rounds as default.
+# This will create the files: id_rsa  id_rsa.pub
 
 # Use ssh copy function to copy and additionaly -i to specify which key to copy (password login still needs to be enabled ofcourse)
-ssh-copy-id -i ~/.ssh/id_custom_rsa.pub user@ip-address
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@ip-address
 
 # Or login via password and manually setup the configuration:
 mkdir ~/.ssh && vim ~/.ssh/authorized_keys
@@ -123,30 +123,15 @@ ssh user@ip-address
 
 **Version B:** Generate an ed25519 key with the server hostname instead of the email as a comment and specify the file in which to save the key directly  
 ```bash
-ssh-keygen -t ed25519 -C "home-server-hostname" -f ~/.ssh/home_server_key
+# Older format:
+ssh-keygen -t ed25519 -C "server-hostname" -f ~/.ssh/id_ed25519
+# The `-o` option saves the private key using the new OpenSSH format, and `-a 100` specifies the number of KDF (Key Derivation Function) rounds, which increases the resistance to brute-force password cracking.
+ssh-keygen -o -a 100 -t ed25519 -C "server-hostname" -f ~/.ssh/id_ed25519
 ```
 
-Re-Enable SSH Password Authentication  
+### Update the passphrase and enhance the security of your existing Keys:
 ```bash
-# To enable SSH password authentication, you must SSH in as root to edit this file:
-/etc/ssh/sshd_config
-
-# Then, change the line 'PasswordAuthentication no' to:
-PasswordAuthentication yes
-
-# After making that change, restart the SSH service by running the following command as root:
-sudo service ssh restart
-
-# Show the configuration settings that sshd will use, including both default settings and those specified in the configuration files (like /etc/ssh/sshd_config):
-sudo sshd -T
-```
-
-Enable Logging In as root (optional and probably not advisable)  
-```bash
-sudo -i
-nano /etc/ssh/sshd_config # PermitRootLogin yes
-sudo service ssh restart
-sudo passwd root # set a strong root password!
+ssh-keygen -f ~/.ssh/id_rsa -p -o -a 100
 ```
 
 ### Setup Passwordless SSH Login for Multiple Remote Servers Using Script
@@ -221,4 +206,27 @@ Your public key has been saved in /home/gert/.ssh/id_ed25519.pub.
 The key fingerprint is:
 SHA256: [...] gert@hostname
 The key's randomart image is: [...]
+```
+
+### Re-Enable SSH Password Authentication  
+```bash
+# To enable SSH password authentication, you must SSH in as root to edit this file:
+/etc/ssh/sshd_config
+
+# Then, change the line 'PasswordAuthentication no' to:
+PasswordAuthentication yes
+
+# After making that change, restart the SSH service by running the following command as root:
+sudo service ssh restart
+
+# Show the configuration settings that sshd will use, including both default settings and those specified in the configuration files (like /etc/ssh/sshd_config):
+sudo sshd -T
+```
+
+### Enable Login as root (optional and probably not advisable)  
+```bash
+sudo -i
+nano /etc/ssh/sshd_config # PermitRootLogin yes
+sudo service ssh restart
+sudo passwd root # set a strong root password!
 ```
