@@ -25,7 +25,7 @@ for i in /sys/class/scsi_device/*/device/rescan; do echo 1 > "$i"; done
 # Create a new physical volume
 pvcreate /dev/sdX  # Replace /dev/sdX with the actual device name
 
-# Resize a physical volume
+# Resize a physical volume (Use pvresize /dev/sda3 if your PV is on that partition. Use pvresize /dev/sda if your PV was created on the entire disk. Check with: pvs -o pv_name,pv_size,vg_name)
 pvresize /dev/sdX
 
 # Extend the volume group with the new physical volume
