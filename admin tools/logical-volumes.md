@@ -9,15 +9,24 @@ df -h
 lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,MODEL,SERIAL,TRAN
 blkid
 
+# Install lvm2 package
+apt install lvm2
+
 # Rescan all SCSI hosts to detect newly added disks
-for i in /sys/class/scsi_host/host*; do
-  echo "- - -" > "$i/scan"
-done
-# or
 for i in $(ls /sys/class/scsi_host/); do echo "- - -" > /sys/class/scsi_host/$i/scan; done
+# or safer
+for i in /sys/class/scsi_host/host*/scan; do echo "- - -" > "$i"; done
+
+# Rescan all disks to detect changes made in vcenter to disk-size
+for i in $(ls /sys/class/scsi_device/); do echo 1 > /sys/class/scsi_device/$i/device/rescan; done
+# or safer
+for i in /sys/class/scsi_device/*/device/rescan; do echo 1 > "$i"; done
 
 # Create a new physical volume
 pvcreate /dev/sdX  # Replace /dev/sdX with the actual device name
+
+# Resize a physical volume
+pvresize /dev/sdX
 
 # Extend the volume group with the new physical volume
 vgextend myVolumeGroup /dev/sdX
@@ -25,8 +34,14 @@ vgextend myVolumeGroup /dev/sdX
 # Extend the logical volume to use all free space
 lvextend -rl +100%FREE /dev/mapper/myVolumeGroup-myVolume  # optionally add "/dev/sdX"
 
+# Extend the logical volume to use just 10GB more
+lvextend -rL +10G /dev/mapper/myVolumeGroup-myVolume
+
 # Create a new logical volume from scratch
 lvcreate -n myVolumee -l 100%FREE myVolumeGroup
+
+# Temporarily change Reserved Blocks from default 5% to 0.1% if full
+tune2fs -m.1 /dev/mapper/myVolumeGroup-myVolume
 
 #----------------------------------------------
 
