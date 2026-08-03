@@ -1,9 +1,10 @@
 # Ownership (chown) and Permissions (chmod)
 
-https://wiki.ubuntuusers.de/chmod/
-https://wiki.ubuntuusers.de/chown/
-https://manpages.ubuntu.com/manpages/trusty/man1/chown.1.html
-https://linuxhint.com/give-user-folder-permission-linux/
+https://wiki.ubuntuusers.de/chmod/  
+https://wiki.ubuntuusers.de/chown/  
+https://manpages.ubuntu.com/manpages/trusty/man1/chown.1.html  
+https://linuxhint.com/give-user-folder-permission-linux/  
+https://wiki.archlinux.org/title/File_permissions_and_attributes#Numeric_method  
 
 File ownership and permissions are crucial in a multi-user system like Linux for security and data integrity. Each file and directory has an associated owner and a group, and permissions that determine who can read, write, or execute the
 file.

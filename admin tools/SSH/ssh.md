@@ -28,6 +28,7 @@ ssh 10.100.73.107
 ssh -p 1234 user@10.100.73.107              # using a specific port on the target machine
 ssh -v 10.100.73.107                        # verbose = printing more information
 ssh -i ~/.ssh/myprivatekey 10.100.73.107    # using a specific key if you got more than one
+ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password root@hostname # force password authentication
 exit                                        # quit the ssh session
 ```
 
