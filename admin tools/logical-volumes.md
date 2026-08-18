@@ -25,13 +25,21 @@ for i in /sys/class/scsi_device/*/device/rescan; do echo 1 > "$i"; done
 # Create a new physical volume
 pvcreate /dev/sdX  # Replace /dev/sdX with the actual device name
 
+# Use only if LVM PV is on a partition and that partition is not automatically expanded after the underlying disk grows.
+# If your PV is directly on the whole disk (no partition), then you don’t use growpart; instead go to the PV resize step.
+# You can tell quickly: if pvs reports /dev/sda1//dev/sda2 etc., it’s partition-backed.
+growpart --dry-run /dev/sda 3  # Check first what that would do
+growpart /dev/sda 3
+# After growpart finishes, you must still resize the actual filesystem (using resize2fs for ext4 or xfs_growfs for XFS) to make that new space usable by the operating system.
+# The `lvextend -rl` (-r/--resizefs) option also does the resizing part for the file system.
+
 # Resize a physical volume (Use pvresize /dev/sda3 if your PV is on that partition. Use pvresize /dev/sda if your PV was created on the entire disk. Check with: pvs -o pv_name,pv_size,vg_name)
 pvresize /dev/sdX
 
 # Extend the volume group with the new physical volume
 vgextend myVolumeGroup /dev/sdX
 
-# Extend the logical volume to use all free space
+# Extend the logical volume to use all free space (The -r/--resizefs) option tells lvextend to automatically call the appropriate filesystem resizing tool (such as resize2fs for ext4 or xfs_growfs for XFS) after the logical volume has been expanded.)
 lvextend -rl +100%FREE /dev/mapper/myVolumeGroup-myVolume  # optionally add "/dev/sdX"
 
 # Extend the logical volume to use just 10GB more
@@ -41,7 +49,7 @@ lvextend -rL +10G /dev/mapper/myVolumeGroup-myVolume
 lvcreate -n myVolumee -l 100%FREE myVolumeGroup
 
 # Temporarily change Reserved Blocks from default 5% to 0.1% if full
-tune2fs -m.1 /dev/mapper/myVolumeGroup-myVolume
+tune2fs -m.1 /dev/mapper/myVolumeGroup-myVolume  # tune2fs -m 5 /dev/mapper/myVolumeGroup-myVolume
 
 #----------------------------------------------
 
