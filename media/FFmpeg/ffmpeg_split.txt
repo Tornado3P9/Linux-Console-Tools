@@ -1,0 +1,28 @@
+# Start with audio_00.m4a in steps of 1200 seconds (20min)
+ffmpeg -i audio_orig1.m4a \
+  -map 0:a \
+  -c copy \
+  -f segment \
+  -segment_time 1200 \
+  -reset_timestamps 1 \
+  "audio_%02d.m4a"
+
+# Start with audio_35.m4a
+ffmpeg -i audio_orig2.m4a \
+  -map 0:a \
+  -c copy \
+  -f segment \
+  -segment_time 1200 \
+  -segment_start_number 35 \
+  -reset_timestamps 1 \
+  "audio_%02d.m4a"
+
+# Start at 35 minutes and create approximately 20-minute files numbered from 035 (first file being audio_035.m4a)
+ffmpeg -ss 00:35:00 -i audio_orig3.m4a \
+  -map 0:a \
+  -c copy \
+  -f segment \
+  -segment_time 1200 \
+  -segment_start_number 35 \
+  -reset_timestamps 1 \
+  "audio_%03d.m4a"
