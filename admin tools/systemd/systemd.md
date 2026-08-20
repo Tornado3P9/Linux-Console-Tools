@@ -132,3 +132,4 @@ https://www.systutorials.com/change-systemd-boot-target-linux/
 https://documentation.suse.com/smart/linux/html/reference-managing-systemd-targets-systemctl/index.html  
 https://www.computernetworkingnotes.com/linux-tutorials/systemd-target-units-explained.html  
 https://unix.stackexchange.com/questions/126009/cause-a-script-to-execute-after-networking-has-started/126146#126146  
+https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html  
