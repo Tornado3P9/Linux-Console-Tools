@@ -109,3 +109,19 @@ rustup toolchain install nightly
 rustup toolchain list
 rustup toolchain uninstall nightly
 ```
+
+Static / Dynamic Binaries:
+```bash
+# Check whether all dependencies are available with:
+ldd program_name  # If a dependency is missing, you will see: "not found"
+
+# For a genuinely static Rust binary, ldd would normally report something like: "not a dynamic executable"
+
+# You can also inspect the executable type and dynamic linker with:
+file program_name
+readelf -l program_name | grep 'interpreter'
+
+# To build a more portable Rust binary, you could target musl:
+rustup target add x86_64-unknown-linux-musl
+cargo build --release --target x86_64-unknown-linux-musl
+```
