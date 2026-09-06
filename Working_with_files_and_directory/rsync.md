@@ -57,3 +57,21 @@ rsync -ahPz /path/to/source_directory/ root@remote_server_ip:/root/
 # specify the port
 rsync -ahPze "ssh -p 22" /path/to/source_directory/ root@remote_server_ip:/root/
 ```
+
+copy home directory to new location while preserving most file metadata:
+```bash
+sudo rsync -aAXH --info=progress2 /home/ /mnt/newhome/
+
+#-a — archive mode: recursive copy while preserving permissions, ownership, timestamps, symbolic links, and other attributes.
+#-A — preserve POSIX ACLs.
+#-X — preserve extended attributes, such as security labels.
+#-H — preserve hard links.
+#--info=progress2 — show overall transfer progress.
+#/home/ — the trailing slash means “copy the contents of /home.”
+#/mnt/newhome/ — destination directory.
+
+# Check that the copy completed:
+sudo du -sh /home /mnt/newhome
+# add the UUID=asdf3-3g... to the fstab file
+
+```
