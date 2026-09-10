@@ -3,3 +3,23 @@
 readlink -f playlist.m3u
 
 #Im Grunde aehnlich wie 'locate playlist.m3u'
+
+readlink und realpath können beide symbolische Verknüpfungen auflösen, sind aber für etwas unterschiedliche Aufgaben gedacht.
+readlink fragt hauptsächlich Informationen über einen Symlink ab:
+readlink datei
+readlink -f /usr/bin/ls
+realpath berechnet dagegen direkt den kanonischen, absoluten Pfad:
+realpath /usr/bin/ls
+
+ln -s /usr/bin/dnf mein-dnf
+readlink mein-dnf
+# /usr/bin/dnf
+realpath mein-dnf
+# /usr/bin/dnf
+
+readlink -f "$(command -v yum)"
+realpath "$(command -v yum)"
+
+realpath ist meist lesbarer, wenn du einfach den endgültigen Pfad wissen möchtest. readlink ist passender, wenn du gezielt mit symbolischen Links arbeitest.
+
+sha256sum "$(readlink -f "$(command -v yum)")" "$(readlink -f "$(command -v dnf)")"
