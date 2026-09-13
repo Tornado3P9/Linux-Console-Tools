@@ -66,6 +66,10 @@ sudo apt upgrade
     
 # OR using a single line with the -y for automaticly answering yes when asked
 sudo apt update && sudo apt upgrade -y
+
+# If packages are held back, inspect what full-upgrade proposes:
+# The -s simulates the operation without changing anything. If the proposed removes make sense, run the real command; sudo apt full-upgrade
+sudo apt -s full-upgrade
 ```
 
 Download-Only (seldom used)
