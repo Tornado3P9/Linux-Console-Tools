@@ -1,5 +1,51 @@
 # LVMs
 
+```
+Physische Festplatte / SSD / NVMe
+        ↓
+Partition oder gesamte Disk
+        ↓
+Physical Volume (PV)
+        ↓
+Volume Group (VG)
+        ↓
+Logical Volume (LV)
+        ↓
+Dateisystem, z. B. Ext4, Btrfs, XFS
+        ↓
+Mountpoint, z. B. /mnt/data
+```
+
+```bash
+# Dabei wird das PV beispielsweise so erstellt:
+pvcreate /dev/nvme0n1p3
+
+# Danach wird daraus eine VG:
+vgcreate vgdata /dev/nvme0n1p3
+
+# Und anschließend ein LV:
+lvcreate -l 100%FREE -n lvdata vgdata
+
+# Danach kommt das Dateisystem:
+mkfs.btrfs /dev/vgdata/lvdata
+
+# Anschließend kann es eingehängt werden:
+mount /dev/vgdata/lvdata /mnt/data
+
+# Ein PV muss aber nicht zwingend auf einer Partition liegen. Es kann auch direkt auf der gesamten Festplatte liegen.
+# Dann wäre die Erstellung beispielsweise:
+pvcreate /dev/sdb
+
+# Üblicher ist bei vielen Installationen jedoch:
+Disk → Partition → PV → VG → LV → Dateisystem → Mountpoint
+
+# Wichtig ist außerdem: Partitionen und PVs sind unterschiedliche Ebenen. Eine Partition wird mit einem Partitionierungswerkzeug wie fdisk oder parted erstellt; ein PV wird anschließend mit pvcreate für LVM initialisiert.
+```
+
+Der Pfad `/dev/mapper/myVolumeGroup-myVolume` bezeichnet dasselbe LV wie:
+`/dev/myVolumeGroup/myVolume`
+
+### Weitere Notizen:
 ```bash
 # Go root
 sudo -i
@@ -7,6 +53,7 @@ sudo -i
 # Get an idea
 df -h
 lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,MODEL,SERIAL,TRAN
+lsblkg -f
 blkid
 
 # Install lvm2 package
@@ -30,19 +77,29 @@ pvcreate /dev/sdX  # Replace /dev/sdX with the actual device name
 # You can tell quickly: if pvs reports /dev/sda1//dev/sda2 etc., it’s partition-backed.
 growpart --dry-run /dev/sda 3  # Check first what that would do
 growpart /dev/sda 3
-# After growpart finishes, you must still resize the actual filesystem (using resize2fs for ext4 or xfs_growfs for XFS) to make that new space usable by the operating system.
+# After growpart finishes, you must still resize the actual filesystem (using resize2fs for ext4 or xfs_growfs for XFS)
+# to make that new space usable by the operating system.
 # The `lvextend -rl` (-r/--resizefs) option also does the resizing part for the file system.
 
-# Resize a physical volume (Use pvresize /dev/sda3 if your PV is on that partition. Use pvresize /dev/sda if your PV was created on the entire disk. Check with: pvs -o pv_name,pv_size,vg_name)
+# Resize a physical volume (Use pvresize /dev/sda3 if your PV is on that partition.
+# Use pvresize /dev/sda if your PV was created on the entire disk. Check with: pvs -o pv_name,pv_size,vg_name)
 pvresize /dev/sdX
 
 # Extend the volume group with the new physical volume
 vgextend myVolumeGroup /dev/sdX
 
-# Extend the logical volume to use all free space (The -r/--resizefs) option tells lvextend to automatically call the appropriate filesystem resizing tool (such as resize2fs for ext4 or xfs_growfs for XFS) after the logical volume has been expanded.)
+# Extend the logical volume to use all free space (The -r/--resizefs) option tells lvextend
+# to automatically call the appropriate filesystem resizing tool (such as resize2fs for ext4
+# or xfs_growfs for XFS) after the logical volume has been expanded.)
 lvextend -rl +100%FREE /dev/mapper/myVolumeGroup-myVolume  # optionally add "/dev/sdX"
+# Bei Btrfs das logical volume (LV) und das Dateisystem getrennt vergrößern.
+# lvextend -r kann Btrfs je nach LVM-/fsadm-Version nicht automatisch behandeln.
+# Hier daher LV bis zum gesamten freien LVM-Speicher erweitern:
+lvextend -l +100%FREE /dev/mapper/myVolumeGroup-myVolume
+# und Btrfs-Dateisystem auf dem Mountpoint vergrößern:
+btrfs filesystem resize max /
 
-# Extend the logical volume to use just 10GB more
+# Extend the logical volume and file system to use just 10GB more
 lvextend -rL +10G /dev/mapper/myVolumeGroup-myVolume
 
 # Create a new logical volume from scratch
@@ -123,4 +180,82 @@ rm -rf /mnt/mymountpoint/{a,b}
 # Clean up /etc/fstab entries (search for lines containing the string `mymountpoint` and delete them)
 sed -i '/mymountpoint/d' /etc/fstab
 
+```
+
+Vorherige Erweiterung von +100 GB für vg-root wieder zurückbauen:
+```bash
+# In VMware snapshot erstellen
+# Secure-Boot deaktivieren und "Enter boot setup" aktivieren
+# Aus einem Live-/Rescue-System booten, wie z.B. https://qrml.org/
+
+# Vom Live system aus: kurz checken
+lsblk
+# LVM aktivieren und checken:
+vgchange -ay
+lsblk
+pvs
+vgs
+lvs
+
+# /dev/sda soll bestehen bleiben, /dev/sdb soll wieder entfernt werden.
+# Prüfen, ob das Root-LV eingehängt ist:
+findmnt /dev/mapper/vg-root
+# Falls ja:
+umount /dev/mapper/vg-root
+
+# Temporär einhängen ohne Schreibrechte zum checken
+mkdir -p /mnt/server-root
+mount -o ro /dev/mapper/vg-root /mnt/server-root
+df -h /mnt/server-root
+umount /mnt/server-root
+
+# ext4 Dateisystem offline prüfen
+e2fsck -f /dev/mapper/vg-root
+
+# Dateisystem auf 95GB verkleinern (99 GiB original, daher mit Sicherheitsabstand):
+resize2fs /dev/mapper/vg-root 95G
+# LV ebenfalls verkleinern:
+lvreduce -L 95G /dev/mapper/vg-root
+# Oder einfach direkt Dateisystem und LV beides zusammen in einem Schritt reduzieren:
+lvreduce --resizefs -L 95G /dev/mapper/vg-root
+
+# Nochmals prüfen:
+e2fsck -f /dev/mapper/vg-root
+
+# Jetzt sollte auf mindestens einem PV freier Platz erscheinen:
+pvs -o pv_name,vg_name,pv_size,pv_used,pv_free
+
+# Danach /dev/sdb verschieben...versuche zunächst
+pvmove --test /dev/sdb  # wenn es was zu verschieben gibt, dann halt ohne "--test"
+# Falls LVM wegen der Platzverteilung nicht automatisch auf /dev/sda1 verschieben kann, das Ziel explizit angeben:
+pvmove /dev/sdb /dev/sda1
+
+# Danach prüfen:
+pvs -o pv_name,vg_name,pv_size,pv_used,pv_free
+lvs -a -o lv_name,vg_name,lv_size,devices
+
+# Auf /dev/sdb darf kein belegter Extent mehr vorhanden sein. Erst wenn pv_used dort 0 ist und /dev/sdb in der devices-Ausgabe nicht mehr auftaucht:
+vgreduce vg /dev/sdb
+pvremove /dev/sdb
+
+# Prüfen
+pvs
+lvs -a -o lv_name,vg_name,lv_size,devices
+
+# Vor dem ausschalten des Live-Systems solltest du die Voleumte Group deaktivieren:
+vgchange -an vg
+# check
+findmnt | grep -E 'vg|mapper'
+
+# In der Ausgabe von lvs darf /dev/sdb nicht mehr auftauchen.
+# Erst dann Live-System herunterfahren
+sync
+shutdown -h now
+# Und im Anschluss die Disk entfernen.
+
+# Neustart und zurück auf dem Rechner nur noch das LVS auf die ursprüngliche Größe anheben, denn wegen des gewählten Sicherheitsabstands waren jetzt etwa 4GB frei.
+lvextend -rl +100%FREE /dev/mapper/vg-root
+
+# Secure-Boot wieder aktivieren nicht vergessen
+# In VMware snapshot entfernen
 ```
