@@ -55,6 +55,7 @@ df -h
 lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,MODEL,SERIAL,TRAN
 lsblkg -f
 blkid
+parted /dev/sdd print
 
 # Install lvm2 package
 apt install lvm2
