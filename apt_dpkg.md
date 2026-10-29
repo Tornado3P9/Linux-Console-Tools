@@ -217,8 +217,8 @@ gpg --show-keys /etc/apt/keyrings/example.gpg
 # --------------------------------
 
 # Fix common permission problems
-sudo chmod 644 /etc/apt/keyrings/*.gpg
-sudo chown root:root /etc/apt/keyrings/*.gpg
+chmod 644 /etc/apt/keyrings/*.gpg
+chown root:root /etc/apt/keyrings/*.gpg
 
 # Verify permissions
 ls -la /etc/apt/keyrings/
@@ -231,21 +231,36 @@ ls -la /etc/apt/keyrings/
 file downloaded-key.gpg
 
 # If it's already binary, don't use gpg --dearmor
-sudo cp downloaded-key.gpg /etc/apt/keyrings/example.gpg
+cp downloaded-key.gpg /etc/apt/keyrings/example.gpg
 
 # If it's ASCII, convert it
-gpg --dearmor downloaded-key.asc | sudo tee /etc/apt/keyrings/example.gpg > /dev/null
+gpg --dearmor downloaded-key.asc | tee /etc/apt/keyrings/example.gpg > /dev/null
 
 # --------------------------------
 # Repository Update Failures?
 # --------------------------------
 
 # Check repository syntax
-sudo apt update 2>&1 | grep -i "malformed\|invalid"
+apt update 2>&1 | grep -i "malformed\|invalid"
 
 # Verify key association
 grep -r "signed-by" /etc/apt/sources.list.d/
 
 # Test specific repository
-sudo apt-cache policy package-name
+apt-cache policy package-name
+
+# --------------------------------
+# Some Key Notes
+# --------------------------------
+
+curl -fsSL http://example.com/example.gpg | gpg --dearmor -o /etc/apt/keyrings/example.gpg
+
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/example.gpg] https://example.com/something/ubuntu example-jammy main" | tee /etc/apt/sources.list.d/example.list
+
+apt-key list
+apt-get update -o Debug::Acquire::gpgv=true 2>&1 | grep -E 'example.com|GOODSIG|VALIDSIG'
+apt-key export xxxxxxxxxxxxxxxxxxxxxxx | gpg --dearmor -o /usr/share/keyrings/example.gpg
+chmod 644 /usr/share/keyrings/example.gpg
+apt-key del xxxxxxxxxxxxxxxxxxxxxxx
+apt update
 ```
